@@ -3,7 +3,7 @@ export interface FormInputProps {
   label?: string
   type?: 'text' | 'email' | 'password' | 'number'
   value?: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   hasError?: boolean
   errorMessage?: string
