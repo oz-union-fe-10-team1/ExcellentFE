@@ -3,6 +3,7 @@ import Mypage from '@/assets/icons/header/mypage.svg'
 import Cart from '@/assets/icons/header/cart.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { cn } from '@/utils/cn'
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false)
@@ -61,7 +62,10 @@ const Header = () => {
           <div className="flex items-center">
             {!isLogin ? (
               <button
-                className="h-13 w-41 cursor-pointer rounded-[60px] bg-[#f2544b] font-semibold text-white"
+                className={cn(
+                  'h-13 w-41 cursor-pointer rounded-[60px] bg-[#f2544b] font-semibold text-white',
+                  'hover:bg-[#e04439]'
+                )}
                 onClick={handleLogin}
               >
                 로그인 / 회원가입
