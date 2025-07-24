@@ -34,7 +34,9 @@
       "@/stores/*": ["src/stores/*"],
       "@/types/*": ["src/types/*"],
       "@/context/*": ["src/context/*"],
-      "@/mock/*": ["src/mock/*"]
+      "@/mock/*": ["src/mock/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/constants/*": ["src/constants/*"]
     }
   },
   "include": ["src"]
