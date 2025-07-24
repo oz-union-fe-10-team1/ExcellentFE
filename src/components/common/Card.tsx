@@ -1,11 +1,11 @@
-interface Card {
+interface CardProps {
   imgSrc?: string
   imgAlt?: string
   title: string
   subtitle: string
 }
 
-export function Card({ imgSrc, imgAlt, title, subtitle }: Card) {
+const Card = ({ imgSrc, imgAlt, title, subtitle }: CardProps) => {
   return (
     <div className="flex flex-col">
       {imgSrc ? (
@@ -33,3 +33,5 @@ export function Card({ imgSrc, imgAlt, title, subtitle }: Card) {
     </div>
   )
 }
+
+export default Card
