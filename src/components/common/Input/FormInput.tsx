@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 import type { FormInputProps } from './FormInput.types'
 import clsx from 'clsx'
+import Search from '@/assets/search.png'
 
 const FormInput = ({
   label,
@@ -13,6 +14,8 @@ const FormInput = ({
   onChange,
   onFocus,
   onBlur,
+  isSearch = false,
+  onSearch,
   ...props
 }: FormInputProps) => {
   const id = props.id ?? useId()
@@ -35,6 +38,12 @@ const FormInput = ({
     if (isFocused) return 'border-[#F2544B]'
     return 'border-[#D9D9D9]'
   }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isSearch && e.key === 'Enter') {
+      onSearch?.()
+    }
+  }
   return (
     <div className="w-full">
       <div className={clsx('flex flex-col gap-5')}>
@@ -43,18 +52,39 @@ const FormInput = ({
             {label}
           </label>
         )}
-        <input
-          {...props}
-          disabled={disabled}
-          onChange={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          className={clsx(
-            'h-[60px] w-[560px] rounded-[6px] border p-5 text-[18px] placeholder:text-[#666666] focus:outline-none',
-            getBorderStyle(),
-            className
+        <div className={clsx('relative', isSearch ? 'w-[360px]' : 'w-full')}>
+          <input
+            {...props}
+            id={id}
+            disabled={disabled}
+            onKeyDown={handleKeyDown}
+            onChange={onChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            className={clsx(
+              'text-[18px] placeholder:text-[#666666] focus:outline-none',
+              isSearch
+                ? 'h-[33px] w-90 border-b-2 border-b-[#000000] pr-10 pb-3 pl-[10px]'
+                : 'h-[60px] w-[560px] rounded-[6px] border p-5',
+              getBorderStyle(),
+              className
+            )}
+          />
+
+          {isSearch && (
+            <button
+              type="button"
+              onClick={onSearch}
+              className="absolute right-[10px]"
+            >
+              <img
+                src={Search}
+                alt="search"
+                className="h-[18px] w-[18px] cursor-pointer"
+              />
+            </button>
           )}
-        />
+        </div>
       </div>
       {hasError && errorMessage && (
         <p className="text-sm text-red-500">{errorMessage}</p>

@@ -13,4 +13,8 @@ export interface FormInputProps {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
   className?: string
+
+  // 검색인풋 사용시
+  isSearch?: boolean
+  onSearch?: () => void
 }
