@@ -27,7 +27,7 @@ const Header = () => {
   ]
 
   const USER_ICONS = [
-    { label: '마이페이지', src: Mypage, path: '/mypage' },
+    { label: '마이페이지', src: Mypage, path: '/mypage/profile' },
     { label: '장바구니', src: Cart, path: '/cart' },
   ]
 
@@ -42,7 +42,7 @@ const Header = () => {
         {/* 로고 */}
         <img
           src={Logo}
-          alt="메인 로고"
+          alt="모은 한잔취향 로고"
           className="h-11 cursor-pointer"
           onClick={() => navigate('/')}
         />
@@ -81,7 +81,7 @@ const Header = () => {
                 <div className="flex gap-8">
                   {USER_ICONS.map((icon) =>
                     icon.label === '마이페이지' ? (
-                      <div key={icon.label} className="group relative">
+                      <div key={icon.label} className="group relative flex">
                         <button
                           aria-label={icon.label}
                           onClick={() => navigate(icon.path)}
@@ -94,7 +94,7 @@ const Header = () => {
                         </button>
 
                         {/* 마이페이지 서브메뉴 hover 메뉴*/}
-                        <ul className="absolute left-1/2 z-10 hidden w-32 -translate-x-1/2 bg-white text-center shadow-md group-hover:block">
+                        <ul className="absolute top-8 left-1/2 z-10 hidden w-32 -translate-x-1/2 bg-white text-center shadow-md group-hover:block">
                           {MY_PAGE_SUBMENU.map((sub) => (
                             <li
                               key={sub.label} // key는 label로
