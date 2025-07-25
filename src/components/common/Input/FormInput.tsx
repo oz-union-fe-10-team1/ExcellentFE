@@ -2,6 +2,7 @@ import { useId, useState } from 'react'
 import type { FormInputProps } from '@/types/FormInput.types'
 import clsx from 'clsx'
 import Search from '@/assets/search.png'
+import INPUT_VARIANTS from '@/constants/FormInput'
 
 const FormInput = ({
   label,
@@ -14,12 +15,14 @@ const FormInput = ({
   onChange,
   onFocus,
   onBlur,
-  isSearch = false,
   onSearch,
+  variant = 'default',
   ...props
 }: FormInputProps) => {
   const id = props.id ?? useId()
   const [isFocused, setIsFocused] = useState(false)
+
+  const isSearch = variant === 'search'
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true)
@@ -31,19 +34,20 @@ const FormInput = ({
     onBlur?.(e)
   }
 
-  const getBorderStyle = () => {
-    if (disabled) return 'border-[#D9D9D9]'
-    if (hasError) return 'border-red-500'
-    if (hasSuccess) return 'border-green-500'
-    if (isFocused) return 'border-[#F2544B]'
-    return 'border-[#D9D9D9]'
-  }
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isSearch && e.key === 'Enter') {
       onSearch?.()
     }
   }
+
+  const getBorderStyle = () => {
+    if (disabled) return 'border-[#D9D9D9]'
+    if (hasError) return 'border-[#F43F5E]'
+    if (hasSuccess) return 'border-[#46B882]'
+    if (isFocused) return 'border-[#F2544B]'
+    return 'border-[#D9D9D9]'
+  }
+
   return (
     <div className="w-full">
       <div className={clsx('flex flex-col gap-5')}>
@@ -52,7 +56,12 @@ const FormInput = ({
             {label}
           </label>
         )}
-        <div className={clsx('relative', isSearch ? 'w-[360px]' : 'w-full')}>
+        <div
+          className={clsx(
+            'relative',
+            variant === 'search' ? 'w-[360px]' : 'w-full'
+          )}
+        >
           <input
             {...props}
             id={id}
@@ -62,10 +71,7 @@ const FormInput = ({
             onFocus={handleFocus}
             onBlur={handleBlur}
             className={clsx(
-              'text-lg placeholder:text-[#666666] focus:outline-none',
-              isSearch
-                ? 'h-[33px] w-90 border-b-2 border-b-[#000000] pr-10 pb-3 pl-[10px]'
-                : 'h-[60px] w-[560px] rounded-[6px] border p-5',
+              INPUT_VARIANTS[variant],
               getBorderStyle(),
               className
             )}
@@ -76,6 +82,7 @@ const FormInput = ({
               type="button"
               onClick={onSearch}
               className="absolute right-[10px]"
+              aria-label="search"
             >
               <img
                 src={Search}
@@ -87,10 +94,10 @@ const FormInput = ({
         </div>
       </div>
       {hasError && errorMessage && (
-        <p className="text-sm text-red-500">{errorMessage}</p>
+        <p className="text-sm text-[#F43F5E]">{errorMessage}</p>
       )}
       {hasSuccess && successMessage && (
-        <p className="text-sm text-green-500">{successMessage}</p>
+        <p className="text-sm text-[#46B882]">{successMessage}</p>
       )}
     </div>
   )
