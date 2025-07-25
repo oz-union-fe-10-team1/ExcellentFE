@@ -48,7 +48,7 @@ const FormInput = ({
     <div className="w-full">
       <div className={clsx('flex flex-col gap-5')}>
         {label && (
-          <label className="text-[18px] font-semibold" htmlFor={id}>
+          <label className="text-lg font-semibold" htmlFor={id}>
             {label}
           </label>
         )}
@@ -62,7 +62,7 @@ const FormInput = ({
             onFocus={handleFocus}
             onBlur={handleBlur}
             className={clsx(
-              'text-[18px] placeholder:text-[#666666] focus:outline-none',
+              'text-lg placeholder:text-[#666666] focus:outline-none',
               isSearch
                 ? 'h-[33px] w-90 border-b-2 border-b-[#000000] pr-10 pb-3 pl-[10px]'
                 : 'h-[60px] w-[560px] rounded-[6px] border p-5',
