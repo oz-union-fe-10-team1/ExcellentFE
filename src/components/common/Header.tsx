@@ -9,6 +9,16 @@ const Header = () => {
   const [isLogin, setIsLogin] = useState(false)
   const navigate = useNavigate()
 
+  /* 로그인 UI 체크 용 */
+  const handleLogin = () => {
+    setIsLogin(true)
+  }
+
+  /* 로그아웃 UI 체크 용 */
+  const handleLogout = () => {
+    setIsLogin(false)
+  }
+
   const NAV_ITEMS = [
     { label: '패키지', path: '/package' },
     { label: '테스트', path: '/test' },
@@ -23,13 +33,8 @@ const Header = () => {
 
   const MY_PAGE_SUBMENU = [
     { label: '내 정보', path: '/mypage/profile' },
-    { label: '로그아웃', path: '/logout' },
+    { label: '로그아웃', onClick: handleLogout },
   ]
-
-  /* 로그인 UI 체크 용 */
-  const handleLogin = () => {
-    setIsLogin(true)
-  }
 
   return (
     <header className="flex h-20 w-full items-center justify-around border-b border-[#d9d9d9]">
@@ -92,9 +97,15 @@ const Header = () => {
                         <ul className="absolute left-1/2 z-10 hidden w-32 -translate-x-1/2 bg-white text-center shadow-md group-hover:block">
                           {MY_PAGE_SUBMENU.map((sub) => (
                             <li
-                              key={sub.path}
+                              key={sub.label} // key는 label로
                               className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
-                              onClick={() => navigate(sub.path)}
+                              onClick={() => {
+                                if (sub.onClick) {
+                                  sub.onClick()
+                                } else if (sub.path) {
+                                  navigate(sub.path)
+                                }
+                              }}
                             >
                               {sub.label}
                             </li>
