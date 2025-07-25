@@ -1,5 +1,5 @@
 import { useId, useState } from 'react'
-import type { FormInputProps } from './FormInput.types'
+import type { FormInputProps } from '@/types/FormInput.types'
 import clsx from 'clsx'
 import Search from '@/assets/search.png'
 
