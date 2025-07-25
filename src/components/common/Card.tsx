@@ -1,9 +1,4 @@
-interface CardProps {
-  imgSrc?: string
-  imgAlt?: string
-  title: string
-  subtitle: string
-}
+import type { CardProps } from '@/types/cardProps'
 
 const Card = ({ imgSrc, imgAlt, title, subtitle }: CardProps) => {
   return (
