@@ -1,5 +1,8 @@
-import type { ButtonVariant } from '@/constants/button'
-import { BUTTON_VARIANTS, DEFAULT_BUTTON_VARIANT } from '@/constants/button'
+import {
+  BUTTON_VARIANTS,
+  DEFAULT_BUTTON_VARIANT,
+  type ButtonVariant,
+} from '@/constants/button'
 import { cn } from '@/utils/cn'
 
 type ButtonProps = {
