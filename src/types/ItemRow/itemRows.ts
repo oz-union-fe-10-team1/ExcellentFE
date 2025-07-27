@@ -12,10 +12,7 @@ type RowData = {
   reviewed?: boolean
   feedback?: string
   pickup?: string
-}
-
-type EventHandlers = {
   onQuantityChange?: (quantity: number) => void
 }
 
-export type ItemRowType = ItemRowLabelType & RowData & EventHandlers
+export type ItemRowType = ItemRowLabelType & RowData
