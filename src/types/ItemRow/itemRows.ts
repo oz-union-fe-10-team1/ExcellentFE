@@ -1,9 +1,5 @@
-export type ItemRowLabelType = {
+export type ItemRowType = {
   type?: 'cart' | 'order' | 'tasting'
-  children?: React.ReactNode
-  className?: string
-}
-type RowData = {
   order?: string
   img: string
   name: string
@@ -14,5 +10,3 @@ type RowData = {
   pickup?: string
   onQuantityChange?: (quantity: number) => void
 }
-
-export type ItemRowType = ItemRowLabelType & RowData

@@ -1,4 +1,9 @@
-import type { ItemRowLabelType } from '@/types/ItemRow/itemRows'
+type ItemRowLabelType = {
+  type?: 'cart' | 'order' | 'tasting'
+
+  children?: React.ReactNode
+  className?: string
+}
 
 const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
   return (
