@@ -5,7 +5,7 @@ import plus from '@/assets/icons/cart/plus.svg'
 import { useCallback } from 'react'
 import Button from '@/components/common/Button'
 
-const ItemRowProduct: React.FC<ItemRowType> = ({
+const ItemRowList: React.FC<ItemRowType> = ({
   type,
   order,
   img,
@@ -138,4 +138,4 @@ const ItemRowProduct: React.FC<ItemRowType> = ({
   return null
 }
 
-export default ItemRowProduct
+export default ItemRowList

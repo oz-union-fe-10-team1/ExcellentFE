@@ -1,6 +1,6 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 import ItemRowLabel from '@/components/item-row/ItemRowLabel'
-import ItemRowProduct from '@/components/item-row/ItemRowProduct'
+import ItemRowList from '@/components/item-row/ItemRowList'
 import { useState } from 'react'
 
 interface ItemRowProps {
@@ -22,7 +22,7 @@ const ItemRow = ({ items, type }: ItemRowProps) => {
   return (
     <ItemRowLabel type={type}>
       {cartItems.map((item, idx) => (
-        <ItemRowProduct
+        <ItemRowList
           key={idx}
           {...item}
           type={type}
