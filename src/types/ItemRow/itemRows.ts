@@ -11,7 +11,7 @@ export interface ItemRowType {
 }
 
 export interface CartItemRowProps extends ItemRowType {
-  checked: boolean
-  onCheckChange: (checked: boolean) => void
+  checked?: boolean
+  onCheckChange?: (checked: boolean) => void
   onQuantityChange?: (newQuantity: number) => void
 }
