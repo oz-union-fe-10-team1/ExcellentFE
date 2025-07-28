@@ -1,8 +1,8 @@
 import { useId, useState } from 'react'
-import type { FormInputProps } from '@/types/FormInput.types'
+import type { FormInputProps } from '@/types/input.types'
 import clsx from 'clsx'
 import Search from '@/assets/search.png'
-import INPUT_VARIANTS from '@/constants/FormInput'
+import INPUT_VARIANTS from '@/constants/Input'
 
 const FormInput = ({
   label,
