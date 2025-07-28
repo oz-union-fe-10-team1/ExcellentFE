@@ -1,8 +1,5 @@
 const INPUT_VARIANTS = {
   default: [
-    'h-[60px]',
-    'w-[560px]',
-    'rounded-[6px]',
     'border p-5',
     'text-lg',
     'placeholder:text-[#666666]',

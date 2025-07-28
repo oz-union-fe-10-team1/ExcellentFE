@@ -16,6 +16,6 @@ export type BaseInputProps = {
 }
 
 export type SearchInputProps = BaseInputProps & {
-  variant: 'default' | 'search'
+  variant: 'search'
   onSearch: () => void
 }
