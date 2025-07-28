@@ -35,7 +35,6 @@ const CartItemRow = ({
             src={img || '상품 이미지'}
             alt={name || '상품 이름'}
             className="h-20 w-20 rounded border border-[#d9d9d9]"
-            loading="lazy"
           />
           <p className="text-lg font-bold">{name || '상품 이름'}</p>
         </div>

@@ -18,7 +18,6 @@ const OrderItemRow = ({
           src={img}
           alt={name || '상품 이미지'}
           className="h-20 w-20 border"
-          loading="lazy"
         />
         <p className="text-lg font-bold">{name}</p>
       </td>
