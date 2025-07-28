@@ -1,8 +1,10 @@
 import { useId, useState } from 'react'
-import type { FormInputProps } from '@/types/input.types'
+import type { BaseInputProps, SearchInputProps } from '@/types/input.types.ts'
 import clsx from 'clsx'
 import Search from '@/assets/search.png'
 import INPUT_VARIANTS from '@/constants/Input'
+
+type FormInputProps = BaseInputProps | SearchInputProps
 
 const FormInput = ({
   label,
@@ -15,13 +17,13 @@ const FormInput = ({
   onChange,
   onFocus,
   onBlur,
-  onSearch,
-  variant = 'default',
   ...props
 }: FormInputProps) => {
   const id = props.id ?? useId()
   const [isFocused, setIsFocused] = useState(false)
 
+  const variant = 'variant' in props ? props.variant : 'default'
+  const onSearch = 'onSearch' in props ? props.onSearch : undefined
   const isSearch = variant === 'search'
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {

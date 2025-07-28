@@ -1,9 +1,9 @@
-export interface FormInputProps {
+export type BaseInputProps = {
   id?: string
   label?: string
   type?: 'text' | 'email' | 'password' | 'number'
-  value?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   hasError?: boolean
   errorMessage?: string
@@ -13,8 +13,9 @@ export interface FormInputProps {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
   className?: string
+}
 
-  variant?: 'default' | 'search'
-
-  onSearch?: () => void
+export type SearchInputProps = BaseInputProps & {
+  variant: 'default' | 'search'
+  onSearch: () => void
 }
