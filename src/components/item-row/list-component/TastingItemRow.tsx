@@ -1,24 +1,24 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 
-const tasting = ({ img, name, order, feedback }: ItemRowType) => {
+const TastingItemRow = ({ img, name, order, feedback }: ItemRowType) => {
   return (
-    <tr className="border-b border-[#e1e1e1] text-[#666666]">
-      <td className="py-4 align-middle">
-        <div className="flex items-center justify-center gap-4">
-          <img
-            src={img}
-            alt={name}
-            className="h-20 w-20 min-w-[80px] border border-[#ccc] object-cover"
-          />
-          <p className="w-36 truncate text-left text-base font-bold">{name}</p>
-        </div>
-      </td>
-      <td className="text-center align-middle text-lg">{order}</td>
-      <td className="px-4 text-left align-middle text-lg leading-6 tracking-[0.05em]">
+    <div className="flex items-center border-b border-[#e1e1e1] py-4 text-[#666666]">
+      <div className="ml-10 flex items-center justify-center gap-4">
+        <img
+          src={img}
+          alt={name}
+          className="h-25 w-25 border border-[#ccc] object-cover"
+        />
+        <p className="w-36 text-left text-base font-bold whitespace-nowrap">
+          {name}
+        </p>
+      </div>
+      <div className="ml-38 w-[20%] text-center text-lg">{order}</div>
+      <div className="ml-34 text-left text-lg leading-6 tracking-[0.05em]">
         {feedback}
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
 
-export default tasting
+export default TastingItemRow

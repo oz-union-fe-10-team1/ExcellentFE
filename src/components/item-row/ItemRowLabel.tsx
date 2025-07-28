@@ -13,36 +13,36 @@ const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
         {type === 'tasting' && <h1>나의 시음 히스토리</h1>}
       </div>
 
-      <table className="w-320 table-fixed">
-        <thead className="border-b">
-          {type === 'cart' && (
-            <tr>
-              <th className="pb-3 pl-4 text-left">상품/옵션 정보</th>
-              <th className="pb-3">수량</th>
-              <th className="pb-3">가격</th>
-              <th className="pb-3">수령 장소</th>
-            </tr>
-          )}
-          {type === 'order' && (
-            <tr>
-              <th className="pb-3">주문일자</th>
-              <th className="pb-3">상품/옵션 정보</th>
-              <th className="pb-3">수량</th>
-              <th className="pb-3">가격</th>
-              <th className="pb-3">사용 후기</th>
-            </tr>
-          )}
-          {type === 'tasting' && (
-            <tr>
-              <th className="pb-3">상품/옵션 정보</th>
-              <th className="pb-3">주문일자</th>
-              <th className="pb-3">시음 후기 내용</th>
-            </tr>
-          )}
-        </thead>
+      {/* 헤더 */}
+      {type === 'cart' && (
+        <div className="flex border-b pb-2 text-center font-bold">
+          <div className="w-[40%] min-w-[250px] pl-47 text-left">
+            상품/옵션 정보
+          </div>
+          <div className="mx-auto w-20">수량</div>
+          <div className="w-[15%] min-w-[80px]">가격</div>
+          <div className="w-[25%] min-w-[150px]">수령 장소</div>
+        </div>
+      )}
+      {type === 'order' && (
+        <div className="flex border-b pb-2 text-center font-bold">
+          <div className="w-[15%] min-w-[80px]">주문일자</div>
+          <div className="w-[40%] pl-60 text-left">상품/옵션 정보</div>
+          <div className="mx-auto w-20">수량</div>
+          <div className="w-[15%] min-w-[80px]">가격</div>
+          <div className="w-[20%] min-w-[100px]">사용 후기</div>
+        </div>
+      )}
+      {type === 'tasting' && (
+        <div className="flex border-b pb-2 text-center font-bold">
+          <div className="w-[40%] pl-25 text-left">상품/옵션 정보</div>
+          <div className="w-[20%] pr-28">주문일자</div>
+          <div className="w-[40%] min-w-[200px]">시음 후기 내용</div>
+        </div>
+      )}
 
-        <tbody>{children}</tbody>
-      </table>
+      {/* 바디 */}
+      <div>{children}</div>
     </div>
   )
 }
