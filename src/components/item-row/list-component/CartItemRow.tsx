@@ -31,48 +31,52 @@ const CartItemRow = ({
   }
 
   return (
-    <tr className="border-b border-[#e1e1e1] text-center text-[#333333]">
-      <td className="py-5">
-        <div className="flex items-center justify-start gap-3 pl-4">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={(e) => onCheckChange?.(e.target.checked)}
-            className="h-5 w-5"
+    <div className="flex items-center border-b border-[#e1e1e1] py-5 text-center text-[#333333]">
+      {/* 체크박스, 이미지, 상품명 */}
+      <div className="flex w-[40%] min-w-[250px] items-center gap-12">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={(e) => onCheckChange?.(e.target.checked)}
+          className="ml-12 h-5 w-5"
+        />
+        <img
+          src={img || '상품 이미지'}
+          alt={name || '상품 이름'}
+          className="h-25 w-25 rounded border border-[#d9d9d9]"
+        />
+        <p className="text-left text-lg font-bold">{name || '상품 이름'}</p>
+      </div>
+
+      {/* 수량 조절 */}
+      <div className="mx-auto inline-flex h-8 w-20 items-center justify-center gap-1 rounded-[5px] bg-[#f6f6f6]">
+        <button aria-label="수량 감소" onClick={handleDecreaseQuantity}>
+          <Icon
+            icon={MinusIcon}
+            size={16}
+            wrapperClassName="rounded-[4px] bg-[#e1e1e1]"
           />
-          <img
-            src={img || '상품 이미지'}
-            alt={name || '상품 이름'}
-            className="h-20 w-20 rounded border border-[#d9d9d9]"
+        </button>
+        <span className="w-6 text-center">{quantity || '상품 수량'}</span>
+        <button aria-label="수량 증가" onClick={handleIncreaseQuantity}>
+          <Icon
+            icon={PlusIcon}
+            size={16}
+            wrapperClassName="rounded-[4px] bg-[#000000]"
           />
-          <p className="text-left text-lg font-bold">{name || '상품 이름'}</p>
-        </div>
-      </td>
+        </button>
+      </div>
 
-      <td>
-        <div className="inline-flex h-8 w-20 items-center justify-center gap-1 rounded-[5px] bg-[#f6f6f6]">
-          <button aria-label="수량 감소" onClick={handleDecreaseQuantity}>
-            <Icon
-              icon={MinusIcon}
-              size={16}
-              wrapperClassName="rounded-[4px] bg-[#e1e1e1]"
-            />
-          </button>
-          <span className="w-6 text-center">{quantity || '상품 수량'}</span>
-          <button aria-label="수량 증가" onClick={handleIncreaseQuantity}>
-            <Icon
-              icon={PlusIcon}
-              size={16}
-              wrapperClassName="rounded-[4px] bg-[#000000]"
-            />
-          </button>
-        </div>
-      </td>
+      {/* 가격 */}
+      <div className="w-[15%] min-w-[80px] font-medium">
+        {price?.toLocaleString()}원
+      </div>
 
-      <td className="font-medium">{price?.toLocaleString()}원</td>
-
-      <td className="text-sm text-[#666666]">{pickup}</td>
-    </tr>
+      {/* 픽업 매장 */}
+      <div className="w-[25%] min-w-[150px] text-sm text-[#666666]">
+        {pickup}
+      </div>
+    </div>
   )
 }
 
