@@ -52,7 +52,7 @@ const Input = ({
 
   return (
     <div className={clsx('w-full')}>
-      <div className="flex gap-11">
+      <div className="flex items-center gap-11">
         {label && (
           <label
             className="text-lg font-semibold whitespace-nowrap"

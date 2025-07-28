@@ -1,7 +1,7 @@
 export type BaseInputProps = {
   id?: string
   label?: string
-  type?: 'text' | 'email' | 'password' | 'number'
+  type: 'text' | 'email' | 'password' | 'number' | 'date'
   value: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
