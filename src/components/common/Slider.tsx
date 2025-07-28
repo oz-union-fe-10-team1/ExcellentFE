@@ -1,13 +1,7 @@
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import clsx from 'clsx'
 import type { SliderProps } from '@/types/slider.types'
-
-const variantColorMap = {
-  sweetness: '#F2544B',
-  acidity: '#99B278',
-  body: '#3C72B4',
-  trust: '#000000',
-} as const
+import { VARIANT_COLOR_MAP } from '@/constants/sliderColors'
 
 const Slider = ({
   defaultValue = [0],
@@ -20,7 +14,7 @@ const Slider = ({
   className,
   formatValue,
 }: SliderProps) => {
-  const color = variantColorMap[variant]
+  const color = VARIANT_COLOR_MAP[variant]
   const displayValue = value?.[0] ?? 0
 
   return (
