@@ -44,17 +44,20 @@ const Input = ({
 
   const getBorderStyle = () => {
     if (disabled) return 'border-[#D9D9D9]'
-    if (hasError) return 'border-[#F43F5E]'
+    if (hasError) return 'border-[#F2544B]'
     if (hasSuccess) return 'border-[#46B882]'
-    if (isFocused) return 'border-[#F2544B]'
+    if (isFocused) return 'border-[#000000]'
     return 'border-[#D9D9D9]'
   }
 
   return (
-    <div className="w-full">
-      <div className={clsx('flex flex-col gap-5')}>
+    <div className={clsx('w-full')}>
+      <div className="flex gap-11">
         {label && (
-          <label className="text-lg font-semibold" htmlFor={id}>
+          <label
+            className="text-lg font-semibold whitespace-nowrap"
+            htmlFor={id}
+          >
             {label}
           </label>
         )}
