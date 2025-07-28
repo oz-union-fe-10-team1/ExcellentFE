@@ -1,4 +1,5 @@
-import CloseIcon from '@/assets/icons/modal/close.svg'
+import CloseIcon from '@/assets/icons/modal/close.svg?react'
+import Icon from '@/components/common/Icon'
 import Portal from '@/components/common/Portal'
 import PORTAL_CONTAINER_ID from '@/constants/portalContainerId'
 import { cn } from '@/utils/cn'
@@ -63,10 +64,11 @@ const Modal = ({ isOpen, onClose, title, children, className }: ModalProps) => {
             {title && <h2 id="modal-title">{title}</h2>}
             {children}
             <button
+              aria-label="닫기"
               onClick={onClose}
-              className="absolute top-10 right-8 flex h-[20px] w-[20px] cursor-pointer items-center justify-center text-center"
+              className="absolute top-10 right-8"
             >
-              <img src={CloseIcon} alt="닫기 버튼" />
+              <Icon icon={CloseIcon} size={24} />
             </button>
           </div>
         </FocusLock>
