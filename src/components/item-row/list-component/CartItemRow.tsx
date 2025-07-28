@@ -1,4 +1,4 @@
-import type { ItemRowType } from '@/types/ItemRow/itemRows'
+import type { CartItemRowProps } from '@/types/ItemRow/itemRows'
 import PlusIcon from '@/assets/icons/cart/plus.svg?react'
 import MinusIcon from '@/assets/icons/cart/minus.svg?react'
 import Icon from '@/components/common/Icon'
@@ -10,7 +10,9 @@ const CartItemRow = ({
   price,
   pickup,
   onQuantityChange,
-}: ItemRowType) => {
+  onCheckChange,
+  checked,
+}: CartItemRowProps) => {
   // 수량 변경 핸들러
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1) {
@@ -31,13 +33,19 @@ const CartItemRow = ({
   return (
     <tr className="border-b border-[#e1e1e1] text-center text-[#333333]">
       <td className="py-5">
-        <div className="flex items-center justify-start gap-5 pl-8">
+        <div className="flex items-center justify-start gap-3 pl-4">
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={(e) => onCheckChange(e.target.checked)}
+            className="h-5 w-5"
+          />
           <img
             src={img || '상품 이미지'}
             alt={name || '상품 이름'}
             className="h-20 w-20 rounded border border-[#d9d9d9]"
           />
-          <p className="text-lg font-bold">{name || '상품 이름'}</p>
+          <p className="text-left text-lg font-bold">{name || '상품 이름'}</p>
         </div>
       </td>
 
@@ -63,7 +71,7 @@ const CartItemRow = ({
 
       <td className="font-medium">{price?.toLocaleString()}원</td>
 
-      <td className="text-gray-600">{pickup}</td>
+      <td className="text-sm text-[#666666]">{pickup}</td>
     </tr>
   )
 }

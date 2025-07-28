@@ -17,7 +17,7 @@ const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
         <thead className="border-b">
           {type === 'cart' && (
             <tr>
-              <th className="pb-3">상품/옵션 정보</th>
+              <th className="pb-3 pl-4 text-left">상품/옵션 정보</th>
               <th className="pb-3">수량</th>
               <th className="pb-3">가격</th>
               <th className="pb-3">수령 장소</th>
