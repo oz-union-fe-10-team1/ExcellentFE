@@ -1,4 +1,4 @@
-export type ItemRowType = {
+export interface ItemRowType {
   type?: 'cart' | 'order' | 'tasting'
   order?: string
   img: string
