@@ -4,9 +4,9 @@ import clsx from 'clsx'
 import Search from '@/assets/search.png'
 import INPUT_VARIANTS from '@/constants/input'
 
-type FormInputProps = BaseInputProps | SearchInputProps
+type InputProps = BaseInputProps | SearchInputProps
 
-const FormInput = ({
+const Input = ({
   label,
   hasError = false,
   errorMessage = '',
@@ -18,7 +18,7 @@ const FormInput = ({
   onFocus,
   onBlur,
   ...props
-}: FormInputProps) => {
+}: InputProps) => {
   const id = props.id ?? useId()
   const [isFocused, setIsFocused] = useState(false)
 
@@ -105,4 +105,4 @@ const FormInput = ({
   )
 }
 
-export default FormInput
+export default Input
