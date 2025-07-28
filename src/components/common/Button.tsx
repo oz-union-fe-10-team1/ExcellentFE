@@ -2,7 +2,7 @@ import {
   BUTTON_VARIANTS,
   DEFAULT_BUTTON_VARIANT,
   type ButtonVariant,
-} from '@/constants/button'
+} from '@/foundations/button'
 import { cn } from '@/utils/cn'
 
 type ButtonProps = {
