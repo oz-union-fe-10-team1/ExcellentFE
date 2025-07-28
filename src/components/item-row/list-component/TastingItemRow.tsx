@@ -9,7 +9,6 @@ const tasting = ({ img, name, order, feedback }: ItemRowType) => {
             src={img}
             alt={name}
             className="h-20 w-20 min-w-[80px] border border-[#ccc] object-cover"
-            loading="lazy"
           />
           <p className="w-36 truncate text-left text-base font-bold">{name}</p>
         </div>
