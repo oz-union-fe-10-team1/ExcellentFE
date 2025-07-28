@@ -18,7 +18,8 @@ function App() {
             <Route path="test" element={<HomePage />} />
             <Route path="search" element={<HomePage />} />
             <Route path="feedback" element={<HomePage />} />
-            <Route path="mypage/profile" element={<HomePage />} />
+            <Route path="mypage" element={<HomePage />} />
+            <Route path="cart" element={<HomePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
