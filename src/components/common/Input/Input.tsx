@@ -2,7 +2,7 @@ import { useId, useState } from 'react'
 import type { BaseInputProps, SearchInputProps } from '@/types/input.types.ts'
 import clsx from 'clsx'
 import Search from '@/assets/search.png'
-import INPUT_VARIANTS from '@/constants/Input'
+import INPUT_VARIANTS from '@/constants/input'
 
 type FormInputProps = BaseInputProps | SearchInputProps
 
