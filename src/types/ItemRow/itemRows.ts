@@ -8,5 +8,10 @@ export interface ItemRowType {
   reviewed?: boolean
   feedback?: string
   pickup?: string
-  onQuantityChange?: (quantity: number) => void
+}
+
+export interface CartItemRowProps extends ItemRowType {
+  checked: boolean
+  onCheckChange: (checked: boolean) => void
+  onQuantityChange?: (newQuantity: number) => void
 }
