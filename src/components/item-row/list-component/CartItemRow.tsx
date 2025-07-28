@@ -37,7 +37,7 @@ const CartItemRow = ({
           <input
             type="checkbox"
             checked={checked}
-            onChange={(e) => onCheckChange(e.target.checked)}
+            onChange={(e) => onCheckChange?.(e.target.checked)}
             className="h-5 w-5"
           />
           <img
