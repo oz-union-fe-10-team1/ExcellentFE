@@ -76,12 +76,7 @@ const Carousel = ({
           className="absolute top-1/2 left-2 z-10 flex -translate-y-1/2 items-center justify-center transition-all duration-200 hover:scale-105"
           aria-label="이전 슬라이드"
         >
-          <Icon
-            icon={ArrowLeftIcon}
-            size={40}
-            color="#000"
-            ariaLabel="이전 슬라이드"
-          />
+          <Icon icon={ArrowLeftIcon} size={40} color="#000" />
         </button>
       )}
       {/* 슬라이더 컨테이너 */}
@@ -132,12 +127,7 @@ const Carousel = ({
           className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 items-center justify-center transition-all duration-200 hover:scale-105"
           aria-label="다음 슬라이드"
         >
-          <Icon
-            icon={ArrowRightIcon}
-            size={40}
-            color="#000"
-            ariaLabel="다음 슬라이드"
-          />
+          <Icon icon={ArrowRightIcon} size={40} color="#000" />
         </button>
       )}
     </div>
