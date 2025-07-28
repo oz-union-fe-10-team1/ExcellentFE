@@ -32,7 +32,6 @@ const CartItemRow = ({
 
   return (
     <div className="flex items-center border-b border-[#e1e1e1] py-5 text-center text-[#333333]">
-      {/* 체크박스, 이미지, 상품명 */}
       <div className="flex w-[40%] min-w-[250px] items-center gap-12">
         <input
           type="checkbox"
@@ -67,12 +66,10 @@ const CartItemRow = ({
         </button>
       </div>
 
-      {/* 가격 */}
       <div className="w-[15%] min-w-[80px] font-medium">
         {price?.toLocaleString()}원
       </div>
 
-      {/* 픽업 매장 */}
       <div className="w-[25%] min-w-[150px] text-sm text-[#666666]">
         {pickup}
       </div>
