@@ -13,7 +13,6 @@ const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
         {type === 'tasting' && <h1>나의 시음 히스토리</h1>}
       </div>
 
-      {/* 헤더 */}
       {type === 'cart' && (
         <div className="flex border-b pb-2 text-center font-bold">
           <div className="w-[40%] min-w-[250px] pl-47 text-left">
@@ -41,7 +40,6 @@ const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
         </div>
       )}
 
-      {/* 바디 */}
       <div>{children}</div>
     </div>
   )
