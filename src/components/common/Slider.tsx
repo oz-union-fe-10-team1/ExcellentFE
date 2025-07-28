@@ -6,6 +6,7 @@ const variantColorMap = {
   sweetness: '#F2544B',
   acidity: '#99B278',
   body: '#3C72B4',
+  trust: '#000000',
 } as const
 
 const Slider = ({
@@ -14,16 +15,27 @@ const Slider = ({
   step = 0.5,
   label,
   variant = 'sweetness',
+  value,
+  onValueChange,
   className,
+  formatValue,
 }: SliderProps) => {
   const color = variantColorMap[variant]
+  const displayValue = value?.[0] ?? 0
 
   return (
-    <div className="flex items-center">
-      <span className="font-[#333333 font-bold] mr-11">{label}</span>
-      <div>
+    <div className={clsx('flex items-center', className)}>
+      <span className="text-5 mr-11 w-13 font-bold text-[#333333]">
+        {label}
+      </span>
+      <div className="flex items-center">
+        <div className="mr-3 text-[22px] font-light">
+          {formatValue ? formatValue(0) : '0'}
+        </div>
         <SliderPrimitive.Root
           defaultValue={defaultValue}
+          value={value}
+          onValueChange={onValueChange}
           max={max}
           step={step}
           className={clsx(
@@ -49,6 +61,9 @@ const Slider = ({
             </div>
           </SliderPrimitive.Thumb>
         </SliderPrimitive.Root>
+        <div className="ml-3 text-[22px] font-light">
+          {formatValue ? formatValue(displayValue) : displayValue.toFixed(1)}
+        </div>
       </div>
     </div>
   )
