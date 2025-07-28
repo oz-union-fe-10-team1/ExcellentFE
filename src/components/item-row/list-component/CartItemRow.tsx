@@ -33,7 +33,7 @@ const CartItemRow = ({
         <div className="flex items-center justify-start gap-5 pl-8">
           <img
             src={img || '상품 이미지'}
-            alt={name || '상품 이름름'}
+            alt={name || '상품 이름'}
             className="h-20 w-20 rounded border border-[#d9d9d9]"
             loading="lazy"
           />
