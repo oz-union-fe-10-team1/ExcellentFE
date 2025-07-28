@@ -1,6 +1,7 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
-import minus from '@/assets/icons/cart/minus.svg'
-import plus from '@/assets/icons/cart/plus.svg'
+import PlusIcon from '@/assets/icons/cart/plus.svg?react'
+import MinusIcon from '@/assets/icons/cart/minus.svg?react'
+import Icon from '@/components/common/Icon'
 
 const CartItemRow = ({
   img,
@@ -47,7 +48,7 @@ const CartItemRow = ({
             onClick={handleDecreaseQuantity}
             role="button"
           >
-            <img src={minus} alt="수량 감소" />
+            <Icon icon={MinusIcon} size={9} />
           </div>
           <span className="w-6 text-center">{quantity || '상품 수량'}</span>
           <div
@@ -55,7 +56,7 @@ const CartItemRow = ({
             onClick={handleIncreaseQuantity}
             role="button"
           >
-            <img src={plus} alt="수량 증가" />
+            <Icon icon={PlusIcon} size={9} />
           </div>
         </div>
       </td>
