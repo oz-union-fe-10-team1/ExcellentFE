@@ -43,21 +43,21 @@ const CartItemRow = ({
 
       <td>
         <div className="inline-flex h-8 w-20 items-center justify-center gap-1 rounded-[5px] bg-[#f6f6f6]">
-          <div
-            className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-md bg-[#e1e1e1]"
-            onClick={handleDecreaseQuantity}
-            role="button"
-          >
-            <Icon icon={MinusIcon} size={9} />
-          </div>
+          <button aria-label="수량 감소" onClick={handleDecreaseQuantity}>
+            <Icon
+              icon={MinusIcon}
+              size={16}
+              wrapperClassName="rounded-[4px] bg-[#e1e1e1]"
+            />
+          </button>
           <span className="w-6 text-center">{quantity || '상품 수량'}</span>
-          <div
-            className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-md bg-[#000000]"
-            onClick={handleIncreaseQuantity}
-            role="button"
-          >
-            <Icon icon={PlusIcon} size={9} />
-          </div>
+          <button aria-label="수량 증가" onClick={handleIncreaseQuantity}>
+            <Icon
+              icon={PlusIcon}
+              size={16}
+              wrapperClassName="rounded-[4px] bg-[#000000]"
+            />
+          </button>
         </div>
       </td>
 
