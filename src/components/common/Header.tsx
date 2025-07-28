@@ -1,6 +1,7 @@
+import CartIcon from '@/assets/icons/header/cart.svg?react'
 import Logo from '@/assets/icons/header/logo.svg'
-import Mypage from '@/assets/icons/header/mypage.svg'
-import Cart from '@/assets/icons/header/cart.svg'
+import MypageIcon from '@/assets/icons/header/mypage.svg?react'
+import Icon from '@/components/common/Icon'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,8 +27,8 @@ const Header = () => {
   ]
 
   const USER_ICONS = [
-    { label: '마이페이지', src: Mypage, path: '/mypage/profile' },
-    { label: '장바구니', src: Cart, path: '/cart' },
+    { label: '마이페이지', icon: MypageIcon, path: '/mypage/profile' },
+    { label: '장바구니', icon: CartIcon, path: '/cart' },
   ]
 
   const MY_PAGE_SUBMENU = [
@@ -82,11 +83,7 @@ const Header = () => {
                           aria-label={icon.label}
                           onClick={() => navigate(icon.path)}
                         >
-                          <img
-                            src={icon.src}
-                            alt={icon.label}
-                            className="h-8 w-5 cursor-pointer"
-                          />
+                          <Icon icon={icon.icon} size={32} />
                         </button>
 
                         {/* 마이페이지 서브메뉴 hover 메뉴*/}
@@ -114,11 +111,7 @@ const Header = () => {
                         aria-label={icon.label}
                         onClick={() => navigate(icon.path)}
                       >
-                        <img
-                          src={icon.src}
-                          alt={icon.label}
-                          className="h-8 w-5 cursor-pointer"
-                        />
+                        <Icon icon={icon.icon} size={32} />
                       </button>
                     )
                   )}
