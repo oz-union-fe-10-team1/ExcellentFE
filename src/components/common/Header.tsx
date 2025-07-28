@@ -27,13 +27,8 @@ const Header = () => {
   ]
 
   const USER_ICONS = [
-    { label: '마이페이지', icon: MypageIcon, path: '/mypage/profile' },
+    { label: '마이페이지', icon: MypageIcon, path: '/mypage' },
     { label: '장바구니', icon: CartIcon, path: '/cart' },
-  ]
-
-  const MY_PAGE_SUBMENU = [
-    { label: '내 정보', path: '/mypage/profile' },
-    { label: '로그아웃', onClick: handleLogout },
   ]
 
   return (
@@ -85,36 +80,24 @@ const Header = () => {
                         >
                           <Icon icon={icon.icon} size={32} />
                         </button>
-
-                        {/* 마이페이지 서브메뉴 hover 메뉴*/}
-                        <ul className="absolute top-8 left-1/2 z-10 hidden w-32 -translate-x-1/2 bg-white text-center shadow-md group-hover:block">
-                          {MY_PAGE_SUBMENU.map((sub) => (
-                            <li
-                              key={sub.label} // key는 label로
-                              className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
-                              onClick={() => {
-                                if (sub.onClick) {
-                                  sub.onClick()
-                                } else if (sub.path) {
-                                  navigate(sub.path)
-                                }
-                              }}
-                            >
-                              {sub.label}
-                            </li>
-                          ))}
-                        </ul>
                       </div>
                     ) : (
                       <button
                         key={icon.label}
                         aria-label={icon.label}
                         onClick={() => navigate(icon.path)}
+                        className="relative"
                       >
                         <Icon icon={icon.icon} size={32} />
                       </button>
                     )
                   )}
+                  <button
+                    className="h-13 w-30 cursor-pointer rounded-4xl border border-[#d9d9d9] font-semibold text-[#666666]"
+                    onClick={handleLogout}
+                  >
+                    로그아웃
+                  </button>
                 </div>
               </>
             )}
