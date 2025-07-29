@@ -1,7 +1,7 @@
 import { useId, useState } from 'react'
 import type { BaseInputProps, SearchInputProps } from '@/types/input.types.ts'
 import clsx from 'clsx'
-import INPUT_VARIANTS from '@/constants/input'
+import INPUT_VARIANTS from '@/foundations/input'
 import Icon from '@/components/common/Icon'
 import SearchIcon from '@/assets/icons/input/search.svg?react'
 
