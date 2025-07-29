@@ -68,7 +68,7 @@ const FloatingFooter = () => {
 
           {/* 저작권 */}
           <div className="border-t border-white/30 pt-8">
-            <p style={{ color: '#fff', opacity: 0.5 }}>
+            <p className="text-white/50">
               Copyright © 모든. All right reserved.
             </p>
           </div>
