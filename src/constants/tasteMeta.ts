@@ -7,5 +7,5 @@ export const tasteMetaMap: Record<TasteType, TasteMeta> = {
   body_level: { label: '바디감', color: '#3C72B4' },
   carbonation_level: { label: '탄산감', color: '#8C6BB1' },
   bitterness_level: { label: '쓴 맛', color: '#F08A5D' },
-  aroma_level: { label: '향', color: '#F65A83' },
+  aroma_level: { label: '풍 미', color: '#F65A83' },
 }
