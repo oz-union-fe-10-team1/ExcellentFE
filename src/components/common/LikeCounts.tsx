@@ -1,6 +1,6 @@
 import { tasteMetaMap } from '@/constants/tasteMeta'
 import type { TasteScore } from '@/types/tasteTypes'
-import { cn } from '@/utils/cn'
+import { JustifiedText } from './JustifiedText'
 
 interface LikeCountsProps {
   data: TasteScore // 예: { type: 'sweet', score: 3.5 }
@@ -12,8 +12,8 @@ export const LikeCounts = ({ data }: LikeCountsProps) => {
 
   return (
     <div className="mb-2 flex items-center">
-      <p className="after:w-f w-[100px] text-lg text-[#333333] after:inline-block">
-        {label}
+      <p className="flex w-[50px] justify-between text-lg text-[#333333]">
+        {JustifiedText(label)}
       </p>
       <div className="w-[40px]" />
       <p className="w-[80px] text-gray-500">둔감하게</p>
