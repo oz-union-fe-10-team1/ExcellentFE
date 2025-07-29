@@ -1,8 +1,9 @@
 import { useId, useState } from 'react'
 import type { BaseInputProps, SearchInputProps } from '@/types/input.types.ts'
 import clsx from 'clsx'
-import Search from '@/assets/search.png'
 import INPUT_VARIANTS from '@/constants/input'
+import Icon from '@/components/common/Icon'
+import SearchIcon from '@/assets/icons/input/search.svg?react'
 
 type InputProps = BaseInputProps | SearchInputProps
 
@@ -25,6 +26,12 @@ const Input = ({
   const variant = 'variant' in props ? props.variant : 'default'
   const onSearch = 'onSearch' in props ? props.onSearch : undefined
   const isSearch = variant === 'search'
+
+  const inputProps = Object.fromEntries(
+    Object.entries(props).filter(
+      ([key]) => key !== 'onSearch' && key !== 'variant'
+    )
+  )
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true)
@@ -68,7 +75,7 @@ const Input = ({
           )}
         >
           <input
-            {...props}
+            {...inputProps}
             id={id}
             disabled={disabled}
             onKeyDown={handleKeyDown}
@@ -89,11 +96,7 @@ const Input = ({
               className="absolute right-[10px]"
               aria-label="search"
             >
-              <img
-                src={Search}
-                alt="search"
-                className="h-[18px] w-[18px] cursor-pointer"
-              />
+              <Icon icon={SearchIcon} size={18} className="cursor-pointer" />
             </button>
           )}
         </div>
