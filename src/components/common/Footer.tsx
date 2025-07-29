@@ -67,7 +67,7 @@ const FloatingFooter = () => {
           <div className="flex flex-col items-start justify-between space-y-2 lg:flex-row lg:items-center lg:space-y-0"></div>
 
           {/* 저작권 */}
-          <div className="border-t border-gray-600 pt-4">
+          <div className="border-t border-white/30 pt-8">
             <p style={{ color: '#fff', opacity: 0.5 }}>
               Copyright © 모든. All right reserved.
             </p>
