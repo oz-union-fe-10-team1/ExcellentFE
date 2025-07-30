@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import TasteProfileMockData from './mock/tasteProfileMockData'
+import TasteProfileMockData from './mocks/tasteProfileMockData'
 
 const mypageHandlers = [
   http.get('/api/v1/mypage/taste-profile', () => {

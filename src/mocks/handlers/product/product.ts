@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
-import productMockData from './mock/productMockData'
-import productFilterMockData from './mock/productFilterMockData'
+import productMockData from './mocks/productMockData'
+import productFilterMockData from './mocks/productFilterMockData'
 
 const productHandlers = [
   http.get('/api/v1/products', () => {
