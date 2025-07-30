@@ -1,4 +1,4 @@
-import Logo from '@/assets/logos/logo-white.svg'
+import Logo from '@/assets/logos/logo-footer.svg'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
