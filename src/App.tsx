@@ -1,8 +1,9 @@
+import Layout from '@/components/layout/Layout'
+import HomePage from '@/pages'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Layout from '@/pages/Layout'
-import HomePage from '@/pages'
+import Login from '@/pages/Login'
 
 const queryClient = new QueryClient()
 
@@ -11,6 +12,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Login />} />
+
           <Route element={<Layout />}>
             {/* 각자 페이지 만들어지면 등록 */}
             <Route path="/" element={<HomePage />} />
