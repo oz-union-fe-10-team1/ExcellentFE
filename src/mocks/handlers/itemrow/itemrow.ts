@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import CartMockData from './mock/cartMockData'
+import CartMockData from './mocks/cartMockData'
 
 export interface updateQuantityType {
   item_id: number

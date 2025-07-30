@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-interface Feedback {
+export interface Feedback {
   id: number
   product_id: string
   order_item_id: number
