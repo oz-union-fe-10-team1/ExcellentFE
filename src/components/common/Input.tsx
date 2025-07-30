@@ -96,7 +96,7 @@ const Input = ({
               className="absolute right-[10px]"
               aria-label="search"
             >
-              <Icon icon={SearchIcon} size={18} className="cursor-pointer" />
+              <Icon icon={SearchIcon} size={18} />
             </button>
           )}
         </div>
