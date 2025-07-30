@@ -1,18 +1,12 @@
 import CartIcon from '@/assets/icons/header/cart.svg?react'
-import Logo from '@/assets/icons/header/logo.svg'
 import MypageIcon from '@/assets/icons/header/mypage.svg?react'
+import Logo from '@/assets/logos/logo.svg'
 import Icon from '@/components/common/Icon'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false)
-  const navigate = useNavigate()
-
-  /* 로그인 UI 체크 용 */
-  const handleLogin = () => {
-    setIsLogin(true)
-  }
 
   /* 로그아웃 UI 체크 용 */
   const handleLogout = () => {
@@ -32,28 +26,25 @@ const Header = () => {
   ]
 
   return (
-    <header className="flex h-20 w-full items-center justify-around border-b border-[#d9d9d9]">
+    <header className="flex h-[90px] w-full items-center justify-around border-b border-[#d9d9d9]">
       <div className="flex w-full items-center justify-around">
         {/* 로고 */}
-        <img
-          src={Logo}
-          alt="모은 한잔취향 로고"
-          className="h-11 cursor-pointer"
-          onClick={() => navigate('/')}
-        />
+        <Link to="/" aria-label="홈으로 이동">
+          <img src={Logo} alt="모은 한잔취향 로고" />
+        </Link>
 
         {/* 메뉴 */}
         <div className="flex items-center gap-15">
           <nav>
             <ul className="flex gap-15">
               {NAV_ITEMS.map((item) => (
-                <li
+                <Link
                   key={item.path}
-                  className="cursor-pointer text-lg font-semibold active:text-[#123123]"
-                  onClick={() => navigate(item.path)}
+                  to={item.path}
+                  className="text-lg font-semibold text-[#333]"
                 >
                   {item.label}
-                </li>
+                </Link>
               ))}
             </ul>
           </nav>
@@ -61,38 +52,37 @@ const Header = () => {
           {/* 로그인 / 유저 아이콘 (로그인 전)*/}
           <div className="flex items-center">
             {!isLogin ? (
-              <button
-                className="h-13 w-41 cursor-pointer rounded-[60px] bg-[#f2544b] font-semibold text-white hover:bg-[#e04439]"
-                onClick={handleLogin}
+              <Link
+                to="/login"
+                className="h-13 w-41 rounded-[60px] bg-[#f2544b] text-center leading-[52px] font-semibold text-white hover:bg-[#e04439]"
               >
-                로그인 / 회원가입
-              </button>
+                로그인/회원가입
+              </Link>
             ) : (
               <>
                 {/* 마이페이지, 장바구니 (로그인 이후) */}
-                <div className="flex gap-8">
+                <div className="flex items-center gap-8">
                   {USER_ICONS.map((icon) =>
                     icon.label === '마이페이지' ? (
-                      <div key={icon.label} className="group relative flex">
-                        <button
-                          aria-label={icon.label}
-                          onClick={() => navigate(icon.path)}
-                        >
-                          <Icon icon={icon.icon} size={32} />
-                        </button>
-                      </div>
-                    ) : (
-                      <button
+                      <Link
                         key={icon.label}
+                        to={icon.path}
                         aria-label={icon.label}
-                        onClick={() => navigate(icon.path)}
-                        className="relative"
                       >
                         <Icon icon={icon.icon} size={32} />
-                      </button>
+                      </Link>
+                    ) : (
+                      <Link
+                        key={icon.label}
+                        to={icon.path}
+                        aria-label={icon.label}
+                      >
+                        <Icon icon={icon.icon} size={32} />
+                      </Link>
                     )
                   )}
                   <button
+                    type="button"
                     className="h-13 w-30 cursor-pointer rounded-4xl border border-[#d9d9d9] font-semibold text-[#666666]"
                     onClick={handleLogout}
                   >

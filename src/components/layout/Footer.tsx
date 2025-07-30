@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import Logo from '@/assets/icons/footer/logo.svg?react'
-import Icon from '@/components/common/Icon'
+import Logo from '@/assets/logos/logo-white.svg'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -33,7 +33,7 @@ const Footer = () => {
           height: '255px',
         }}
       >
-        <div className="max-w-10xl mx-auto flex h-full flex-col justify-between px-80 py-[50px]">
+        <div className="max-w-10xl mx-auto flex h-full flex-col justify-between px-80 py-[50px] text-sm">
           {/* 상단 정보 섹션 */}
           <div className="mb-4 flex flex-col items-start justify-between space-y-4 lg:flex-row lg:items-center lg:space-y-0">
             {/* 회사 정보 */}
@@ -49,16 +49,9 @@ const Footer = () => {
               </span>
             </div>
             {/* 로고 */}
-            <div className="flex items-center">
-              <Icon
-                icon={Logo}
-                size={120}
-                color="#fff"
-                cursor={false}
-                ariaLabel="회사 로고"
-                className="h-max w-max"
-              />
-            </div>
+            <Link to="/" aria-label="홈으로 이동" className="shrink-0">
+              <img src={Logo} alt="모은 한잔취향 로고" />
+            </Link>
           </div>
 
           {/* 이용약관 및 개인정보 처리방침 */}
