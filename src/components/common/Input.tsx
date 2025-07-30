@@ -20,7 +20,8 @@ const Input = ({
   onBlur,
   ...props
 }: InputProps) => {
-  const id = props.id ?? useId()
+  const generatedId = useId()
+  const id = props.id ?? generatedId
   const [isFocused, setIsFocused] = useState(false)
 
   const variant = 'variant' in props ? props.variant : 'default'
@@ -58,48 +59,39 @@ const Input = ({
   }
 
   return (
-    <div className={clsx('w-full')}>
-      <div className="flex items-center gap-11">
-        {label && (
-          <label
-            className="text-lg font-semibold whitespace-nowrap"
-            htmlFor={id}
-          >
-            {label}
-          </label>
+    <div className="flex items-center gap-11">
+      {label && (
+        <label className="text-lg font-semibold whitespace-nowrap" htmlFor={id}>
+          {label}
+        </label>
+      )}
+      <div
+        className={clsx(
+          'relative',
+          variant === 'search' ? 'w-[360px]' : 'w-full'
         )}
-        <div
-          className={clsx(
-            'relative',
-            variant === 'search' ? 'w-[360px]' : 'w-full'
-          )}
-        >
-          <input
-            {...inputProps}
-            id={id}
-            disabled={disabled}
-            onKeyDown={handleKeyDown}
-            onChange={onChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            className={clsx(
-              INPUT_VARIANTS[variant],
-              getBorderStyle(),
-              className
-            )}
-          />
+      >
+        <input
+          {...inputProps}
+          id={id}
+          disabled={disabled}
+          onKeyDown={handleKeyDown}
+          onChange={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className={clsx(INPUT_VARIANTS[variant], getBorderStyle(), className)}
+        />
 
-          {isSearch && (
-            <button
-              type="button"
-              onClick={onSearch}
-              className="absolute right-[10px]"
-              aria-label="search"
-            >
-              <Icon icon={SearchIcon} size={18} />
-            </button>
-          )}
-        </div>
+        {isSearch && (
+          <button
+            type="button"
+            onClick={onSearch}
+            className="absolute right-[10px]"
+            aria-label="search"
+          >
+            <Icon icon={SearchIcon} size={18} />
+          </button>
+        )}
       </div>
       {hasError && errorMessage && (
         <p className="text-sm text-[#F43F5E]">{errorMessage}</p>
