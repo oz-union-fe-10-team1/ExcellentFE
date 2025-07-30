@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Logo from '@/assets/icons/footer/logo.svg?react'
 import Icon from '@/components/common/Icon'
 
-const FloatingFooter = () => {
+const Footer = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -78,4 +78,4 @@ const FloatingFooter = () => {
   )
 }
 
-export default FloatingFooter
+export default Footer
