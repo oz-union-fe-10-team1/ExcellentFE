@@ -14,4 +14,14 @@ export interface CartItemRowProps extends ItemRowType {
   checked?: boolean
   onCheckChange?: (checked: boolean) => void
   onQuantityChange?: (newQuantity: number) => void
+
+  product?: {
+    name: string
+    main_image_url: string
+  }
+  order_item?: {
+    purchase_date: string
+    quantity: number
+  }
+  comment?: string
 }
