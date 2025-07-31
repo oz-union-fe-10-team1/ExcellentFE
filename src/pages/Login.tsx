@@ -33,22 +33,22 @@ const Login = () => {
                 className="h-[60px] w-[118px]"
               />
             </Link>
-            <h1 className="mb-20 text-xl text-[#333]">
+            <h1 className="mb-20 text-[22px] text-[#333]">
               로그인하고 나만의 전통주를 즐겨보세요!
             </h1>
           </header>
           <section className="flex flex-col gap-5">
-            <Button variant={'VARIANT8'} className="bg-[#FFE812] text-[#333]">
+            <Button variant={'VARIANT8'} className="bg-[#FEE500]">
               <Icon icon={KaKaoIcon} size={16} />
               <span className="w-full text-center">카카오 로그인</span>
             </Button>
-            <Button variant={'VARIANT8'} className="bg-[#1EC800] text-[#FFF]">
+            <Button variant={'VARIANT8'} className="bg-[#03C75A] text-[#FFF]">
               <Icon icon={NaverIcon} size={16} />
               <span className="w-full text-center"> 네이버 로그인</span>
             </Button>
             <Button
               variant={'VARIANT8'}
-              className="border border-[#DFDFDF] bg-[#FFF] text-[#333]"
+              className="border border-[#DFDFDF] bg-[#FFF]"
             >
               <Icon icon={GoogleIcon} size={16} />
               <span className="w-full text-center"> 구글 로그인</span>
@@ -56,7 +56,7 @@ const Login = () => {
           </section>
           <button
             type="button"
-            className="mt-[80px] cursor-pointer text-[#666] underline underline-offset-4"
+            className="mt-20 cursor-pointer text-[#666] underline underline-offset-4"
           >
             계정 찾기
           </button>
