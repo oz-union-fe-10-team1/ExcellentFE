@@ -14,7 +14,7 @@ const TastingItemRow = ({ img, name, order, feedback }: ItemRowType) => {
         </p>
       </div>
       <div className="ml-38 w-[20%] text-center text-lg">{order}</div>
-      <div className="ml-34 text-left text-lg leading-6 tracking-[0.05em]">
+      <div className="ml-34 h-13 w-95 text-left text-lg leading-6 tracking-[0.05em]">
         {feedback}
       </div>
     </div>
