@@ -79,6 +79,18 @@ export const BUTTON_VARIANTS = {
     'font-medium',
     'tracking-[-0.02em]',
   ].join(' '),
+
+  // 소셜 로그인
+  VARIANT8: [
+    'flex',
+    'items-center',
+    'w-[440px]',
+    'h-[56px]',
+    'pl-6',
+    'pr-10',
+    'rounded-[6px]',
+    'font-medium',
+  ].join(' '),
 } as const
 
 export const DEFAULT_BUTTON_VARIANT = 'VARIANT1'
