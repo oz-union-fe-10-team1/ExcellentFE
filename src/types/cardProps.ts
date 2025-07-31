@@ -1,6 +1,7 @@
 export interface CardProps {
-  imgSrc?: string
+  imgSrc: string
   imgAlt?: string
   title: string
   subtitle: string
+  price: number
 }
