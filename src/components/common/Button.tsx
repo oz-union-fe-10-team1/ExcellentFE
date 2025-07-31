@@ -26,6 +26,7 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
+        'cursor-pointer',
         BUTTON_VARIANTS[variant],
         { 'cursor-not-allowed': disabled },
         className
