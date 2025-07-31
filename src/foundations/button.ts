@@ -88,8 +88,8 @@ export const BUTTON_VARIANTS = {
     'h-[56px]',
     'pl-6',
     'pr-10',
-    'rounded-[6px]',
-    'font-medium',
+    'rounded-[12px]',
+    'font-bold',
   ].join(' '),
 } as const
 
