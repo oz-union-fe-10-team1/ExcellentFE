@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import CartMockData from './mocks/cartMockData'
+import historyMockData from './mocks/historyMockData'
 
 export interface updateQuantityType {
   item_id: number
@@ -9,6 +10,9 @@ export interface updateQuantityType {
 const itemRowHandlers = [
   http.get('/api/v1/cart', () => {
     return HttpResponse.json(CartMockData)
+  }),
+  http.get('/api/v1/feedbacks', () => {
+    return HttpResponse.json(historyMockData)
   }),
   http.put('/api/v1/cart/update-item', async ({ request }) => {
     const body = (await request.json()) as updateQuantityType
