@@ -1,7 +1,7 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 import ItemRowLabel from '@/components/item-row/ItemRowLabel'
 import ItemRowList from '@/components/item-row/ItemRowList'
-import { useState } from 'react'
+import useItemRow from '@/hooks/itemrow/useItemRow'
 
 interface ItemRowProps {
   items: ItemRowType[]
@@ -9,19 +9,11 @@ interface ItemRowProps {
 }
 
 const ItemRow = ({ items, type }: ItemRowProps) => {
-  const [cartItems, setCartItems] = useState<ItemRowType[]>(items)
-
-  const handleQuantityChange = (itemIndex: number, newQuantity: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item, index) =>
-        index === itemIndex ? { ...item, quantity: newQuantity } : item
-      )
-    )
-  }
+  const { itemList, handleQuantityChange } = useItemRow(items)
 
   return (
     <ItemRowLabel type={type}>
-      {cartItems.map((item, idx) => (
+      {itemList.map((item, idx) => (
         <ItemRowList
           key={idx}
           {...item}
