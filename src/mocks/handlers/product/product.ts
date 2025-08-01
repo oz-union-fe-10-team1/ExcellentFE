@@ -7,6 +7,11 @@ const productHandlers = [
   http.get('/api/v1/products', () => {
     return HttpResponse.json(productMockData)
   }),
+
+  http.get('/api/v1/products/search/', () => {
+    return HttpResponse.json(productSearchMockData)
+  }),
+
   http.get('/api/v1/products/:product_id', ({ params }) => {
     const { product_id } = params
 
@@ -15,10 +20,6 @@ const productHandlers = [
     }
 
     return HttpResponse.json({ message: 'Product not found' }, { status: 404 })
-  }),
-
-  http.get('/api/v1/products/search/', () => {
-    return HttpResponse.json(productSearchMockData)
   }),
 
   http.post('/api/v1/products/:product_id/like/', async ({ params }) => {
