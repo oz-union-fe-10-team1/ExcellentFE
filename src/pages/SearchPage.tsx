@@ -6,12 +6,12 @@ import { Check } from 'lucide-react'
 import CardList from '@/components/common/CardList'
 import productSearchMockData from '@/mocks/handlers/product/mocks/productSearchMockData'
 import Pagination from '@/components/common/Pagination'
+import usePagination from '@/hooks/usePagination'
 
-const ITEMS_PER_PAGE = 4
+const PAGE_SIZE = 4
 
 const SearchPage = () => {
   const [keyword, setKeyword] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
 
   const options = [
     { id: 1, label: '선물용' },
@@ -47,16 +47,13 @@ const SearchPage = () => {
   ]
 
   const data = productSearchMockData()
+  const { currentPage, totalPages, paginatedData, handlePageChange } =
+    usePagination({
+      items: data.results,
+      pageSize: PAGE_SIZE,
+    })
 
-  const totalItems = data.results.length
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE)
-
-  const currentItems = data.results.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  )
-
-  const cardData = currentItems.map((item) => ({
+  const cardData = paginatedData.map((item) => ({
     imgSrc: item.main_image_url,
     imgAlt: item.name,
     title: item.name,
@@ -130,7 +127,7 @@ const SearchPage = () => {
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={setCurrentPage}
+            onPageChange={handlePageChange}
           />
         </div>
       </div>
