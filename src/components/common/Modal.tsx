@@ -7,7 +7,7 @@ import { cn } from '@/utils/cn'
 import { type ReactNode } from 'react'
 import FocusLock from 'react-focus-lock'
 
-type ModalProps = {
+interface ModalProps {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
