@@ -1,18 +1,23 @@
-import { useFeedbackList } from '@/hooks/itemrow/useHistory'
 import Pagination from '@/components/common/Pagination'
 import ItemRow from '@/components/common/ItemRow'
-import useTastingHistory from '@/hooks/itemrow/useTastingHistory'
+import type { ItemRowType } from '@/types/ItemRow/itemRows'
+import useHistory from '@/hooks/useHistory'
+import { usePagination } from '@/hooks/usePagination'
 
 const ITEMS_PER_PAGE = 3
 
 const TastingHistory = () => {
-  const { data, isLoading, isFetched } = useFeedbackList()
+  const { data, isLoading, isFetched } = useHistory()
 
-  const { paginatedItems, currentPage, setCurrentPage, totalPages } =
-    useTastingHistory({
-      data: isFetched ? data : undefined,
-      itemsPerPage: ITEMS_PER_PAGE,
-    })
+  const {
+    paginatedData: paginatedItems,
+    currentPage,
+    totalPages,
+    handlePageChange,
+  } = usePagination<ItemRowType>({
+    items: data?.results ?? [],
+    pageSize: ITEMS_PER_PAGE,
+  })
 
   if (isLoading) return <div>로딩중</div>
   if (!isFetched || !data) return <div>데이터 불러오는 중</div>
@@ -25,7 +30,7 @@ const TastingHistory = () => {
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={handlePageChange}
       />
     </div>
   )

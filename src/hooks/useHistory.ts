@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 
-export const getFeedbackList = async () => {
+const getFeedbackList = async () => {
   const res = await axios.get('/api/v1/feedbacks')
   return res.data
 }
 
-export const useFeedbackList = () => {
+const useHistory = () => {
   const { data, isLoading, isFetched, error, isError } = useQuery({
-    queryKey: ['feedbackList'],
+    queryKey: ['historyList'],
     queryFn: getFeedbackList,
   })
 
@@ -20,3 +20,5 @@ export const useFeedbackList = () => {
     isFetched,
   }
 }
+
+export default useHistory

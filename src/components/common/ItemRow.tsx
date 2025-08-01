@@ -1,7 +1,7 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
-import ItemRowLabel from '@/components/item-row/ItemRowLabel'
-import ItemRowList from '@/components/item-row/ItemRowList'
-import useItemRow from '@/hooks/itemrow/useItemRow'
+import useItemRow from '@/hooks/useItemRow'
+import ItemRowLabel from '../ItemRow/ItemRowLabel'
+import ItemRowList from '../ItemRow/ItemRowList'
 
 interface ItemRowProps {
   items: ItemRowType[]
