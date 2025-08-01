@@ -8,7 +8,7 @@ interface ItemRowProps {
   type: 'cart' | 'order' | 'tasting'
 }
 
-const ItemRow = ({ items, type }: ItemRowProps) => {
+const ItemRowContent = ({ items, type }: ItemRowProps) => {
   const { itemList, handleQuantityChange } = useItemRow(items)
 
   return (
@@ -27,4 +27,4 @@ const ItemRow = ({ items, type }: ItemRowProps) => {
   )
 }
 
-export default ItemRow
+export default ItemRowContent

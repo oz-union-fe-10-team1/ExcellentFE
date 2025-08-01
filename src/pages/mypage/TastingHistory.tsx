@@ -1,8 +1,8 @@
 import Pagination from '@/components/common/Pagination'
-import ItemRow from '@/components/common/ItemRow'
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 import useHistory from '@/hooks/useHistory'
 import { usePagination } from '@/hooks/usePagination'
+import ItemRowContent from '@/components/common/ItemRowContent'
 
 const ITEMS_PER_PAGE = 3
 
@@ -25,7 +25,7 @@ const TastingHistory = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="min-h-151">
-        <ItemRow items={paginatedItems} type="tasting" />
+        <ItemRowContent items={paginatedItems} type="tasting" />
       </div>
       <Pagination
         currentPage={currentPage}
