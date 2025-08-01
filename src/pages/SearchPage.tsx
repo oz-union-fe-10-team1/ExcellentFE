@@ -64,7 +64,7 @@ const SearchPage = () => {
   return (
     <div>
       <div className="flex flex-col items-center gap-[50px]">
-        <h1 className="mt-25 text-[40px] font-bold">제품 검색</h1>
+        <h1 className="mt-25 text-[40px] font-bold text-[#333]">제품 검색</h1>
         <Input
           type="text"
           value={keyword}
