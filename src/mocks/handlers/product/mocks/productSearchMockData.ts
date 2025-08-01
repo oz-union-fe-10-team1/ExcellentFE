@@ -108,7 +108,7 @@ export interface AvailableFilters {
   price_ranges: PriceRangeOption[]
 }
 
-const productSearchMockData = (): ProductSearchResponse => ({
+const productSearchMockData: ProductSearchResponse = {
   count: 156,
   next: 'http://api.example.com/api/v1/products/?page=2&page_size=12',
   previous: null,
@@ -619,6 +619,6 @@ const productSearchMockData = (): ProductSearchResponse => ({
       { min: 50000, max: 100000, count: 44 },
     ],
   },
-})
+}
 
 export default productSearchMockData

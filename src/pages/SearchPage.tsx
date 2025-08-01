@@ -4,9 +4,9 @@ import { useState } from 'react'
 import Slider from '@/components/common/Slider'
 import { Check } from 'lucide-react'
 import CardList from '@/components/common/CardList'
-import productSearchMockData from '@/mocks/handlers/product/mocks/productSearchMockData'
 import Pagination from '@/components/common/Pagination'
-import usePagination from '@/hooks/usePagination'
+import { usePagination } from '@/hooks/usePagination'
+import useProductSearch from '@/hooks/useProductSearch'
 
 const PAGE_SIZE = 4
 
@@ -46,20 +46,15 @@ const SearchPage = () => {
     { id: 'body', label: '바디감', value: body, setter: setBody },
   ]
 
-  const data = productSearchMockData()
+  const { data, isLoading, isError } = useProductSearch()
+
   const { currentPage, totalPages, paginatedData, handlePageChange } =
     usePagination({
-      items: data.results,
+      items: data?.results ?? [],
       pageSize: PAGE_SIZE,
     })
-
-  const cardData = paginatedData.map((item) => ({
-    imgSrc: item.main_image_url,
-    imgAlt: item.name,
-    title: item.name,
-    subtitle: item.short_description,
-    price: item.price,
-  }))
+  if (isLoading) return <div>로딩 중...</div>
+  if (isError) return <div>에러가 발생했습니다.</div>
 
   return (
     <div>
@@ -123,7 +118,15 @@ const SearchPage = () => {
           <hr className="mb-5 w-[1280px] border-2 border-[#000000]" />
         </div>
         <div className="flex flex-col gap-20">
-          <CardList cards={cardData} />
+          <CardList
+            cards={paginatedData.map((product) => ({
+              imgSrc: product.main_image_url,
+              imgAlt: product.name,
+              title: product.name,
+              subtitle: product.short_description,
+              price: product.price,
+            }))}
+          />
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
