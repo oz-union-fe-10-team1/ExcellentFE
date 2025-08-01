@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-type UseModalProps = {
+interface UseModalProps {
   isOpen: boolean
   onClose: () => void
   isCloseable?: boolean
