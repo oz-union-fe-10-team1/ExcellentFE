@@ -1,7 +1,7 @@
 import type { CartItemRowProps } from '@/types/ItemRow/itemRows'
-import CartItemRow from './list-component/CartItemRow'
-import OrderItemRow from './list-component/OrderItemRow'
-import TastingItemRow from './list-component/TastingItemRow'
+import CartItemRow from './ListComponent/CartItemRow'
+import OrderItemRow from './ListComponent/OrderItemRow'
+import TastingItemRow from './ListComponent/TastingItemRow'
 
 const ItemRowList = (props: CartItemRowProps) => {
   switch (props.type) {
