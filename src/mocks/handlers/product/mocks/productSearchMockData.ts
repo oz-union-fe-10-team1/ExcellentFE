@@ -1,0 +1,624 @@
+export interface ProductSearchResponse {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Product[]
+  filters_applied: AppliedFilters
+  available_filters: AvailableFilters
+}
+
+export interface Product {
+  id: string
+  name: string
+  price: number
+  original_price: number | null
+  discount_rate: number
+  alcohol_content: number
+  volume_ml: number
+  stock_quantity: number
+  is_available: boolean
+  taste_profile: TasteProfile
+  product_features: ProductFeatures
+  flavor_notes: string
+  short_description: string
+  main_image_url: string
+  status: 'active' | 'out_of_stock' | string
+  is_featured: boolean
+  statistics: ProductStatistics
+  launch_date: string
+  created_at: string
+  brewery: Brewery
+  region: Region
+  category: Category
+  alcohol_type: AlcoholType
+}
+
+export interface TasteProfile {
+  sweetness_level: number
+  acidity_level: number
+  body_level: number
+  carbonation_level: number
+  bitterness_level: number
+  aroma_level: number
+}
+
+export interface ProductFeatures {
+  is_gift_suitable: boolean
+  is_award_winning: boolean
+  is_regional_specialty: boolean
+  is_limited_edition: boolean
+  is_premium: boolean
+  is_organic: boolean
+}
+
+export interface ProductStatistics {
+  view_count: number
+  order_count: number
+  like_count: number
+  average_rating: number
+  review_count: number
+}
+
+export interface Brewery {
+  id: number
+  name: string
+  region: string
+}
+
+export interface Region {
+  id: number
+  name: string
+  code: string
+}
+
+export interface Category {
+  id: number
+  name: string
+}
+
+export interface AlcoholType {
+  id: number
+  name: string
+  category: string
+}
+
+export interface AppliedFilters {
+  category_id: number
+  min_price: number
+  max_price: number
+  is_premium: boolean
+}
+
+export interface FilterOption {
+  id: number
+  name: string
+  count: number
+}
+
+export interface PriceRangeOption {
+  min: number
+  max: number
+  count: number
+}
+
+export interface AvailableFilters {
+  categories: FilterOption[]
+  regions: FilterOption[]
+  alcohol_types: FilterOption[]
+  price_ranges: PriceRangeOption[]
+}
+
+const productSearchMockData = (): ProductSearchResponse => ({
+  count: 156,
+  next: 'http://api.example.com/api/v1/products/?page=2&page_size=12',
+  previous: null,
+  results: [
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '456e7890-e89b-12d3-a456-426614174001',
+      name: '안동소주',
+      brewery: {
+        id: 2,
+        name: '안동전통주조합',
+        region: '경상북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 3,
+        name: '경상북도',
+        code: 'GB',
+      },
+      category: {
+        id: 1,
+        name: '전통 증류주',
+      },
+      price: 35000,
+      original_price: null,
+      discount_rate: 0,
+      alcohol_content: 45.0,
+      volume_ml: 375,
+      stock_quantity: 0,
+      is_available: false,
+      taste_profile: {
+        sweetness_level: 1.0,
+        acidity_level: 1.5,
+        body_level: 5.0,
+        carbonation_level: 0.0,
+        bitterness_level: 3.5,
+        aroma_level: 3.0,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: false,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: false,
+        is_organic: true,
+      },
+      flavor_notes: '고소함, 진한맛, 전통미',
+      short_description: '경상북도 안동의 전통 증류주',
+      main_image_url: 'https://example.com/images/andong-soju-main.jpg',
+      status: 'out_of_stock',
+      is_featured: false,
+      statistics: {
+        view_count: 890,
+        order_count: 156,
+        like_count: 234,
+        average_rating: 4.2,
+        review_count: 45,
+      },
+      launch_date: '2023-08-20',
+      created_at: '2023-08-15T14:20:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+    {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      name: '전주 이강주',
+      brewery: {
+        id: 1,
+        name: '전주전통주조장',
+        region: '전라북도',
+      },
+      alcohol_type: {
+        id: 3,
+        name: '증류주',
+        category: 'distilled',
+      },
+      region: {
+        id: 5,
+        name: '전라북도',
+        code: 'JB',
+      },
+      category: {
+        id: 2,
+        name: '프리미엄 증류주',
+      },
+      price: 45000,
+      original_price: 50000,
+      discount_rate: 10,
+      alcohol_content: 25.0,
+      volume_ml: 375,
+      stock_quantity: 100,
+      is_available: true,
+      taste_profile: {
+        sweetness_level: 3.5,
+        acidity_level: 2.0,
+        body_level: 4.0,
+        carbonation_level: 0.0,
+        bitterness_level: 1.5,
+        aroma_level: 4.5,
+      },
+      product_features: {
+        is_gift_suitable: true,
+        is_award_winning: true,
+        is_regional_specialty: true,
+        is_limited_edition: false,
+        is_premium: true,
+        is_organic: false,
+      },
+      flavor_notes: '배향, 생강향, 달콤함',
+      short_description: '전주 전통의 배와 생강이 어우러진 프리미엄 증류주',
+      main_image_url: 'https://example.com/images/igang-ju-main.jpg',
+      status: 'active',
+      is_featured: true,
+      statistics: {
+        view_count: 1250,
+        order_count: 89,
+        like_count: 156,
+        average_rating: 4.7,
+        review_count: 23,
+      },
+      launch_date: '2024-01-15',
+      created_at: '2024-01-10T09:30:00Z',
+    },
+  ],
+  filters_applied: {
+    category_id: 2,
+    min_price: 20000,
+    max_price: 80000,
+    is_premium: true,
+  },
+  available_filters: {
+    categories: [
+      { id: 1, name: '전통 증류주', count: 45 },
+      { id: 2, name: '프리미엄 증류주', count: 23 },
+    ],
+    regions: [
+      { id: 3, name: '경상북도', count: 67 },
+      { id: 5, name: '전라북도', count: 34 },
+    ],
+    alcohol_types: [
+      { id: 1, name: '막걸리', count: 89 },
+      { id: 3, name: '증류주', count: 67 },
+    ],
+    price_ranges: [
+      { min: 0, max: 20000, count: 34 },
+      { min: 20000, max: 50000, count: 78 },
+      { min: 50000, max: 100000, count: 44 },
+    ],
+  },
+})
+
+export default productSearchMockData
