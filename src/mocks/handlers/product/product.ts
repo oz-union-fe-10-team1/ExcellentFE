@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import productMockData from './mocks/productMockData'
 import productFilterMockData from './mocks/productFilterMockData'
+import productSearchMockData from './mocks/productSearchMockData'
 
 const productHandlers = [
   http.get('/api/v1/products', () => {
@@ -15,6 +16,11 @@ const productHandlers = [
 
     return HttpResponse.json({ message: 'Product not found' }, { status: 404 })
   }),
+
+  http.get('/api/v1/products/search/', () => {
+    return HttpResponse.json(productSearchMockData)
+  }),
+
   http.post('/api/v1/products/:product_id/like/', async ({ params }) => {
     const { product_id } = params
 
