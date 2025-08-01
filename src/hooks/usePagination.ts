@@ -5,7 +5,10 @@ interface UsePaginationProps<T> {
   pageSize?: number
 }
 
-const usePagination = <T>({ items, pageSize = 10 }: UsePaginationProps<T>) => {
+export const usePagination = <T>({
+  items,
+  pageSize = 10,
+}: UsePaginationProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const totalPages = Math.ceil(items.length / pageSize)
@@ -33,5 +36,3 @@ const usePagination = <T>({ items, pageSize = 10 }: UsePaginationProps<T>) => {
     handlePageChange,
   }
 }
-
-export default usePagination
