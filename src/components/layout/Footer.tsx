@@ -1,11 +1,22 @@
 import Logo from '@/assets/logos/logo-footer.svg'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { cn } from '@/utils/cn'
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const location = useLocation()
+
+  // 플로팅 푸터를 적용할 페이지들
+  const floatingPages = ['/', '/package']
+  const isFloatingPage = floatingPages.includes(location.pathname)
 
   useEffect(() => {
+    if (!isFloatingPage) {
+      setIsVisible(true) // 일반 페이지에서는 항상 표시
+      return
+    }
+
     const handleScroll = () => {
       // 스크롤이 페이지 끝에 도달했을 때 푸터를 표시
       const scrollTop = window.scrollY || document.documentElement.scrollTop
@@ -19,15 +30,22 @@ const Footer = () => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isFloatingPage])
 
   return (
     <>
       {/* 플로팅 푸터 */}
       <footer
-        className={`fixed right-0 bottom-0 left-0 z-50 text-base text-white transition-transform duration-300 ${
-          isVisible ? 'translate-y-0' : 'translate-y-full'
-        }`}
+        className={cn(
+          'text-base text-white',
+          isFloatingPage
+            ? [
+                'fixed right-0 bottom-0 left-0 z-40',
+                'transition-transform duration-300',
+                isVisible ? 'translate-y-0' : 'translate-y-full',
+              ]
+            : 'relative z-10'
+        )}
         style={{
           backgroundColor: '#2E2F2F',
           height: '255px',
