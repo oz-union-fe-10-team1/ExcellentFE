@@ -1,7 +1,8 @@
 import Logo from '@/assets/logos/logo-footer.svg'
+import { Z_INDEX } from '@/foundations/zIndex'
+import { cn } from '@/utils/cn'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { cn } from '@/utils/cn'
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -40,15 +41,16 @@ const Footer = () => {
           'text-base text-white',
           isFloatingPage
             ? [
-                'fixed right-0 bottom-0 left-0 z-40',
+                'fixed right-0 bottom-0 left-0',
                 'transition-transform duration-300',
                 isVisible ? 'translate-y-0' : 'translate-y-full',
               ]
-            : 'relative z-10'
+            : 'relative'
         )}
         style={{
           backgroundColor: '#2E2F2F',
           height: '255px',
+          zIndex: Z_INDEX.FOOTER,
         }}
       >
         <div className="max-w-10xl mx-auto flex h-full flex-col justify-between px-80 py-[50px] text-sm">
