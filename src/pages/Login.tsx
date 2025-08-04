@@ -8,6 +8,27 @@ import Button from '@/components/common/Button'
 import Icon from '@/components/common/Icon'
 import { Link } from 'react-router-dom'
 
+const socialLogins = [
+  {
+    provider: 'kakao',
+    icon: KaKaoIcon,
+    label: '카카오 로그인',
+    className: 'bg-[#FEE500] text-[#000]',
+  },
+  {
+    provider: 'naver',
+    icon: NaverIcon,
+    label: '네이버 로그인',
+    className: 'bg-[#03C75A] text-[#FFF]',
+  },
+  {
+    provider: 'google',
+    icon: GoogleIcon,
+    label: '구글 로그인',
+    className: 'border border-[#DFDFDF] bg-[#FFF]',
+  },
+]
+
 const Login = () => {
   return (
     <div className="flex h-screen w-full p-5">
@@ -38,21 +59,12 @@ const Login = () => {
             </h1>
           </header>
           <section className="flex flex-col gap-5">
-            <Button variant={'VARIANT8'} className="bg-[#FEE500]">
-              <Icon icon={KaKaoIcon} size={16} />
-              <span className="w-full text-center">카카오 로그인</span>
-            </Button>
-            <Button variant={'VARIANT8'} className="bg-[#03C75A] text-[#FFF]">
-              <Icon icon={NaverIcon} size={16} />
-              <span className="w-full text-center"> 네이버 로그인</span>
-            </Button>
-            <Button
-              variant={'VARIANT8'}
-              className="border border-[#DFDFDF] bg-[#FFF]"
-            >
-              <Icon icon={GoogleIcon} size={16} />
-              <span className="w-full text-center"> 구글 로그인</span>
-            </Button>
+            {socialLogins.map(({ provider, icon, label, className }) => (
+              <Button key={provider} variant={'VARIANT8'} className={className}>
+                <Icon icon={icon} size={16} />
+                <span className="w-full text-center">{label}</span>
+              </Button>
+            ))}
           </section>
           <button
             type="button"
