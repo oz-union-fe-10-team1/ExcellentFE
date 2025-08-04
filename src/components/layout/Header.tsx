@@ -2,6 +2,7 @@ import CartIcon from '@/assets/icons/header/cart.svg?react'
 import MypageIcon from '@/assets/icons/header/mypage.svg?react'
 import Logo from '@/assets/logos/logo.svg'
 import Icon from '@/components/common/Icon'
+import { Z_INDEX } from '@/foundations/zIndex'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -26,7 +27,10 @@ const Header = () => {
   ]
 
   return (
-    <header className="flex h-[90px] w-full items-center justify-around border-b border-[#d9d9d9]">
+    <header
+      className="fixed top-0 left-0 flex h-[90px] w-full items-center justify-around border-b border-[#d9d9d9] bg-white"
+      style={{ zIndex: Z_INDEX.HEADER }}
+    >
       <div className="flex w-full items-center justify-around">
         {/* 로고 */}
         <Link to="/" aria-label="홈으로 이동">

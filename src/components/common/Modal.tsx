@@ -2,6 +2,7 @@ import CloseIcon from '@/assets/icons/modal/close.svg?react'
 import Icon from '@/components/common/Icon'
 import Portal from '@/components/common/Portal'
 import PORTAL_CONTAINER_ID from '@/constants/portalContainerId'
+import { Z_INDEX } from '@/foundations/zIndex'
 import { useModal } from '@/hooks/useModal'
 import { cn } from '@/utils/cn'
 import { type ReactNode } from 'react'
@@ -36,7 +37,8 @@ const Modal = ({
     <Portal containerId={PORTAL_CONTAINER_ID.MODAL}>
       <div
         onClick={handleOverlayClick}
-        className="fixed inset-0 z-40 flex items-center justify-center bg-black/25"
+        className="fixed inset-0 flex items-center justify-center bg-black/25"
+        style={{ zIndex: Z_INDEX.MODAL_OVERLAY }}
       >
         <FocusLock>
           <div
@@ -44,9 +46,10 @@ const Modal = ({
             aria-modal="true"
             {...(title && { 'aria-labelledby': 'modal-title' })}
             className={cn(
-              'relative z-50 flex w-[690px] flex-col items-center rounded-[20px] bg-white px-[40px] py-[100px]',
+              'relative flex w-[690px] flex-col items-center rounded-[20px] bg-white px-[40px] py-[100px]',
               className
             )}
+            style={{ zIndex: Z_INDEX.MODAL }}
           >
             {title && (
               <h2 id="modal-title" className="text-2xl font-bold text-[#333]">

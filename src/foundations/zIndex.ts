@@ -1,0 +1,7 @@
+export const Z_INDEX = {
+  SIDEBAR: 100,
+  FOOTER: 200,
+  HEADER: 300,
+  MODAL_OVERLAY: 900,
+  MODAL: 1000,
+}
