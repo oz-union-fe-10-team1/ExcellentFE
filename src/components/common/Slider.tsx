@@ -33,7 +33,7 @@ const Slider = ({
           max={max}
           step={step}
           className={clsx(
-            'relative flex h-[20px] w-[388px] touch-none items-center select-none',
+            'relative flex h-[20px] w-[308px] touch-none items-center select-none',
             className
           )}
         >

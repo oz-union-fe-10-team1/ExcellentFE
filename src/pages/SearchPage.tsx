@@ -22,8 +22,17 @@ const SearchPage = () => {
   const [sweetness, setSweetness] = useState([0])
   const [acidity, setAcidity] = useState([0])
   const [body, setBody] = useState([0])
+  const [carnobation, setCarbonation] = useState([0])
+  const [bitter, setBitter] = useState([0])
+  const [zest, setZest] = useState([0])
 
-  type SliderVariant = 'sweetness' | 'acidity' | 'body'
+  type SliderVariant =
+    | 'sweetness'
+    | 'acidity'
+    | 'body'
+    | 'carbonation'
+    | 'bitter'
+    | 'zest'
 
   const sliders: {
     id: SliderVariant
@@ -44,7 +53,33 @@ const SearchPage = () => {
       setter: setAcidity,
     },
     { id: 'body', label: '바디감', value: body, setter: setBody },
+    {
+      id: 'carbonation',
+      label: '탄산감',
+      value: carnobation,
+      setter: setCarbonation,
+    },
+    {
+      id: 'bitter',
+      label: '쓴\u00A0\u00A0\u00A0\u00A0맛',
+      value: bitter,
+      setter: setBitter,
+    },
+    {
+      id: 'zest',
+      label: '풍\u00A0\u00A0\u00A0\u00A0미',
+      value: zest,
+      setter: setZest,
+    },
   ]
+
+  const leftSliders = sliders.filter(
+    (s) => s.id === 'sweetness' || s.id === 'acidity' || s.id === 'body'
+  )
+
+  const rightSliders = sliders.filter(
+    (s) => s.id === 'carbonation' || s.id === 'bitter' || s.id === 'zest'
+  )
 
   const { data, isLoading, isError } = useProductSearch()
 
@@ -78,8 +113,8 @@ const SearchPage = () => {
             필터 적용하기
           </Button>
         </div>
-        <div className="flex h-[266px] w-320 items-center justify-center gap-[411px] rounded-[6px] bg-[#F2F2F2]">
-          <ul className="flex flex-col gap-[14px]">
+        <div className="flex h-[266px] w-320 items-center justify-center gap-[59px] rounded-[6px] bg-[#F2F2F2]">
+          <ul className="flex h-[180px] flex-col justify-between gap-3">
             {options.map(({ id, label }) => (
               <li key={id}>
                 <label className="inline-flex cursor-pointer items-center gap-[14px]">
@@ -97,16 +132,30 @@ const SearchPage = () => {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col gap-[30px]">
-            {sliders.map(({ id, label, value, setter }) => (
-              <Slider
-                key={id}
-                variant={id}
-                label={label}
-                value={value}
-                onValueChange={setter}
-              />
-            ))}
+          <div className="flex gap-[59px]">
+            <div className="flex h-[181px] flex-col justify-between gap-[30px]">
+              {leftSliders.map(({ id, label, value, setter }) => (
+                <Slider
+                  key={id}
+                  variant={id}
+                  label={label}
+                  value={value}
+                  onValueChange={setter}
+                />
+              ))}
+            </div>
+
+            <div className="flex h-[181px] flex-col justify-between gap-[30px]">
+              {rightSliders.map(({ id, label, value, setter }) => (
+                <Slider
+                  key={id}
+                  variant={id}
+                  label={label}
+                  value={value}
+                  onValueChange={setter}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
