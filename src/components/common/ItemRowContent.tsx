@@ -9,11 +9,15 @@ interface ItemRowProps {
 }
 
 const ItemRowContent = ({ items, type }: ItemRowProps) => {
-  const { itemList, handleQuantityChange } = useItemRow(items)
+  const { itemList, handleQuantityChange } = useItemRow(items || [])
+
+  if (!items || items.length === 0) {
+    return <div>장바구니가 비어있습니다.</div>
+  }
 
   return (
     <ItemRowLabel type={type}>
-      {itemList.map((item, idx) => (
+      {itemList?.map((item, idx) => (
         <ItemRowList
           key={idx}
           {...item}
