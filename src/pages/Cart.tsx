@@ -1,6 +1,7 @@
 import Button from '@/components/common/Button'
 import ItemRowContent from '@/components/common/ItemRowContent'
 import useUserCart from '@/hooks/useUserCart'
+import { Equal } from 'lucide-react'
 
 const Cart = () => {
   const { data, isLoading, isError } = useUserCart()
@@ -31,7 +32,7 @@ const Cart = () => {
             </span>
           </div>
           <div className="flex h-7 w-7 items-center justify-center rounded-[50%] bg-[#f2544b] text-center text-lg font-bold text-[#ffffff]">
-            =
+            <Equal size={15} strokeWidth={4} />
           </div>
           <div className="text-[#333333]">
             총 결제 금액{' '}
