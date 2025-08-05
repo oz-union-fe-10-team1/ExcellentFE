@@ -3,6 +3,7 @@ import PlusIcon from '@/assets/icons/cart/plus.svg?react'
 import MinusIcon from '@/assets/icons/cart/minus.svg?react'
 import Icon from '@/components/common/Icon'
 import useCartItem from '@/hooks/useCartItem'
+import { cn } from '@/utils/cn'
 
 const CartItemRow = ({
   img,
@@ -14,8 +15,12 @@ const CartItemRow = ({
   onCheckChange,
   checked,
 }: CartItemRowProps) => {
-  const { localQuantity, handleIncreaseQuantity, handleDecreaseQuantity } =
-    useCartItem({ quantity, onQuantityChange })
+  const {
+    localQuantity,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+    isDecreaseDisabled,
+  } = useCartItem({ quantity, onQuantityChange })
 
   return (
     <div className="flex items-center border-b border-[#e1e1e1] py-5 text-center text-[#333333]">
@@ -36,11 +41,20 @@ const CartItemRow = ({
 
       {/* 수량 조절 */}
       <div className="mx-auto inline-flex h-8 w-20 items-center justify-center gap-1 rounded-[5px] bg-[#f6f6f6]">
-        <button aria-label="수량 감소" onClick={handleDecreaseQuantity}>
+        <button
+          aria-label="수량 감소"
+          onClick={handleDecreaseQuantity}
+          disabled={isDecreaseDisabled}
+        >
           <Icon
             icon={MinusIcon}
             size={16}
-            wrapperClassName="rounded-[4px] bg-[#e1e1e1]"
+            wrapperClassName={cn(
+              'rounded-[4px]',
+              isDecreaseDisabled
+                ? 'bg-[#cccccc] cursor-not-allowed'
+                : 'bg-[#e1e1e1]'
+            )}
           />
         </button>
         <span className="w-6 text-center">{localQuantity}</span>

@@ -32,6 +32,7 @@ const useCartItem = ({
     localQuantity,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
+    isDecreaseDisabled: localQuantity <= 1,
   }
 }
 
