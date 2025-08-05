@@ -12,7 +12,7 @@ import OrderHistory from '@/pages/my-page/OrderHistory'
 import TasteProfile from '@/pages/my-page/TasteProfile'
 import TastingHistory from '@/pages/my-page/TastingHistory'
 import NotFound from '@/pages/NotFound'
-import Cart from '@/pages/Cart'
+import Cart from './pages/Cart'
 
 const queryClient = new QueryClient()
 
