@@ -26,7 +26,7 @@ const ItemRowContent = ({ items, type }: ItemRowProps) => {
 
   return (
     <ItemRowLabel type={type}>
-      {itemList?.map((item, idx) => (
+      {itemList.map((item, idx) => (
         <ItemRowList
           key={`${items[idx]?.id} - ${idx}`}
           {...item}
