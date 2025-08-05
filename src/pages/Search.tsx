@@ -10,7 +10,7 @@ import useProductSearch from '@/hooks/useProductSearch'
 
 const PAGE_SIZE = 4
 
-const SearchPage = () => {
+const Search = () => {
   const [keyword, setKeyword] = useState('')
 
   const options = [
@@ -166,7 +166,7 @@ const SearchPage = () => {
           </h2>
           <hr className="mb-5 w-[1280px] border-2 border-[#000000]" />
         </div>
-        <div className="flex flex-col gap-20">
+        <div className="mb-25 flex flex-col gap-20">
           <CardList
             cards={paginatedData.map((product) => ({
               imgSrc: product.main_image_url,
@@ -187,4 +187,4 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
+export default Search
