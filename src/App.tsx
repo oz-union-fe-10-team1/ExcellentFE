@@ -6,12 +6,13 @@ import TestMain from '@/pages/tasteTest'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
-import MyPageLayout from './components/layout/MyPageLayout'
-import AccountEdit from './pages/my-page/AccountEdit'
-import OrderHistory from './pages/my-page/OrderHistory'
-import TasteProfile from './pages/my-page/TasteProfile'
-import TastingHistory from './pages/my-page/TastingHistory'
-import NotFound from './pages/NotFound'
+import MyPageLayout from '@/components/layout/MyPageLayout'
+import AccountEdit from '@/pages/my-page/AccountEdit'
+import OrderHistory from '@/pages/my-page/OrderHistory'
+import TasteProfile from '@/pages/my-page/TasteProfile'
+import TastingHistory from '@/pages/my-page/TastingHistory'
+import NotFound from '@/pages/NotFound'
+import Cart from '@/pages/Cart'
 
 const queryClient = new QueryClient()
 
@@ -30,7 +31,7 @@ function App() {
             <Route path="test" element={<TestMain />} />
             <Route path="search" element={<SearchPage />} />
             <Route path="feedback" element={<HomePage />} />
-            <Route path="cart" element={<HomePage />} />
+            <Route path="cart" element={<Cart />} />
 
             {/* 마이페이지 라우팅 */}
             <Route path="mypage" element={<MyPageLayout />}>
