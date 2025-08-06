@@ -23,10 +23,7 @@ const StarRating = ({
       {Array.from({ length: totalStars }).map((_, index) => (
         <div
           key={index}
-          className={cn(
-            'relative text-3xl select-none',
-            readOnly ? 'cursor-default' : 'cursor-pointer'
-          )}
+          className="relative select-none"
           onClick={(e) => handleClick(e, index)}
         >
           <span className="text-[#f2f2f2]">
@@ -40,11 +37,7 @@ const StarRating = ({
             className="absolute top-0 left-0 overflow-hidden text-[#f2544b]"
             style={{ width: `${getFillWidth(index) * 100}%` }}
           >
-            <Icon
-              icon={StarIcon}
-              size={size}
-              className={readOnly ? 'cursor-default' : 'cursor-pointer'}
-            />
+            <Icon icon={StarIcon} size={size} />
           </span>
         </div>
       ))}
