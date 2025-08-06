@@ -10,11 +10,11 @@ type CardListProps =
   | { type: 'review'; cards: ReviewCardProps[] }
   | { type: 'test'; cards: TestCardProps[] }
 
-const CardList = ({ cards, type }: CardListProps) => {
+const CardList = (props: CardListProps) => {
   return (
     <div className="mx-auto grid max-w-[1281px] grid-cols-4 gap-[27px]">
-      {cards.map((card, i) => (
-        <Card key={i} type={type} data={card} />
+      {props.cards.map((card, i) => (
+        <Card key={i} type={props.type} data={card} />
       ))}
     </div>
   )
