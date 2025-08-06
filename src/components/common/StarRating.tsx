@@ -40,7 +40,7 @@ const StarRating = ({
               className="absolute top-0 left-0 overflow-hidden text-[#f2544b]"
               style={{ width: `${getFillWidth(index) * 100}%` }}
             >
-              <Icon icon={StarIcon} size={size} />
+              <Icon icon={StarIcon} size={size} cursor={!readOnly} />
             </span>
           </div>
         ))}
