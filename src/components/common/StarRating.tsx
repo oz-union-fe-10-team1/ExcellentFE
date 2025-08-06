@@ -8,7 +8,7 @@ const StarRating = ({
   defaultRating = 0,
   onChange,
   readOnly = false,
-  size,
+  size = 18,
   className,
 }: StarRatingProps) => {
   const { handleClick, getFillWidth } = useStarRating({
