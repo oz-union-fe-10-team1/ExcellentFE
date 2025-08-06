@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-import Card from './Card'
+import Card from './CardBase'
 import Icon from '@/components/common/Icon'
 import ArrowLeftIcon from '@/assets/icons/carousel/arrow_left.svg?react'
 import ArrowRightIcon from '@/assets/icons/carousel/arrow_right.svg?react'
-import type { CardProps } from '@/types/cardProps'
+import type { CardBaseProps } from '@/types/cardProps'
 
 interface CarouselProps {
-  cards: CardProps[]
+  cards: CardBaseProps[]
   slidesToShow?: number // 한번에 보여줄 카드 수 (기본 4개)
   gap?: string // 카드 간의 간격 (기본 '27px')
   className?: string
