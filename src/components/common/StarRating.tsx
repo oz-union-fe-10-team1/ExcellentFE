@@ -47,7 +47,12 @@ const StarRating = ({
       </div>
 
       {showRatingValue && (
-        <span className="ml-2 font-bold text-[#333333]">
+        <span
+          className={cn(
+            'ml-2 font-bold text-[#333333]',
+            readOnly ? 'text-base' : 'ml-5 text-5xl'
+          )}
+        >
           {currentRating.toFixed(1)}
         </span>
       )}
