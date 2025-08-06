@@ -26,11 +26,7 @@ const StarRating = ({
           onClick={(e) => handleClick(e, index)}
         >
           <span className="text-[#f2f2f2]">
-            <Icon
-              icon={StarIcon}
-              size={size}
-              className={readOnly ? 'cursor-default' : 'cursor-pointer'}
-            />
+            <Icon icon={StarIcon} size={size} cursor={!readOnly} />
           </span>
           <span
             className="absolute top-0 left-0 overflow-hidden text-[#f2544b]"
