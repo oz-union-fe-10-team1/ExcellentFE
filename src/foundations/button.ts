@@ -91,6 +91,17 @@ export const BUTTON_VARIANTS = {
     'rounded-[12px]',
     'font-bold',
   ].join(' '),
+
+  // 테스트 하러가기
+  VARIANT9: [
+    'w-[197px]',
+    'h-[55px]',
+    'bg-[#2F2F2F]',
+    'rounded-[6px]',
+    'font-semibold',
+    'text-[#FFFFFF]',
+    'text-lg',
+  ].join(' '),
 } as const
 
 export const DEFAULT_BUTTON_VARIANT = 'VARIANT1'
