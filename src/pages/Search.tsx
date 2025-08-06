@@ -168,6 +168,7 @@ const Search = () => {
         </div>
         <div className="mb-25 flex flex-col gap-20">
           <CardList
+            type="default"
             cards={paginatedData.map((product) => ({
               imgSrc: product.main_image_url,
               imgAlt: product.name,
