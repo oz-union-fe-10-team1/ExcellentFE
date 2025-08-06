@@ -1,6 +1,5 @@
 import Icon from './Icon'
 import StarIcon from '@/assets/icons/starRating/Star.svg?react'
-import { cn } from '@/utils/cn'
 import type { StarRatingProps } from '@/types/starRating'
 import useStarRating from '@/hooks/useStarRating'
 
