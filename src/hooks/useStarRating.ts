@@ -25,6 +25,7 @@ const useStarRating = ({
   }
 
   return {
+    rating,
     handleClick,
     getFillWidth,
   }
