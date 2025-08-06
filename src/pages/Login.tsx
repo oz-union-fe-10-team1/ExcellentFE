@@ -6,9 +6,17 @@ import LogoLeft from '@/assets/logos/logo-login.svg'
 import LogoRight from '@/assets/logos/logo.svg'
 import Button from '@/components/common/Button'
 import Icon from '@/components/common/Icon'
+import { SOCIAL_LOGIN, type SocialProvider } from '@/constants/socialLogin'
 import { Link } from 'react-router-dom'
 
-const socialLogins = [
+interface SocialLogin {
+  provider: SocialProvider
+  icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>
+  label: string
+  className: string
+}
+
+const socialLogins: SocialLogin[] = [
   {
     provider: 'kakao',
     icon: KaKaoIcon,
@@ -30,6 +38,10 @@ const socialLogins = [
 ]
 
 const Login = () => {
+  const handleSocialLogin = (provider: SocialProvider) => {
+    window.location.href = SOCIAL_LOGIN[provider].loginUrl
+  }
+
   return (
     <div className="flex h-screen w-full p-5">
       <div
@@ -60,7 +72,12 @@ const Login = () => {
           </header>
           <section className="flex flex-col gap-5">
             {socialLogins.map(({ provider, icon, label, className }) => (
-              <Button key={provider} variant={'VARIANT8'} className={className}>
+              <Button
+                key={provider}
+                variant={'VARIANT8'}
+                className={className}
+                onClick={() => handleSocialLogin(provider)}
+              >
                 <Icon icon={icon} size={16} />
                 <span className="w-full text-center">{label}</span>
               </Button>
