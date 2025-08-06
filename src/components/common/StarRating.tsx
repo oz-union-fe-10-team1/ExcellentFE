@@ -1,7 +1,8 @@
 import Icon from './Icon'
-import StarIcon from '@/assets/icons/starRating/Star.svg?react'
+import StarIcon from '@/assets/icons/starRating/star-rating.svg?react'
 import type { StarRatingProps } from '@/types/starRating'
 import useStarRating from '@/hooks/useStarRating'
+import { cn } from '@/utils/cn'
 
 const StarRating = ({
   totalStars = 5,
@@ -16,9 +17,8 @@ const StarRating = ({
     onChange,
     readOnly,
   })
-
   return (
-    <div className={`flex items-center ${className}`}>
+    <div className={cn(`flex items-center`, className)}>
       {Array.from({ length: totalStars }).map((_, index) => (
         <div
           key={index}
