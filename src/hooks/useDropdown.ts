@@ -6,22 +6,22 @@ export const useDropdown = (onClose?: () => void) => {
 
   const handleToggle = () => setIsOpen(!isOpen)
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false)
-      onClose?.()
-    }
-  }
-
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+        onClose?.()
+      }
+    }
+
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [])
+  }, [onClose])
 
   return { isOpen, dropdownRef, handleToggle, setIsOpen }
 }
