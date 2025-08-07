@@ -1,5 +1,5 @@
 import type { CardBaseProps } from '@/types/cardProps'
-import HeartButton from './HeartButton'
+import HeartButton from '@/components/common/HeartButton.tsx'
 import { useState } from 'react'
 
 const CardBase = ({
@@ -17,12 +17,15 @@ const CardBase = ({
         <HeartButton
           isLiked={isLiked}
           onClick={() => setIsLiked((prev) => !prev)}
+          className="absolute right-2 bottom-2"
         />
       </div>
 
       <h2 className="text-lg text-balance text-[#333333]">{title}</h2>
       <p className="mt-1 text-[#666666]">{subtitle}</p>
-      <p className="mt-1 text-[15px] text-[#333333]">{price}원</p>
+      <p className="mt-1 text-[15px] text-[#333333]">
+        {price?.toLocaleString()}원
+      </p>
     </div>
   )
 }

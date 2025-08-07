@@ -3,9 +3,9 @@ import type {
   ReviewCardProps,
   TestCardProps,
 } from '@/types/cardProps'
-import TestCard from './TestCard'
-import CardBase from '../CardBase'
-import ReviewCard from './ReviewCard'
+import TestCard from '@/components/common/card/TestCard.tsx'
+import CardBase from '@/components/common/card/CardBase.tsx'
+import ReviewCard from '@/components/common/card/ReviewCard.tsx'
 
 interface DefaultType {
   type: 'default'

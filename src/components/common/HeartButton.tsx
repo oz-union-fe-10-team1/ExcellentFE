@@ -1,18 +1,23 @@
 import heartButton from '@/assets/icons/card/heartButton.svg?react'
-import Icon from './Icon'
+import Icon from '@/components/common/Icon.tsx'
 import fullHeart from '@/assets/icons/card/fullHeart.svg?react'
 
 interface HeartButtonProps {
+  className?: string
   isLiked: boolean
   onClick: () => void
 }
 
-const HeartButton = ({ isLiked, onClick }: HeartButtonProps) => {
+const HeartButton = ({
+  className = '',
+  isLiked,
+  onClick,
+}: HeartButtonProps) => {
   const icon = isLiked ? fullHeart : heartButton
   return (
     <button
-      className="absolute top-2 right-2 z-10 rounded-full bg-white p-1 shadow-md"
-      aria-label="찜하기"
+      className="z-10 rounded-full bg-white p-1 shadow-md"
+      aria-label={isLiked ? '찜 취소' : '찜하기'}
       type="button"
       onClick={onClick}
     >

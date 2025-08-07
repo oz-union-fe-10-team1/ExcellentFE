@@ -3,7 +3,7 @@ import type {
   ReviewCardProps,
   TestCardProps,
 } from '@/types/cardProps'
-import Card from './Card/Card'
+import Card from '@/components/common/card/Card.tsx'
 
 type CardListProps =
   | { type: 'default'; cards: CardBaseProps[] }

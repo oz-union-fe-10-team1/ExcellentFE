@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Card from './CardBase'
+import Card from '@/components/common/card/CardBase.tsx'
 import Icon from '@/components/common/Icon'
 import ArrowLeftIcon from '@/assets/icons/carousel/arrow_left.svg?react'
 import ArrowRightIcon from '@/assets/icons/carousel/arrow_right.svg?react'
