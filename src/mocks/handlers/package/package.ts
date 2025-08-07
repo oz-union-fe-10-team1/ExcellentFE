@@ -1,33 +1,48 @@
 import { http, HttpResponse } from 'msw'
-import { packageMockData } from './\bmocks/packageMockData'
+import { packageMockData } from './mocks/packageMockData'
 
-// packageMockData의 실제 구조에서 타입을 추출
-type Package =
-  (typeof packageMockData.categories)[keyof typeof packageMockData.categories]['packages'][0]
+interface Package {
+  id: number
+  name: string
+  slug: string
+  short_description: string
+  category: string
+  main_image: string
+  total_original_price: number
+  discount_rate: number
+  discount_amount: number
+  final_price: number
+  is_featured: boolean
+  view_count: number
+  order_count: number
+  created_at: string
+}
 
-type CategoryData = {
+interface CategoryData {
   title: string
   description: string
   count: number
   packages: Package[]
 }
 
-type CategoryKey = keyof typeof packageMockData.categories
-
-type Categories = {
-  [K in CategoryKey]: CategoryData
+interface Categories {
+  [key: string]: CategoryData
 }
 
-// 페이지네이션된 API 응답 타입 정의
-type PackageApiResponse = {
+interface Pagination {
+  page: number
+  page_size: number
+  total_count: number
+  total_pages: number
+}
+
+// 페이지네이션된 API 응답 인터페이스 정의
+interface PackageApiResponse {
   categories: Categories | Partial<Categories>
-  pagination?: {
-    page: number
-    page_size: number
-    total_count: number
-    total_pages: number
-  }
+  pagination?: Pagination
 }
+
+type CategoryKey = keyof typeof packageMockData.categories
 
 const packageHandlers = [
   http.get('/api/v1/packages/', ({ request }) => {
@@ -120,11 +135,12 @@ const packageHandlers = [
 
 export default packageHandlers
 
-// 타입들을 외부에서 사용할 수 있도록 export
+// 인터페이스들을 외부에서 사용할 수 있도록 export
 export type {
   Package,
   CategoryData,
-  CategoryKey,
   Categories,
   PackageApiResponse,
+  CategoryKey,
 }
+export type { Pagination }
