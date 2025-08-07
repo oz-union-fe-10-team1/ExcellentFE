@@ -4,7 +4,7 @@ export type SliderProps = {
   defaultValue?: number[]
   max?: number
   step?: number
-  label: string
+  label?: string
   variant: SliderVariant
   className?: string
   value: number[]
