@@ -1,6 +1,6 @@
 import type { ReviewCardProps } from '@/types/cardProps'
 import maskingUserId from '@/utils/masking'
-import HeartButton from '../HeartButton'
+import HeartButton from '@/components/common/HeartButton.tsx'
 import { useState } from 'react'
 
 const ReviewCard = ({
@@ -19,12 +19,12 @@ const ReviewCard = ({
         <HeartButton
           isLiked={isLiked}
           onClick={() => setIsLiked((prev) => !prev)}
+          className="absolute right-2 bottom-2"
         />
       </div>
       <div className="flex justify-between">
         <p>별점: {starRating}</p>
         <p className="text-[#666666]">
-          {' '}
           {userId ? maskingUserId(userId) : 'Unknown User'}
         </p>
       </div>
