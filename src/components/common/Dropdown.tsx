@@ -1,7 +1,9 @@
 import chevron from '@/assets/icons/dropdown/chevron.svg?react'
 import Icon from '@/components/common/Icon'
+import { useState, useRef, useEffect } from 'react'
+import { cn } from '@/utils/cn'
 
-type DropdownProps = {
+interface DropdownProps {
   options: { label: string; value: string }[]
   value: string
   onChange: (value: string) => void
@@ -9,34 +11,84 @@ type DropdownProps = {
   className?: string
 }
 
-const Dropdown: React.FC<DropdownProps> = ({
+const Dropdown = ({
   options,
   value,
   onChange,
   placeholder,
-  className = '',
-}) => {
+  className,
+}: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  const handleToggle = () => setIsOpen(!isOpen)
+
+  const handleSelect = (optionValue: string) => {
+    onChange(optionValue)
+    setIsOpen(false)
+  }
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
+
+  const selectedOption = options.find((option) => option.value === value)
+
   return (
-    <div className={`relative ${className}`}>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full cursor-pointer appearance-none rounded border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-gray-400"
+    <div className={cn('relative', className)} ref={dropdownRef}>
+      <button
+        type="button"
+        className="flex h-10 w-full items-center justify-between rounded border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-gray-400"
+        onClick={handleToggle}
       >
-        <option value="">{placeholder}</option>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-      <Icon
-        icon={chevron}
-        size={12}
-        className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 transform"
-        color="#000"
-        ariaLabel="Dropdown chevron icon"
-      />
+        <span>{selectedOption ? selectedOption.label : placeholder}</span>
+        <Icon
+          icon={chevron}
+          size={12}
+          className={cn(
+            'transition-transform duration-200',
+            isOpen && 'rotate-180'
+          )}
+          color="#000"
+          ariaLabel="Dropdown chevron icon"
+        />
+      </button>
+      {isOpen && (
+        <ul className="absolute top-full z-10 mt-1 w-full rounded border border-[#D9D9D9] bg-white text-[12px] text-[#666666] shadow-lg">
+          {placeholder && (
+            <li
+              className="cursor-not-allowed p-2 text-gray-400"
+              onClick={() => handleSelect('')}
+            >
+              {placeholder}
+            </li>
+          )}
+          {options.map((option) => (
+            <li
+              key={option.value}
+              className={cn(
+                'cursor-pointer p-2 transition-colors hover:bg-gray-100',
+                option.value === value && 'bg-gray-100 font-semibold'
+              )}
+              onClick={() => handleSelect(option.value)}
+            >
+              {option.label}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
