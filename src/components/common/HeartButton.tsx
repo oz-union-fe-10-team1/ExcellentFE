@@ -16,7 +16,7 @@ const HeartButton = ({
   const icon = isLiked ? fullHeart : heartButton
   return (
     <button
-      className="z-10 rounded-full bg-white p-1 shadow-md"
+      className={`z-10 rounded-full bg-white p-1 shadow-md ${className}`}
       aria-label={isLiked ? '찜 취소' : '찜하기'}
       type="button"
       onClick={onClick}
