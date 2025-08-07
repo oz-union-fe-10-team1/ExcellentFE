@@ -1,4 +1,6 @@
-export const kakaoMockUser = {
+import type { SocialCallbackResponse } from '@/types/auth'
+
+export const kakaoMockUser: SocialCallbackResponse = {
   access_token: 'jwt_access_token',
   refresh_token: 'jwt_refresh_token',
   user: {
@@ -8,7 +10,7 @@ export const kakaoMockUser = {
   },
 }
 
-export const naverMockUser = {
+export const naverMockUser: SocialCallbackResponse = {
   access_token: 'jwt_access_token',
   refresh_token: 'jwt_refresh_token',
   user: {
@@ -18,7 +20,7 @@ export const naverMockUser = {
   },
 }
 
-export const googleMockUser = {
+export const googleMockUser: SocialCallbackResponse = {
   access_token: 'jwt_access_token',
   refresh_token: 'jwt_refresh_token',
   user: {
