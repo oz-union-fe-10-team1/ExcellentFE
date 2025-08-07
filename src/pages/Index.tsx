@@ -1,23 +1,64 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CardList from '@/components/common/cards/CardList'
 import Carousel from '@/components/common/Carousel'
 import Button from '@/components/common/Button'
-import { useHomePage } from '@/hooks/useHomePage'
+import { useProducts, usePackages } from '@/hooks/useProduct'
+import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/mainPage/banner.png'
 
 const HomePage = () => {
-  const navigate = useNavigate()
-  const { loading, monthlyProducts, popularPackages, recommendedProducts } =
-    useHomePage()
+  // 상품 데이터
+  const {
+    data: products = [],
+    isLoading: productsLoading,
+    error: productsError,
+    refetch: refetchProducts,
+  } = useProducts()
 
-  const handleTestButtonClick = () => {
-    navigate('/test')
+  // 패키지 데이터
+  const {
+    data: packages = [],
+    isLoading: packagesLoading,
+    error: packagesError,
+    refetch: refetchPackages,
+  } = usePackages()
+
+  // 전체 상태 계산
+  const loading = productsLoading || packagesLoading
+  const error = productsError || packagesError
+
+  // 데이터 변환
+  const monthlyProducts = HomeUtils.getMonthlyProducts(products)
+  const popularPackages = HomeUtils.getPopularPackages(packages)
+  const recommendedProducts = HomeUtils.getRecommendedProducts(products)
+
+  const handleRetry = () => {
+    refetchProducts()
+    refetchPackages()
   }
 
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
-        로딩 중...
+        <div className="text-center">
+          <div className="mb-4 text-lg">로딩 중...</div>
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="mb-4 text-lg text-red-600">
+            데이터를 불러오는데 실패했습니다.
+          </div>
+          <Button variant="VARIANT9" onClick={handleRetry}>
+            다시 시도
+          </Button>
+        </div>
       </div>
     )
   }
@@ -35,18 +76,16 @@ const HomePage = () => {
             <p className="mb-[30px] text-xl text-[#333333]">
               나의 입맛 전통주, 어떤 것이 내 취향일지 모르겠다구요?
             </p>
-            <h1 className="mb-2 text-[40px] font-bold text-[#333333]">
-              당신의 전통주 한 잔,
+            <h1 className="mb-10 text-[40px] font-bold text-[#333333]">
+              <span className="mb-1 block">당신의 전통주 한 잔,</span>
+              <span className="mb-1 block">
+                한 잔 취향만의 입맛 테스트를 통해
+              </span>
+              <span className="block">당신의 맛을 찾아보세요!</span>
             </h1>
-            <h2 className="mb-2 text-[40px] font-bold text-[#333333]">
-              한 잔 취향만의 입맛 테스트를 통해
-            </h2>
-            <h3 className="mb-10 text-[40px] font-bold text-[#333333]">
-              당신의 맛을 찾아보세요!
-            </h3>
-            <Button variant="VARIANT9" onClick={handleTestButtonClick}>
-              지금 테스트하러 가기
-            </Button>
+            <Link to="/test">
+              <Button variant="VARIANT9">지금 테스트하러 가기</Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -74,7 +113,7 @@ const HomePage = () => {
       {/* 인기 패키지 섹션 */}
       <section className="h-[704px] bg-[#f2f2f2] py-25">
         <div className="container mx-auto">
-          <div className="text-lefts mb-12">
+          <div className="mb-12">
             <h2 className="mb-4 text-3xl font-bold text-[#333333]">
               인기 패키지
             </h2>
