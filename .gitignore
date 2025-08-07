@@ -18,6 +18,7 @@ dist-ssr
 # Local environment
 *.local
 .env
+.env.development
 
 # Backup files
 **/*.backup.*
