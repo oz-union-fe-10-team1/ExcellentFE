@@ -46,6 +46,7 @@ const Input = ({
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (isSearch && e.key === 'Enter') {
+      e.preventDefault()
       onSearch?.()
     }
   }

@@ -1,17 +1,101 @@
 import Input from '@/components/common/Input'
 import Button from '@/components/common/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Slider from '@/components/common/Slider'
 import { Check } from 'lucide-react'
 import CardList from '@/components/common/cards/CardList.tsx'
 import Pagination from '@/components/common/Pagination'
 import { usePagination } from '@/hooks/usePagination'
 import useProductSearch from '@/hooks/useProductSearch'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 
-const PAGE_SIZE = 4
+const PAGE_SIZE = 16
 
 const Search = () => {
   const [keyword, setKeyword] = useState('')
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
+
+  const handleFeatureChange = (label: string) => {
+    setSelectedFeatures((prev) =>
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
+        : [...prev, label]
+    )
+  }
+
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+
+  const queryParams = Object.fromEntries(searchParams.entries())
+
+  useEffect(() => {
+    const urlKeyword = queryParams.q || ''
+    setKeyword(urlKeyword)
+
+    const featuresMap: Record<string, string> = {
+      is_gift_suitable: '선물용',
+      is_regional_specialty: '지역 특산주',
+      is_award_winning: '주류 대상 수상',
+      is_limited_edition: '리미티드 에디션',
+    }
+
+    const urlFeatures = searchParams.getAll('feature[]')
+    const selectedLabels = urlFeatures
+      .map((feature) => featuresMap[feature])
+      .filter(Boolean)
+    setSelectedFeatures(selectedLabels)
+
+    setSweetness([Number(queryParams.sweetness) || 0])
+    setAcidity([Number(queryParams.acidity) || 0])
+    setBody([Number(queryParams.body) || 0])
+    setCarbonation([Number(queryParams.carbonation) || 0])
+    setBitter([Number(queryParams.bitterness) || 0])
+    setAroma([Number(queryParams.aroma) || 0])
+
+    if (Object.keys(queryParams).length === 0) {
+      setKeyword('')
+      setSelectedFeatures([])
+      setSweetness([0])
+      setAcidity([0])
+      setBody([0])
+      setCarbonation([0])
+      setBitter([0])
+      setAroma([0])
+    }
+  }, [searchParams])
+
+  const handleSearch = (e?: React.FormEvent | React.MouseEvent) => {
+    if (e) e.preventDefault()
+    const featuresMap: Record<string, string> = {
+      선물용: 'is_gift_suitable',
+      '지역 특산주': 'is_regional_specialty',
+      '주류 대상 수상': 'is_award_winning',
+      '리미티드 에디션': 'is_limited_edition',
+    }
+
+    const selectedFeatureParams = selectedFeatures.map(
+      (label) => featuresMap[label]
+    )
+
+    const params: Record<string, any> = {}
+    if (keyword) params.q = keyword
+    if (selectedFeatureParams.length > 0) {
+      params['feature[]'] = selectedFeatureParams
+    }
+
+    params.sweetness = sweetness[0]
+    params.acidity = acidity[0]
+    params.body = body[0]
+    params.carbonation = carbonation[0]
+    params.bitterness = bitter[0]
+    params.aroma = aroma[0]
+
+    params.page = '1'
+    params.page_size = '12'
+
+    const queryString = new URLSearchParams(params).toString()
+    navigate(`/search?${queryString.toString()}`)
+  }
 
   const options = [
     { id: 1, label: '선물용' },
@@ -22,9 +106,9 @@ const Search = () => {
   const [sweetness, setSweetness] = useState([0])
   const [acidity, setAcidity] = useState([0])
   const [body, setBody] = useState([0])
-  const [carnobation, setCarbonation] = useState([0])
+  const [carbonation, setCarbonation] = useState([0])
   const [bitter, setBitter] = useState([0])
-  const [zest, setZest] = useState([0])
+  const [aroma, setAroma] = useState([0])
 
   type SliderVariant =
     | 'sweetness'
@@ -32,7 +116,7 @@ const Search = () => {
     | 'body'
     | 'carbonation'
     | 'bitter'
-    | 'zest'
+    | 'aroma'
 
   const sliders: {
     id: SliderVariant
@@ -56,7 +140,7 @@ const Search = () => {
     {
       id: 'carbonation',
       label: '탄산감',
-      value: carnobation,
+      value: carbonation,
       setter: setCarbonation,
     },
     {
@@ -66,10 +150,10 @@ const Search = () => {
       setter: setBitter,
     },
     {
-      id: 'zest',
+      id: 'aroma',
       label: '풍\u00A0\u00A0\u00A0\u00A0미',
-      value: zest,
-      setter: setZest,
+      value: aroma,
+      setter: setAroma,
     },
   ]
 
@@ -78,18 +162,19 @@ const Search = () => {
   )
 
   const rightSliders = sliders.filter(
-    (s) => s.id === 'carbonation' || s.id === 'bitter' || s.id === 'zest'
+    (s) => s.id === 'carbonation' || s.id === 'bitter' || s.id === 'aroma'
   )
+  const hasQuery = Object.keys(queryParams).length > 0
 
-  const { data, isLoading, isError } = useProductSearch()
+  const { data, isLoading, isError } = useProductSearch(
+    hasQuery ? queryParams : null
+  )
 
   const { currentPage, totalPages, paginatedData, handlePageChange } =
     usePagination({
       items: data?.results ?? [],
       pageSize: PAGE_SIZE,
     })
-  if (isLoading) return <div>로딩 중...</div>
-  if (isError) return <div>에러가 발생했습니다.</div>
 
   return (
     <div>
@@ -100,16 +185,18 @@ const Search = () => {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           variant="search"
-          onSearch={() => {
-            console.log('검색어:', keyword)
-          }}
+          onSearch={handleSearch}
           placeholder="검색어를 입력하세요."
         />
       </div>
       <div className="mb-25 flex flex-col items-center">
         <div className="mb-[17px] flex w-320 items-center justify-between">
           <h2 className="text-[24px] font-bold text-[#333333]">상세 검색</h2>
-          <Button variant="VARIANT7" className="h-[39px] w-[117px]">
+          <Button
+            onClick={handleSearch}
+            variant="VARIANT7"
+            className="h-[39px] w-[117px]"
+          >
             필터 적용하기
           </Button>
         </div>
@@ -122,6 +209,8 @@ const Search = () => {
                     <input
                       type="checkbox"
                       className="peer h-full w-full appearance-none rounded-[6px] border border-[#D9D9D9] bg-white checked:bg-blue-500"
+                      checked={selectedFeatures.includes(label)}
+                      onChange={() => handleFeatureChange(label)}
                     />
                     <Check className="pointer-events-none absolute inset-0 m-auto h-[20px] w-[20px] text-white opacity-0 peer-checked:opacity-100" />
                   </div>
