@@ -1,16 +1,6 @@
 import Layout from '@/components/layout/Layout'
-<<<<<<< HEAD
-=======
-import HomePage from '@/pages/index'
-import Login from '@/pages/Login'
-import Search from '@/pages/Search'
-import TestMain from '@/pages/tasteTest'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import './App.css'
->>>>>>> 2ff54c7 (feat: 메인페이지 구현 (#71))
 import MyPageLayout from '@/components/layout/MyPageLayout'
-import HomePage from '@/pages'
+import HomePage from './pages/Index'
 import Login from '@/pages/auth/Login'
 import SocialCallback from '@/pages/auth/SocialCallback'
 import Cart from '@/pages/Cart'
