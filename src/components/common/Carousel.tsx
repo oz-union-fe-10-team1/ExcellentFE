@@ -68,7 +68,6 @@ const Carousel = ({
 
   return (
     <div className={`relative w-full px-20 ${className}`}>
-      {' '}
       {/* 왼쪽 화살표 */}
       {showArrows && (
         <button
@@ -79,8 +78,11 @@ const Carousel = ({
           <Icon icon={ArrowLeftIcon} size={40} color="#000" />
         </button>
       )}
-      {/* 슬라이더 컨테이너 */}
-      <div className={`mx-auto w-full overflow-hidden ${containerClassName}`}>
+
+      {/* 슬라이더 컨테이너 - CardList 스타일과 일치 */}
+      <div
+        className={`mx-auto w-full max-w-[1281px] overflow-hidden ${containerClassName}`}
+      >
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{
@@ -89,16 +91,18 @@ const Carousel = ({
         >
           {/* 각 슬라이드 그룹 */}
           {Array.from({ length: totalSlides }, (_, slideIndex) => {
-            const startIndex = slideIndex * slidesToShow
-            const endIndex = Math.min(startIndex + slidesToShow, cards.length)
+            const startIndex = slideIndex * currentSlidesToShow
+            const endIndex = Math.min(
+              startIndex + currentSlidesToShow,
+              cards.length
+            )
             const slideCards = cards.slice(startIndex, endIndex)
 
             return (
               <div
                 key={slideIndex}
-                className="grid w-full flex-shrink-0"
+                className={`grid w-full flex-shrink-0 grid-cols-${currentSlidesToShow}`}
                 style={{
-                  gridTemplateColumns: `repeat(${slidesToShow}, minmax(0, 1fr))`,
                   gap: gap,
                   width: '100%', // 명시적으로 100% 너비 설정
                 }}
@@ -110,7 +114,7 @@ const Carousel = ({
                 ))}
                 {/* 빈 공간을 채우기 위한 더미 div들 */}
                 {Array.from(
-                  { length: slidesToShow - slideCards.length },
+                  { length: currentSlidesToShow - slideCards.length },
                   (_, emptyIndex) => (
                     <div key={`empty-${slideIndex}-${emptyIndex}`} />
                   )
@@ -120,6 +124,7 @@ const Carousel = ({
           })}
         </div>
       </div>
+
       {/* 오른쪽 화살표 */}
       {showArrows && (
         <button
