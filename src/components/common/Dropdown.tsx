@@ -1,6 +1,6 @@
 import chevron from '@/assets/icons/dropdown/chevron.svg?react'
 import Icon from '@/components/common/Icon'
-import { useState, useRef, useEffect } from 'react'
+import { useDropdown } from '@/hooks/useDropdown'
 import { cn } from '@/utils/cn'
 
 interface DropdownProps {
@@ -18,31 +18,12 @@ const Dropdown = ({
   placeholder,
   className,
 }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-
-  const handleToggle = () => setIsOpen(!isOpen)
+  const { isOpen, dropdownRef, handleToggle } = useDropdown()
 
   const handleSelect = (optionValue: string) => {
     onChange(optionValue)
-    setIsOpen(false)
+    handleToggle()
   }
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [])
 
   const selectedOption = options.find((option) => option.value === value)
 
@@ -50,7 +31,7 @@ const Dropdown = ({
     <div className={cn('relative', className)} ref={dropdownRef}>
       <button
         type="button"
-        className="flex h-10 w-full items-center justify-between rounded border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-gray-400"
+        className="flex h-10 w-full items-center justify-between rounded border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-[#D9D9D9]"
         onClick={handleToggle}
       >
         <span>{selectedOption ? selectedOption.label : placeholder}</span>
@@ -79,8 +60,8 @@ const Dropdown = ({
             <li
               key={option.value}
               className={cn(
-                'cursor-pointer p-2 transition-colors hover:bg-gray-100',
-                option.value === value && 'bg-gray-100 font-semibold'
+                'p-2 transition-colors',
+                option.value === value && 'bg-[#D9D9D9] font-semibold'
               )}
               onClick={() => handleSelect(option.value)}
             >
