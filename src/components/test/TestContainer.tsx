@@ -2,12 +2,13 @@ import logoTest from '@/assets/logos/logoTest.svg'
 
 import testTestBg from '@/assets/images/tasteTest/testTestBg.png'
 
-// import { useState } from 'react'
-// import MainStep from './MainStep'
+import { useState } from 'react'
+import MainStep from './MainStep'
+import ProgressStep from './ProgressStep'
 
 //분기 처리를 위한 테스트 페이지의 가장 큰 컴포넌트
 const TestContainer = () => {
-  // const [step, setStep] = useState<'main' | 'question' | 'result'>('main')
+  const [step, setStep] = useState<'main' | 'question' | 'result'>('main')
 
   return (
     <div className="min-h-screen overflow-y-scroll bg-[#F2F2F2]">
@@ -28,9 +29,9 @@ const TestContainer = () => {
         >
           {/* 분기처리 */}
 
-          {/* {step === 'main' && <MainStep />} */}
-          {/* {step === 'question' && <QuestionStep />}
-        {step === 'result' && <ResultStep />} */}
+          {step === 'main' && <MainStep step={step} setStep={setStep} />}
+          {step === 'question' && <ProgressStep />}
+          {/* {step === 'result' && <ResultStep />} */}
         </div>
       </div>
       {/* 푸터와의 여백용 파트 */}
