@@ -31,3 +31,24 @@ export interface TasteTestProfile {
   image_url: string
   created_at: string
 }
+
+// 테스트 칠문 타입
+export interface TestQuestionType {
+  test: {
+    id: number
+    title: string
+    description: string
+  }
+  questions: {
+    id: number
+    question_text: string
+    sequence: number
+    answers: {
+      id: number
+      answer_text: string
+    }[]
+  }[]
+  total_questions: number
+  instructions: string
+  estimated_time: string
+}
