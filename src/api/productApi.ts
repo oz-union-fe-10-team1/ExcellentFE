@@ -1,6 +1,7 @@
 import axios from 'axios'
 import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
-import type { PackageResponse, ProductResponse, Package } from '@/types/home'
+import type { PackageResponse, ProductResponse } from '@/types/home'
+import type { Package } from '@/mocks/handlers/package/package'
 
 export class HomeApi {
   // 상품 데이터 가져오기

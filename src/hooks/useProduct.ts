@@ -1,4 +1,3 @@
-// hooks/useHomeData.ts
 import { useQuery } from '@tanstack/react-query'
 import { HomeApi } from '@/api/productApi'
 
