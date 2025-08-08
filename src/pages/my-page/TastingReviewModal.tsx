@@ -12,11 +12,13 @@ interface ReviewModalProps {
 
 const TastingReviewModal = ({ name }: ReviewModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [sweetness, setSweetness] = useState([0])
-  const [acidity, setAcidity] = useState([0])
-  const [body, setBody] = useState([0])
-  const [confidence, setConfidence] = useState([0])
-  const [rating, setRating] = useState(0)
+  const [review, setReview] = useState({
+    sweetness: 0,
+    acidity: 0,
+    body: 0,
+    confidence: 0,
+    rating: 0,
+  })
   const [files, setFiles] = useState<FileList | null>(null)
   const [comment, setComment] = useState('')
 
@@ -29,13 +31,14 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
   const handleSubmit = () => {
     mutation.mutate({
       order_item_id: 123,
-      sweetness: sweetness,
-      acidity: acidity,
-      body: body,
-      confidence: confidence,
-      overall_rating: rating,
-      comment: comment,
-      files: files,
+      sweetness: review.sweetness,
+      acidity: review.acidity,
+      body: review.body,
+      confidence: review.confidence,
+      overall_rating: review.rating,
+      taste_tag: '단맛', // TODO: 선택 UI 연결되면 값 넣기
+      comment,
+      files,
     })
   }
 
@@ -70,20 +73,26 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
             <Slider
               label="단맛"
               variant="sweetness"
-              value={sweetness}
-              onValueChange={setSweetness}
+              value={[review.sweetness]}
+              onValueChange={(vals) =>
+                setReview((prev) => ({ ...prev, sweetness: vals[0] ?? 0 }))
+              }
             />
             <Slider
               label="산미"
               variant="acidity"
-              value={acidity}
-              onValueChange={setAcidity}
+              value={[review.acidity]}
+              onValueChange={(vals) =>
+                setReview((prev) => ({ ...prev, acidity: vals[0] ?? 0 }))
+              }
             />
             <Slider
               label="바디감"
               variant="body"
-              value={body}
-              onValueChange={setBody}
+              value={[review.body]}
+              onValueChange={(vals) =>
+                setReview((prev) => ({ ...prev, body: vals[0] ?? 0 }))
+              }
             />
           </div>
           <div className="mt-12 flex h-43 w-full flex-col justify-center gap-7 bg-[#f2f2f2]">
@@ -93,8 +102,10 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
             <Slider
               variant="trust"
               max={100}
-              value={confidence}
-              onValueChange={setConfidence}
+              value={[review.confidence]}
+              onValueChange={(vals) =>
+                setReview((prev) => ({ ...prev, confidence: vals[0] ?? 0 }))
+              }
             />
           </div>
           <div className="mt-12 flex w-full flex-col items-center">
@@ -103,8 +114,10 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
               size={51}
               showRatingValue={false}
               className="mt-5"
-              rating={rating}
-              onChange={setRating}
+              rating={review.rating}
+              onChange={(value) =>
+                setReview((prev) => ({ ...prev, rating: value }))
+              }
             />
           </div>
           {/* 13개 map 돌릴 예정 */}
