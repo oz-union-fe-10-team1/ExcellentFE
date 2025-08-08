@@ -27,7 +27,7 @@ export const SOCIAL_LOGIN: Record<SocialProvider, SocialLoginConfig> = {
   naver: {
     clientId: import.meta.env.VITE_NAVER_CLIENT_ID,
     redirectUri: import.meta.env.VITE_NAVER_REDIRECT_URI,
-    scope: 'name email gender birthday birthyear',
+    scope: 'name email',
     getLoginUrl(state: string) {
       const baseUrl = 'https://nid.naver.com/oauth2.0/authorize'
       const params = new URLSearchParams({
