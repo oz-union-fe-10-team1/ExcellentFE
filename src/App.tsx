@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Layout'
 import MyPageLayout from '@/components/layout/MyPageLayout'
-import HomePage from './pages/Index'
+import HomePage from '@/pages/Index'
 import Login from '@/pages/auth/Login'
 import SocialCallback from '@/pages/auth/SocialCallback'
 import Cart from '@/pages/Cart'
