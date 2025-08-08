@@ -26,8 +26,15 @@ const SNS_SHARE = [
   },
 ]
 
+type TestType = 'main' | 'question' | 'result'
+
+interface MainStepProps {
+  step: TestType
+  setStep: React.Dispatch<React.SetStateAction<TestType>>
+}
+
 //테스트 시작의 메인 단계
-const MainStep = () => {
+const MainStep = ({ step, setStep }: MainStepProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   //공유하기 버튼을 눌렀을 때, 모달 띄우기
@@ -52,12 +59,20 @@ const MainStep = () => {
         alt="모은 테스트 메인"
         className="mb-[50px] h-[340px] w-[380px]"
       />
-      <button className="mb-[57px] h-[59px] w-[460px] rounded-[60px] bg-[#2E2F2F] text-[#FFFFFF]">
+      <button
+        className="mb-[57px] h-[59px] w-[460px] rounded-[60px] bg-[#2E2F2F] text-[#FFFFFF]"
+        onClick={() => setStep('question')}
+      >
         테스트 시작하기
       </button>
       {/* 공유하기 파트 */}
-      <div className="mb-[88px] flex">
-        <Icon icon={arrowUp} size={20} className="mr-5" />
+      <div className="mb-[88px] flex items-center">
+        <Icon
+          icon={arrowUp}
+          size={40}
+          className="mr-5"
+          onClick={handleOpenModal}
+        />
         <p onClick={handleOpenModal}>공유하기</p>
         {isModalOpen && (
           <Modal
