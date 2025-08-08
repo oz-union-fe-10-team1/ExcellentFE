@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import { packageMockData } from './mocks/packageMockData'
 
-interface Package {
+export interface Package {
   id: number
   name: string
   slug: string
@@ -18,18 +18,18 @@ interface Package {
   created_at: string
 }
 
-interface CategoryData {
+export interface CategoryData {
   title: string
   description: string
   count: number
   packages: Package[]
 }
 
-interface Categories {
+export interface Categories {
   [key: string]: CategoryData
 }
 
-interface Pagination {
+export interface Pagination {
   page: number
   page_size: number
   total_count: number
@@ -135,12 +135,5 @@ const packageHandlers = [
 
 export default packageHandlers
 
-// 인터페이스들을 외부에서 사용할 수 있도록 export
-export type {
-  Package,
-  CategoryData,
-  Categories,
-  PackageApiResponse,
-  CategoryKey,
-}
-export type { Pagination }
+// PackageApiResponse 타입만 export (다른 타입들은 @/types/home에서 import)
+export type { PackageApiResponse }
