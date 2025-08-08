@@ -6,6 +6,7 @@ import {
 import {
   type RefreshTokenRequest,
   type SocialCallbackRequest,
+  type StateRequest,
 } from '@/types/auth'
 import { http, HttpResponse } from 'msw'
 
@@ -16,10 +17,18 @@ const mockUsers = {
 } as const
 
 export const authHandlers = [
+  http.post('/auth/state', async ({ request }) => {
+    const { state } = (await request.json()) as StateRequest
+
+    if (!state)
+      return HttpResponse.json({ detail: 'state is required' }, { status: 400 })
+
+    return HttpResponse.json({ status: 200 })
+  }),
+
   http.post('/auth/login/:provider', async ({ params, request }) => {
     const { provider } = params
-    const body = (await request.json()) as SocialCallbackRequest
-    const { code, state } = body
+    const { code, state } = (await request.json()) as SocialCallbackRequest
 
     if (!code || !state) {
       return HttpResponse.json(
@@ -38,8 +47,7 @@ export const authHandlers = [
   }),
 
   http.post('/auth/refresh', async ({ request }) => {
-    const body = (await request.json()) as RefreshTokenRequest
-    const { refresh_token } = body
+    const { refresh_token } = (await request.json()) as RefreshTokenRequest
 
     if (!refresh_token) {
       return HttpResponse.json(

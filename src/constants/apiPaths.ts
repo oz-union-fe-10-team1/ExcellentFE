@@ -6,5 +6,6 @@ export const API_PATHS = {
   AUTH: {
     LOGIN: (provider: SocialProvider) => `/auth/login/${provider}`,
     REFRESH: '/auth/refresh',
+    STATE: '/auth/state',
   },
 } as const

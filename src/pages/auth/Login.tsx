@@ -6,7 +6,7 @@ import LogoLeft from '@/assets/logos/logo-login.svg'
 import LogoRight from '@/assets/logos/logo.svg'
 import Button from '@/components/common/Button'
 import Icon from '@/components/common/Icon'
-import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
+import { useSocialLoginURL } from '@/hooks/useSocialLogin'
 import { type SocialProvider } from '@/types/auth'
 import { Link } from 'react-router-dom'
 
@@ -39,10 +39,7 @@ const socialLogins: SocialLogin[] = [
 ]
 
 const Login = () => {
-  const handleSocialLogin = (provider: SocialProvider) => {
-    const state = Math.random().toString(36).substring(2, 11)
-    window.location.href = SOCIAL_LOGIN[provider].getLoginUrl(state)
-  }
+  const { mutate: handleSocialLogin } = useSocialLoginURL()
 
   return (
     <div className="flex h-screen w-full p-5">
