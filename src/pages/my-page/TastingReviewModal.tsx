@@ -125,7 +125,7 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
                 className="hidden"
               />
               <label
-                htmlFor="이미지 업로드"
+                htmlFor="file-upload"
                 className="mt-7 ml-5 flex h-[150px] w-[150px] cursor-pointer items-center justify-center rounded-[10px] bg-[#f2f2f2] transition hover:bg-[#e0e0e0]"
               >
                 <Plus size={24} className="text-[#333]" />
