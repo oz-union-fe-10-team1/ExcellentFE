@@ -1,5 +1,6 @@
-import { socialLogin } from '@/api/auth'
+import { authState, socialLogin } from '@/api/auth'
 import { ROUTE_PATHS } from '@/constants/routePaths'
+import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
 import {
   type SocialCallbackRequest,
   type SocialCallbackResponse,
@@ -9,6 +10,22 @@ import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+
+export const useSocialLoginURL = () => {
+  return useMutation({
+    mutationFn: async (provider: SocialProvider) => {
+      const state = crypto.randomUUID()
+      await authState(state)
+      return SOCIAL_LOGIN[provider].getLoginUrl(state)
+    },
+    onSuccess: (url) => {
+      window.location.href = url
+    },
+    onError: (error) => {
+      console.error('Social Login Error', error)
+    },
+  })
+}
 
 export const useSocialLogin = (provider: SocialProvider) => {
   const navigate = useNavigate()

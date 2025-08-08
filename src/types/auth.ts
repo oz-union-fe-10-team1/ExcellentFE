@@ -1,6 +1,10 @@
 export const SOCIAL_PROVIDERS = ['kakao', 'naver', 'google'] as const
 export type SocialProvider = (typeof SOCIAL_PROVIDERS)[number]
 
+export interface StateRequest {
+  state: string
+}
+
 export interface SocialCallbackRequest {
   code: string
   state: string
