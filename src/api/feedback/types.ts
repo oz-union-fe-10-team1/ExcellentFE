@@ -5,7 +5,7 @@ export interface FeedbackRequest {
   body: number
   confidence: number
   overall_rating: number
-  taste_tag: string
+  taste_tag: string[]
   photo_url?: string
   comment?: string
   files: FileList | null

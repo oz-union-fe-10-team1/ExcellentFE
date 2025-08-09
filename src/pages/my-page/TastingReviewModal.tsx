@@ -2,59 +2,39 @@ import Button from '@/components/common/Button'
 import Modal from '@/components/common/Modal'
 import Slider from '@/components/common/Slider'
 import StarRating from '@/components/common/StarRating'
-import useSubmitFeedback from '@/hooks/useSubmitFeedback'
+import {
+  TASTE_TAGS,
+  MAX_SELECTED_TAGS,
+  TASTE_SLIDERS,
+} from '@/constants/feedbackReview'
+import { useTastingReview } from '@/hooks/useTastingReview'
+import clsx from 'clsx'
 import { Plus } from 'lucide-react'
-import { useState } from 'react'
 
-interface ReviewModalProps {
-  name: string
-}
-
-const TastingReviewModal = ({ name }: ReviewModalProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [review, setReview] = useState({
-    sweetness: 0,
-    acidity: 0,
-    body: 0,
-    confidence: 0,
-    rating: 0,
-  })
-  const [files, setFiles] = useState<FileList | null>(null)
-  const [comment, setComment] = useState('')
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFiles(e.target.files)
-  }
-
-  const mutation = useSubmitFeedback()
-
-  const handleSubmit = () => {
-    mutation.mutate({
-      order_item_id: 123,
-      sweetness: review.sweetness,
-      acidity: review.acidity,
-      body: review.body,
-      confidence: review.confidence,
-      overall_rating: review.rating,
-      taste_tag: '단맛', // TODO: 선택 UI 연결되면 값 넣기
-      comment,
-      files,
-    })
-  }
-
-  const openModal = () => setIsOpen(true)
-  const closeModal = () => setIsOpen(false)
+const TastingReviewModal = ({ name }: { name: string }) => {
+  const {
+    review,
+    comment,
+    selectedTags,
+    isOpen,
+    updateReview,
+    handleFileChange,
+    handleToggleTag,
+    setComment,
+    openModal,
+    closeModal,
+    handleSubmit,
+  } = useTastingReview()
 
   return (
     <>
       <button onClick={openModal}>모달 열기</button>
-
       <Modal
         isOpen={isOpen}
         onClose={closeModal}
         title="시음 후기 작성"
         isCloseable
-        className="w-170"
+        className="h-[900px] w-170 overflow-y-auto"
       >
         <div className="mt-5 flex flex-col items-center justify-center text-lg text-[#666666]">
           <p>제품이 {name}님의 취향에 맞으셨나요?</p>
@@ -68,32 +48,16 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
           <p className="border-b-2 pb-3 text-xl font-bold text-[#333333]">
             시음 평가
           </p>
-          {/* map으로 변경 */}
           <div className="mt-7 flex flex-col items-center gap-7">
-            <Slider
-              label="단맛"
-              variant="sweetness"
-              value={[review.sweetness]}
-              onValueChange={(vals) =>
-                setReview((prev) => ({ ...prev, sweetness: vals[0] ?? 0 }))
-              }
-            />
-            <Slider
-              label="산미"
-              variant="acidity"
-              value={[review.acidity]}
-              onValueChange={(vals) =>
-                setReview((prev) => ({ ...prev, acidity: vals[0] ?? 0 }))
-              }
-            />
-            <Slider
-              label="바디감"
-              variant="body"
-              value={[review.body]}
-              onValueChange={(vals) =>
-                setReview((prev) => ({ ...prev, body: vals[0] ?? 0 }))
-              }
-            />
+            {TASTE_SLIDERS.map((slider) => (
+              <Slider
+                key={slider.key}
+                label={slider.label}
+                variant={slider.variant}
+                value={[review[slider.key]]}
+                onValueChange={(vals) => updateReview(slider.key, vals[0] ?? 0)}
+              />
+            ))}
           </div>
           <div className="mt-12 flex h-43 w-full flex-col justify-center gap-7 bg-[#f2f2f2]">
             <p className="text-center text-xl font-bold text-[#333333]">
@@ -103,9 +67,7 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
               variant="trust"
               max={100}
               value={[review.confidence]}
-              onValueChange={(vals) =>
-                setReview((prev) => ({ ...prev, confidence: vals[0] ?? 0 }))
-              }
+              onValueChange={(vals) => updateReview('confidence', vals[0] ?? 0)}
             />
           </div>
           <div className="mt-12 flex w-full flex-col items-center">
@@ -115,15 +77,34 @@ const TastingReviewModal = ({ name }: ReviewModalProps) => {
               showRatingValue={false}
               className="mt-5"
               rating={review.rating}
-              onChange={(value) =>
-                setReview((prev) => ({ ...prev, rating: value }))
-              }
+              onChange={(value) => updateReview('rating', value)}
             />
           </div>
-          {/* 13개 map 돌릴 예정 */}
-          <div className="mt-12 flex h-6 w-13 items-center justify-center rounded-[3px] border border-[#f2544b] text-center text-[11px] text-[#f2544b]">
-            #과일향
+          <div className="mt-12 flex flex-wrap gap-2">
+            {TASTE_TAGS.map((tag) => {
+              const isSelected = selectedTags.includes(tag.value)
+              return (
+                <button
+                  key={tag.value}
+                  type="button"
+                  onClick={() => handleToggleTag(tag.value)}
+                  className={clsx(
+                    'h-6 w-13 rounded-[3px] border text-[11px] transition',
+                    isSelected
+                      ? 'border-[#f2544b] bg-[#f2544b] text-white'
+                      : 'border-[#f2544b] text-[#f2544b] hover:bg-[#fff1f0]'
+                  )}
+                >
+                  {tag.label}
+                </button>
+              )
+            })}
           </div>
+          <p className="mt-1 text-xs text-[#888]">
+            최대 {MAX_SELECTED_TAGS}개 선택 ({selectedTags.length}/
+            {MAX_SELECTED_TAGS})
+          </p>
+
           <div className="mt-12">
             <p className="border-b-2 pb-3 text-xl font-bold text-[#333333]">
               시음 사진 등록하기 <span className="font-normal">(선택)</span>
