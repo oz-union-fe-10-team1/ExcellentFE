@@ -7,6 +7,7 @@ import instagram from '@/assets/icons/tasteTest/instagram.svg'
 
 import { useState } from 'react'
 import Icon from '@/components/common/Icon'
+import TestButton from './TestButton'
 
 const SNS_SHARE = [
   {
@@ -59,12 +60,13 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
         alt="모은 테스트 메인"
         className="mb-[50px] h-[340px] w-[380px]"
       />
-      <button
-        className="mb-[57px] h-[59px] w-[460px] rounded-[60px] bg-[#2E2F2F] text-[#FFFFFF]"
+      <TestButton
+        className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
         onClick={() => setStep('question')}
       >
         테스트 시작하기
-      </button>
+      </TestButton>
+
       {/* 공유하기 파트 */}
       <div className="mb-[88px] flex items-center">
         <Icon
