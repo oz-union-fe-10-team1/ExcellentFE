@@ -1,6 +1,7 @@
 import { authState, socialLogin } from '@/api/auth'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
+import { useAuthStore } from '@/stores/authStore'
 import {
   type SocialCallbackRequest,
   type SocialCallbackResponse,
@@ -9,17 +10,26 @@ import {
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export const useSocialLoginURL = () => {
+  const [searchParams] = useSearchParams()
+  const redirect = searchParams.get('redirect')
+
   return useMutation({
     mutationFn: async (provider: SocialProvider) => {
       const state = crypto.randomUUID()
       await authState(state)
-      return SOCIAL_LOGIN[provider].getLoginUrl(state)
+
+      // redirect 정보를 state에 포함시킴
+      const stateWithRedirect = redirect ? `${state}:${redirect}` : state
+
+      const url = SOCIAL_LOGIN[provider].getLoginUrl(stateWithRedirect)
+
+      return url
     },
     onSuccess: (url) => {
-      window.location.href = url
+      window.location.replace(url)
     },
     onError: (error) => {
       console.error('Social Login Error', error)
@@ -29,6 +39,12 @@ export const useSocialLoginURL = () => {
 
 export const useSocialLogin = (provider: SocialProvider) => {
   const navigate = useNavigate()
+  const { login } = useAuthStore()
+  const [searchParams] = useSearchParams()
+
+  // state에서 redirect 추출
+  const state = searchParams.get('state')
+  const redirect = state?.includes(':') ? state.split(':')[1] : null
 
   return useMutation({
     mutationFn: (payload: SocialCallbackRequest) =>
@@ -38,7 +54,9 @@ export const useSocialLogin = (provider: SocialProvider) => {
       tokenStorage.setAccessToken(data.access_token)
       tokenStorage.setRefreshToken(data.refresh_token)
 
-      navigate(ROUTE_PATHS.HOME)
+      login()
+
+      navigate(redirect ?? ROUTE_PATHS.HOME, { replace: true })
     },
 
     onError: (error) => {
@@ -52,7 +70,7 @@ export const useSocialLogin = (provider: SocialProvider) => {
       }
       console.error('Social Login Error', error)
 
-      navigate(ROUTE_PATHS.LOGIN)
+      navigate(ROUTE_PATHS.LOGIN, { replace: true })
     },
   })
 }
