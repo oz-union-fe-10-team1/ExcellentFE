@@ -44,7 +44,7 @@ export const useSocialLogin = (provider: SocialProvider) => {
 
   // state에서 redirect 추출
   const state = searchParams.get('state')
-  const redirect = state?.includes(':') ? state.split(':')[1] : null
+  const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
 
   return useMutation({
     mutationFn: (payload: SocialCallbackRequest) =>
