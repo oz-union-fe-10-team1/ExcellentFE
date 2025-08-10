@@ -2,28 +2,24 @@ import CartIcon from '@/assets/icons/header/cart.svg?react'
 import MypageIcon from '@/assets/icons/header/mypage.svg?react'
 import Logo from '@/assets/logos/logo.svg'
 import Icon from '@/components/common/Icon'
+import { ROUTE_PATHS } from '@/constants/routePaths'
 import { Z_INDEX } from '@/foundations/zIndex'
-import { useState } from 'react'
+import { useAuthStore } from '@/stores/authStore'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false)
-
-  /* 로그아웃 UI 체크 용 */
-  const handleLogout = () => {
-    setIsLogin(false)
-  }
+  const { isLoggedIn, logout } = useAuthStore()
 
   const NAV_ITEMS = [
-    { label: '패키지', path: '/package' },
-    { label: '테스트', path: '/test' },
-    { label: '제품 검색', path: '/search' },
-    { label: '후기', path: '/feedback' },
+    { label: '패키지', path: ROUTE_PATHS.PACKAGE },
+    { label: '테스트', path: ROUTE_PATHS.TEST },
+    { label: '제품 검색', path: ROUTE_PATHS.SEARCH },
+    { label: '후기', path: ROUTE_PATHS.FEEDBACK },
   ]
 
   const USER_ICONS = [
-    { label: '마이페이지', icon: MypageIcon, path: '/mypage' },
-    { label: '장바구니', icon: CartIcon, path: '/cart' },
+    { label: '마이페이지', icon: MypageIcon, path: ROUTE_PATHS.MYPAGE },
+    { label: '장바구니', icon: CartIcon, path: ROUTE_PATHS.CART },
   ]
 
   return (
@@ -33,7 +29,7 @@ const Header = () => {
     >
       <div className="flex w-full items-center justify-around">
         {/* 로고 */}
-        <Link to="/" aria-label="홈으로 이동">
+        <Link to={ROUTE_PATHS.HOME} aria-label="홈으로 이동">
           <img src={Logo} alt="모은 한잔취향 로고" />
         </Link>
 
@@ -55,9 +51,9 @@ const Header = () => {
 
           {/* 로그인 / 유저 아이콘 (로그인 전)*/}
           <div className="flex items-center">
-            {!isLogin ? (
+            {!isLoggedIn ? (
               <Link
-                to="/login"
+                to={ROUTE_PATHS.LOGIN}
                 className="h-13 w-41 rounded-[60px] bg-[#f2544b] text-center leading-[52px] font-semibold text-white hover:bg-[#e04439]"
               >
                 로그인/회원가입
@@ -70,7 +66,7 @@ const Header = () => {
                     icon.label === '마이페이지' ? (
                       <Link
                         key={icon.label}
-                        to={icon.path}
+                        to={ROUTE_PATHS.MYPAGE.INDEX}
                         aria-label={icon.label}
                       >
                         <Icon icon={icon.icon} size={32} />
@@ -78,7 +74,7 @@ const Header = () => {
                     ) : (
                       <Link
                         key={icon.label}
-                        to={icon.path}
+                        to={ROUTE_PATHS.CART}
                         aria-label={icon.label}
                       >
                         <Icon icon={icon.icon} size={32} />
@@ -88,7 +84,7 @@ const Header = () => {
                   <button
                     type="button"
                     className="h-13 w-30 cursor-pointer rounded-4xl border border-[#d9d9d9] font-semibold text-[#666666]"
-                    onClick={handleLogout}
+                    onClick={logout}
                   >
                     로그아웃
                   </button>

@@ -15,7 +15,6 @@ const SocialCallback = () => {
 
   useEffect(() => {
     if (!provider || !code || !state) {
-      alert('유효하지 않은 접근입니다. 다시 시도해주세요.')
       navigate(ROUTE_PATHS.LOGIN)
       return
     }

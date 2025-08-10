@@ -1,9 +1,10 @@
 import Layout from '@/components/layout/Layout'
 import MyPageLayout from '@/components/layout/MyPageLayout'
-import HomePage from '@/pages/Index'
+import { ROUTE_PATHS } from '@/constants/routePaths'
 import Login from '@/pages/auth/Login'
 import SocialCallback from '@/pages/auth/SocialCallback'
 import Cart from '@/pages/Cart'
+import HomePage from '@/pages/Index'
 import AccountEdit from '@/pages/my-page/AccountEdit'
 import OrderHistory from '@/pages/my-page/OrderHistory'
 import TasteProfile from '@/pages/my-page/TasteProfile'
@@ -11,23 +12,29 @@ import TastingHistory from '@/pages/my-page/TastingHistory'
 import NotFound from '@/pages/NotFound'
 import Search from '@/pages/Search'
 import TestMain from '@/pages/tasteTest'
+import { useAuthStore } from '@/stores/authStore'
+import { setOnUnauthorized } from '@/utils/axios'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
-import { ROUTE_PATHS } from './constants/routePaths'
-import { setOnUnauthorized } from './utils/axios'
+import { RequireAuth } from './components/RequireAuth'
 
 const queryClient = new QueryClient()
 
 function App() {
   const navigate = useNavigate()
+  const { initializeAuth } = useAuthStore()
 
   useEffect(() => {
     setOnUnauthorized(() => {
       navigate(ROUTE_PATHS.LOGIN)
     })
   }, [navigate])
+
+  useEffect(() => {
+    initializeAuth()
+  }, [])
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -36,17 +43,29 @@ function App() {
         <Route path="/auth/:provider/callback" element={<SocialCallback />} />
 
         <Route element={<Layout />}>
-          {/* 각자 페이지 만들어지면 등록 */}
-          {/* 메인 페이지 라우팅 */}
           <Route path="/" element={<HomePage />} />
           <Route path="package" element={<HomePage />} />
           <Route path="test" element={<TestMain />} />
           <Route path="search" element={<Search />} />
           <Route path="feedback" element={<HomePage />} />
-          <Route path="cart" element={<Cart />} />
+          <Route
+            path="cart"
+            element={
+              <RequireAuth>
+                <Cart />
+              </RequireAuth>
+            }
+          />
 
           {/* 마이페이지 라우팅 */}
-          <Route path="mypage" element={<MyPageLayout />}>
+          <Route
+            path="mypage"
+            element={
+              <RequireAuth>
+                <MyPageLayout />
+              </RequireAuth>
+            }
+          >
             <Route index element={<Navigate to="taste-profile" replace />} />
             <Route path="taste-profile" element={<TasteProfile />} />
             <Route path="account-edit" element={<AccountEdit />} />
