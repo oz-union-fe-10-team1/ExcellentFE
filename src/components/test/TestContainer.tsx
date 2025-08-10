@@ -1,10 +1,13 @@
 import logoTest from '@/assets/logos/logoTest.svg'
 
 import testTestBg from '@/assets/images/tasteTest/testTestBg.png'
+import leftArrow from '@/assets/icons/tasteTest/leftArrow.svg?react'
 
 import { useState } from 'react'
 import MainStep from './MainStep'
 import ProgressStep from './ProgressStep'
+import Icon from '../common/Icon'
+import ResultStep from './ResultStep'
 
 //분기 처리를 위한 테스트 페이지의 가장 큰 컴포넌트
 const TestContainer = () => {
@@ -15,11 +18,13 @@ const TestContainer = () => {
       <div className="mt-[100px] flex flex-col items-center">
         {/* 빨간 박스 */}
         <div className="relative flex h-[70px] w-[560px] items-center justify-center rounded-tl-[20px] rounded-tr-[20px] bg-[#F2544B]">
-          {/* <img
-              src={leftArrow}
-              alt="뒤로가기"
+          {step === 'question' && (
+            <Icon
+              icon={leftArrow}
+              size={30}
               className="absolute left-4 w-[30px]"
-            /> */}
+            />
+          )}
           <img src={logoTest} alt="모은" className="h-[26px] w-[54px]" />
         </div>
         {/* 메인 박스 */}
@@ -31,7 +36,7 @@ const TestContainer = () => {
 
           {step === 'main' && <MainStep step={step} setStep={setStep} />}
           {step === 'question' && <ProgressStep />}
-          {/* {step === 'result' && <ResultStep />} */}
+          {step === 'result' && <ResultStep />}
         </div>
       </div>
       {/* 푸터와의 여백용 파트 */}
