@@ -67,6 +67,14 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
         테스트 시작하기
       </TestButton>
 
+      {/* UI 확인용 (결과) */}
+      <TestButton
+        className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
+        onClick={() => setStep('result')}
+      >
+        결과 확인 하기
+      </TestButton>
+
       {/* 공유하기 파트 */}
       <div className="mb-[88px] flex items-center">
         <Icon
