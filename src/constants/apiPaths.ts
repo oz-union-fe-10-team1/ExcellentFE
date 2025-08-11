@@ -10,6 +10,6 @@ export const API_PATHS = {
   },
 
   PRODUCTS: {
-    SEARCH: 'api/vi/products/search',
+    SEARCH: 'api/v1/products/search',
   },
 } as const
