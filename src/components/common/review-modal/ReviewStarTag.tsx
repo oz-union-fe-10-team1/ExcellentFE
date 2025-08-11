@@ -2,7 +2,7 @@ import Button from '@/components/common/Button'
 import StarRating from '@/components/common/StarRating'
 import { TASTE_TAGS, MAX_SELECTED_TAGS } from '@/constants/feedbackReview'
 import type { TastingReview } from '@/types/feedback'
-import clsx from 'clsx'
+import { cn } from '@/utils/cn'
 
 interface ReviewStarTagProps {
   review: TastingReview
@@ -37,10 +37,11 @@ const ReviewStarTag = ({
               key={tag.value}
               variant="VARIANT10"
               onClick={() => handleToggleTag(tag.value)}
-              className={clsx(
+              className={cn(
+                'border-[#f2544b]',
                 isSelected
-                  ? 'border-[#f2544b] bg-[#f2544b] text-white'
-                  : 'border-[#f2544b] text-[#f2544b] hover:bg-[#fff1f0]'
+                  ? 'bg-[#f2544b] text-white'
+                  : 'text-[#f2544b] hover:bg-[#fff1f0]'
               )}
             >
               {tag.label}
