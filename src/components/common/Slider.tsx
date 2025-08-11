@@ -18,7 +18,7 @@ const Slider = ({
   const displayValue = value?.[0] ?? 0
 
   return (
-    <div className={clsx('flex items-center', className)}>
+    <div className={clsx('flex w-[480px] items-center', className)}>
       <span className="text-5 mr-[44px] w-13 text-center font-bold text-[#333333] select-none">
         {label}
       </span>

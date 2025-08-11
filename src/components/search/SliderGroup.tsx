@@ -29,7 +29,7 @@ const SliderGroup = ({ filters, onSliderChange }: SliderGroupProps) => {
   )
 
   return (
-    <div className="flex gap-[59px]">
+    <div className="flex gap-8">
       {renderSliders(leftSliders)}
       {renderSliders(rightSliders)}
     </div>
