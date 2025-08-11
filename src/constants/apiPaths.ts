@@ -11,8 +11,8 @@ export const API_PATHS = {
 
   PRODUCTS: {
     SEARCH: 'api/v1/products/search',
-    FEEDBACK: {
-      SUBMIT: '/api/v1/feedbacks/',
-    },
-  } as const
-}
+  },
+  FEEDBACK: {
+    SUBMIT: '/api/v1/feedbacks/',
+  },
+} as const
