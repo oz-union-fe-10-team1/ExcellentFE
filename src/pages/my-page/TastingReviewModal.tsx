@@ -19,6 +19,10 @@ const TastingReviewModal = ({ name }: TastingReviewModalProps) => {
     updateReview,
     selectedTags,
     handleToggleTag,
+    comment,
+    setComment,
+    handleFileChange,
+    imagePreviews,
   } = useTastingReview()
 
   return (
@@ -48,7 +52,13 @@ const TastingReviewModal = ({ name }: TastingReviewModalProps) => {
             handleToggleTag={handleToggleTag}
           />
 
-          <ReviewSummaryForm />
+          <ReviewSummaryForm
+            comment={comment}
+            setComment={setComment}
+            handleFileChange={handleFileChange}
+            imagePreviews={imagePreviews}
+          />
+
           <Button variant="VARIANT1" onClick={handleSubmit} className="mt-15">
             소중한 시음 후기 등록하고 적립금 받기
           </Button>
