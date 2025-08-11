@@ -29,7 +29,7 @@ export const TASTE_TAGS = [
   },
   {
     label: '#달콤한',
-    value: 'sweet',
+    value: 'honeyed',
   },
   {
     label: '#묵직한',

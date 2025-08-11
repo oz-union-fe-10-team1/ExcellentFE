@@ -12,7 +12,7 @@ const INITIAL_REVIEW_STATE: TastingReview = {
   rating: 0,
 }
 
-export const useTastingReview = () => {
+const useTastingReview = () => {
   const [review, setReview] = useState<TastingReview>(INITIAL_REVIEW_STATE)
   const [files, setFiles] = useState<FileList | null>(null)
   const [comment, setComment] = useState('')
@@ -40,17 +40,18 @@ export const useTastingReview = () => {
 
   const validateReview = (): boolean => {
     return (
-      review.sweetness > 0 &&
-      review.acidity > 0 &&
-      review.body > 0 &&
-      review.confidence > 0 &&
+      review.sweetness >= 0 &&
+      review.acidity >= 0 &&
+      review.body >= 0 &&
+      review.confidence >= 0 &&
       review.rating > 0
     )
   }
 
   const createSubmitData = (): TastingSubmitData => {
     return {
-      order_item_id: 123, // TODO: 실제 order_item_id로 교체
+      // TODO: 실제 order_item_id로 교체
+      order_item_id: 123,
       sweetness: review.sweetness,
       acidity: review.acidity,
       body: review.body,
@@ -78,6 +79,7 @@ export const useTastingReview = () => {
 
   const handleSubmit = () => {
     if (!validateReview()) {
+      /* TODO: ux적으로 좋지 않음 추후 개선 필요 */
       alert('필수 부분을 모두 입력해주세요.')
       return false
     }
@@ -101,8 +103,7 @@ export const useTastingReview = () => {
     openModal,
     closeModal,
     handleSubmit,
-    validateReview,
-    resetForm,
-    submitError: mutation.error,
   }
 }
+
+export default useTastingReview
