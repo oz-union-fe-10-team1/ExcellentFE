@@ -1,30 +1,39 @@
-import { FEATURE_OPTIONS } from '../constants/search'
-import type { SearchFilters } from '../types/search'
+import { FEATURE_OPTIONS } from '@/constants/search'
+import type { SearchFilters } from '@/types/search'
 
-export const buildSearchParams = (filters: SearchFilters) => {
-  const featuresMap = Object.fromEntries(
+const createFeaturesMap = (): Record<string, string> =>
+  Object.fromEntries(
     FEATURE_OPTIONS.map((option) => [option.label, option.key])
   )
 
-  const selectedFeatureParams = filters.selectedFeatures.map(
-    (label) => featuresMap[label]
-  )
+export const buildSearchParamsRecommended = (
+  filters: SearchFilters
+): string => {
+  const featuresMap = createFeaturesMap()
+  const searchParams = new URLSearchParams()
 
-  const params: Record<string, any> = {}
+  const selectedFeatureParams = filters.selectedFeatures
+    .map((label) => featuresMap[label])
+    .filter(Boolean)
 
-  if (filters.keyword) params.q = filters.keyword
-  if (selectedFeatureParams.length > 0) {
-    params['feature[]'] = selectedFeatureParams
+  // 조건부 파라미터 추가
+  if (filters.keyword) {
+    searchParams.set('q', filters.keyword)
   }
 
-  params.sweetness = filters.sweetness[0]
-  params.acidity = filters.acidity[0]
-  params.body = filters.body[0]
-  params.carbonation = filters.carbonation[0]
-  params.bitterness = filters.bitter[0]
-  params.aroma = filters.aroma[0]
-  params.page = '1'
-  params.page_size = '12'
+  // 배열 파라미터는 forEach로 개별 추가
+  selectedFeatureParams.forEach((feature) => {
+    searchParams.append('feature[]', feature)
+  })
 
-  return new URLSearchParams(params).toString()
+  searchParams.set('sweetness', filters.sweetness[0].toString())
+  searchParams.set('acidity', filters.acidity[0].toString())
+  searchParams.set('body', filters.body[0].toString())
+  searchParams.set('carbonation', filters.carbonation[0].toString())
+  searchParams.set('bitterness', filters.bitter[0].toString())
+  searchParams.set('aroma', filters.aroma[0].toString())
+  searchParams.set('page', '1')
+  searchParams.set('page_size', '12')
+
+  return searchParams.toString()
 }
