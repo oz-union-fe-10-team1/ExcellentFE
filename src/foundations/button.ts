@@ -102,6 +102,17 @@ export const BUTTON_VARIANTS = {
     'text-[#FFFFFF]',
     'text-lg',
   ].join(' '),
+
+  /* 모달 태그 버튼 */
+  VARIANT10: [
+    'h-6',
+    'w-13',
+    'cursor-pointer',
+    'rounded-[3px]',
+    'border',
+    'text-[11px]',
+    'transition',
+  ].join(' '),
 } as const
 
 export const DEFAULT_BUTTON_VARIANT = 'VARIANT1'
