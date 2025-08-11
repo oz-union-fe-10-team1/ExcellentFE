@@ -1,5 +1,6 @@
 import Layout from '@/components/layout/Layout'
 import MyPageLayout from '@/components/layout/MyPageLayout'
+import { RequireAuth } from '@/components/RequireAuth'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import Login from '@/pages/auth/Login'
 import SocialCallback from '@/pages/auth/SocialCallback'
@@ -18,7 +19,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
-import { RequireAuth } from './components/RequireAuth'
 
 const queryClient = new QueryClient()
 
