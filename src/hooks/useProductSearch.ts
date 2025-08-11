@@ -1,6 +1,5 @@
-import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/react-query'
-import { PRODUCTS_SEARCH_PATH } from '@/api/apiPath/productSearchPath'
+import { fetchProducts } from '@/api/searchApi'
 
 export interface ProductType {
   main_image_url: string
@@ -8,10 +7,6 @@ export interface ProductType {
   short_description: string
   price: number
   taste_profile?: TasteFilters
-}
-
-interface ProductSearchResponse {
-  results: ProductType[]
 }
 
 export interface TasteFilters {
@@ -23,26 +18,10 @@ export interface TasteFilters {
   aroma_level: number
 }
 
-type QueryParamValue =
-  | string
-  | number
-  | Array<string | number>
-  | undefined
-  | null
-
-const productSearch = async (
-  params?: Record<string, QueryParamValue>
-): Promise<ProductSearchResponse> => {
-  const res = await axiosInstance.get(PRODUCTS_SEARCH_PATH, {
-    params,
-  })
-  return res.data
-}
-
 export const useProductSearch = (searchParams: Record<string, any> | null) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['SearchList', searchParams],
-    queryFn: () => productSearch(searchParams ?? {}),
+    queryFn: () => fetchProducts(searchParams ?? {}),
     enabled: searchParams !== null,
   })
 
