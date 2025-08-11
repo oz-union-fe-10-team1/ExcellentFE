@@ -6,14 +6,14 @@ export interface ProductType {
   name: string
   short_description: string
   price: number
-  taste_profile?: TasteProfile
+  taste_profile?: TasteFilters
 }
 
 interface ProductSearchResponse {
   results: ProductType[]
 }
 
-export interface TasteProfile {
+export interface TasteFilters {
   sweetness_level: number
   acidity_level: number
   body_level: number
@@ -38,7 +38,7 @@ const productSearch = async (
   return res.data
 }
 
-const useProductSearch = (searchParams: Record<string, any> | null) => {
+export const useProductSearch = (searchParams: Record<string, any> | null) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['SearchList', searchParams],
     queryFn: () => productSearch(searchParams ?? {}),
@@ -51,5 +51,3 @@ const useProductSearch = (searchParams: Record<string, any> | null) => {
     isError,
   }
 }
-
-export default useProductSearch

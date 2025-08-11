@@ -4,7 +4,7 @@ import productFilterMockData from './mocks/productFilterMockData'
 import productSearchMockData from './mocks/productSearchMockData'
 import type { ProductFeatures } from './mocks/productSearchMockData'
 import type { ProductType } from '@/hooks/useProductSearch'
-import type { TasteProfile } from '@/types/search'
+import type { TasteFilters } from '@/hooks/useProductSearch'
 
 const productHandlers = [
   http.get('/api/v1/products', () => {
@@ -30,7 +30,7 @@ const productHandlers = [
       if (!tp) return false
 
       // 필터 중 값이 0이 아닌 슬라이더들만 필터링 대상
-      const tasteFilters: { key: keyof TasteProfile; value: number }[] = [
+      const tasteFilters: { key: keyof TasteFilters; value: number }[] = [
         { key: 'sweetness_level', value: sweetness },
         { key: 'acidity_level', value: acidity },
         { key: 'body_level', value: body },
