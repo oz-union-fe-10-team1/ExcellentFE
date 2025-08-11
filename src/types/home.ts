@@ -1,9 +1,5 @@
 import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
-import type {
-  Package,
-  Categories,
-  Pagination,
-} from '@/mocks/handlers/package/package'
+import type { Package, Categories, Pagination } from '@/types/package'
 
 export interface PackageResponse {
   categories: Categories
