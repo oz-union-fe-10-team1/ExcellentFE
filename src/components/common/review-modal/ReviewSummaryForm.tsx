@@ -1,10 +1,18 @@
-import useTastingReview from '@/hooks/useTastingReview'
 import { Plus } from 'lucide-react'
 
-const ReviewSummaryForm = () => {
-  const { comment, setComment, handleFileChange, imagePreviews } =
-    useTastingReview()
+interface ReviewSummaryFormProps {
+  comment: string
+  setComment: (comment: string) => void
+  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  imagePreviews: string[]
+}
 
+const ReviewSummaryForm = ({
+  comment,
+  setComment,
+  handleFileChange,
+  imagePreviews,
+}: ReviewSummaryFormProps) => {
   return (
     <>
       <div className="mt-12">
