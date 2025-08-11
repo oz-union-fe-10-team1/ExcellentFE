@@ -6,9 +6,10 @@ import Button from '@/components/common/Button'
 import FeatureFilter from '@/components/search/FeatureFilter'
 import SliderGroup from '@/components/search/SliderGroup'
 import SearchResults from '@/components/search/SearchResults'
-import useProductSearch from '@/hooks/useProductSearch'
+import { useProductSearch } from '@/hooks/useProductSearch'
 import { usePagination } from '@/hooks/usePagination'
 import { PAGE_SIZE } from '@/constants/search'
+import type { Product } from '@/types/search'
 
 const Search = () => {
   const [searchParams] = useSearchParams()
@@ -24,7 +25,7 @@ const Search = () => {
   )
 
   const { currentPage, totalPages, paginatedData, handlePageChange } =
-    usePagination({
+    usePagination<Product>({
       items: data?.results ?? [],
       pageSize: PAGE_SIZE,
     })
