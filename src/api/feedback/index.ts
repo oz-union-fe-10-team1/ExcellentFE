@@ -17,7 +17,7 @@ export const feedbackApi = {
     formData.append('body', String(data.body))
     formData.append('confidence', String(data.confidence))
     formData.append('overall_rating', String(data.overall_rating))
-    formData.append('taste_tag', data.taste_tag ?? '')
+    formData.append('taste_tag', (data.taste_tag ?? []).join(','))
     formData.append('comment', data.comment ?? '')
 
     const res = await axios.post('/api/v1/feedbacks/', formData)
