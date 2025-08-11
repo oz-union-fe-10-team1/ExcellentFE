@@ -16,7 +16,7 @@ const MAX_IMAGES = 3
 
 const useTastingReview = () => {
   const [review, setReview] = useState<TastingReview>(INITIAL_REVIEW_STATE)
-  const [files, setFiles] = useState<FileList | null>(null)
+  const [files, setFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [comment, setComment] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -40,10 +40,10 @@ const useTastingReview = () => {
       return
     }
 
-    const dataTransfer = new DataTransfer()
-    if (files) Array.from(files).forEach((file) => dataTransfer.items.add(file))
-    fileArray.forEach((file) => dataTransfer.items.add(file))
-    setFiles(dataTransfer.files)
+    setFiles((prevFiles) => {
+      const newFiles = [...prevFiles, ...fileArray]
+      return newFiles
+    })
 
     fileArray.forEach((file) => {
       const reader = new FileReader()
@@ -52,6 +52,7 @@ const useTastingReview = () => {
       }
       reader.readAsDataURL(file)
     })
+    e.target.value = ''
   }
 
   const handleToggleTag = (tagValue: string) => {
@@ -85,13 +86,13 @@ const useTastingReview = () => {
       overall_rating: review.rating,
       taste_tag: selectedTags,
       comment,
-      files,
+      files: files.length > 0 ? files : null,
     }
   }
 
   const resetForm = () => {
     setReview(INITIAL_REVIEW_STATE)
-    setFiles(null)
+    setFiles([])
     setImagePreviews([])
     setComment('')
     setSelectedTags([])

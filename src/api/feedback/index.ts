@@ -6,8 +6,11 @@ export const feedbackApi = {
   submit: async (data: FeedbackRequest) => {
     const formData = new FormData()
 
-    if (data.files) {
-      Array.from(data.files).forEach((file) => {
+    if (data.files && data.files.length > 0) {
+      const filesArray = Array.isArray(data.files)
+        ? data.files
+        : Array.from(data.files)
+      filesArray.forEach((file) => {
         formData.append('files', file)
       })
     }
@@ -18,7 +21,6 @@ export const feedbackApi = {
     formData.set('body', String(data.body))
     formData.set('confidence', String(data.confidence))
     formData.set('overall_rating', String(data.overall_rating))
-    /* 백엔드 스펙 보고 추후 tag 부분 append or set 결정 */
     formData.set('taste_tag', (data.taste_tag ?? []).join(','))
     formData.set('comment', data.comment ?? '')
 
