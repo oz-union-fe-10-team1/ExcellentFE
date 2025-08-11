@@ -12,9 +12,12 @@ const INITIAL_REVIEW_STATE: TastingReview = {
   rating: 0,
 }
 
+const MAX_IMAGES = 3
+
 const useTastingReview = () => {
   const [review, setReview] = useState<TastingReview>(INITIAL_REVIEW_STATE)
   const [files, setFiles] = useState<FileList | null>(null)
+  const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [comment, setComment] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState(false)
@@ -26,7 +29,29 @@ const useTastingReview = () => {
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFiles(e.target.files)
+    const selectedFiles = e.target.files
+    if (!selectedFiles) return
+
+    const fileArray = Array.from(selectedFiles)
+    const totalCount = imagePreviews.length + fileArray.length
+
+    if (totalCount > MAX_IMAGES) {
+      alert(`최대 ${MAX_IMAGES}개의 이미지만 업로드할 수 있습니다.`)
+      return
+    }
+
+    const dataTransfer = new DataTransfer()
+    if (files) Array.from(files).forEach((file) => dataTransfer.items.add(file))
+    fileArray.forEach((file) => dataTransfer.items.add(file))
+    setFiles(dataTransfer.files)
+
+    fileArray.forEach((file) => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setImagePreviews((prev) => [...prev, reader.result as string])
+      }
+      reader.readAsDataURL(file)
+    })
   }
 
   const handleToggleTag = (tagValue: string) => {
@@ -66,6 +91,7 @@ const useTastingReview = () => {
   const resetForm = () => {
     setReview(INITIAL_REVIEW_STATE)
     setFiles(null)
+    setImagePreviews([])
     setComment('')
     setSelectedTags([])
   }
@@ -96,6 +122,8 @@ const useTastingReview = () => {
     comment,
     selectedTags,
     isOpen,
+    imagePreviews,
+    maxImages: MAX_IMAGES,
     updateReview,
     handleFileChange,
     handleToggleTag,

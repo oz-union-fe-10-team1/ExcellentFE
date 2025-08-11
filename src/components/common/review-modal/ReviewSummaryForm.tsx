@@ -2,31 +2,48 @@ import useTastingReview from '@/hooks/useTastingReview'
 import { Plus } from 'lucide-react'
 
 const ReviewSummaryForm = () => {
-  const { comment, setComment, handleFileChange } = useTastingReview()
+  const { comment, setComment, handleFileChange, imagePreviews } =
+    useTastingReview()
+
   return (
     <>
       <div className="mt-12">
         <p className="border-b-2 pb-3 text-xl font-bold text-[#333333]">
           시음 사진 등록하기 <span className="font-normal">(선택)</span>
         </p>
-        <div>
-          <input
-            id="file-upload"
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          <label
-            htmlFor="file-upload"
-            className="mt-7 ml-5 flex h-[150px] w-[150px] cursor-pointer items-center justify-center rounded-[10px] bg-[#f2f2f2] transition hover:bg-[#e0e0e0]"
-            aria-label="사진 등록"
-          >
-            <Plus size={24} className="text-[#333]" />
-          </label>
+        <div className="mt-7">
+          <div className="flex flex-wrap gap-4">
+            {imagePreviews.map((preview, index) => (
+              <div key={index} className="relative">
+                <img
+                  src={preview}
+                  alt={`미리보기 ${preview.length - index}`}
+                  className="h-[150px] w-[150px] rounded-[10px] object-cover"
+                />
+              </div>
+            ))}
+
+            <div>
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <label
+                htmlFor="file-upload"
+                className="ml-5 flex h-[150px] w-[150px] cursor-pointer items-center justify-center rounded-[10px] bg-[#f2f2f2] transition hover:bg-[#e0e0e0]"
+                aria-label="사진 등록"
+              >
+                <Plus size={24} className="text-[#333]" />
+              </label>
+            </div>
+          </div>
         </div>
       </div>
+
       <div className="mt-12">
         <p className="border-b-2 pb-3 text-xl font-bold text-[#333333]">
           시음 한 줄 평 <span className="font-normal">(선택)</span>
