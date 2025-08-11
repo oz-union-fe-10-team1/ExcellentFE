@@ -8,8 +8,14 @@ export const API_PATHS = {
     REFRESH: '/auth/refresh',
     STATE: '/auth/state',
   },
-
   PRODUCTS: {
+    LIST: '/api/v1/products',
+  },
+  PACKAGES: {
+    LIST: '/api/v1/packages/',
+  },
+
+  SEARCHPRODUCTS: {
     SEARCH: 'api/v1/products/search',
   },
 } as const

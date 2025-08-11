@@ -1,46 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import { packageMockData } from './mocks/packageMockData'
-
-export interface Package {
-  id: number
-  name: string
-  slug: string
-  short_description: string
-  category: string
-  main_image: string
-  total_original_price: number
-  discount_rate: number
-  discount_amount: number
-  final_price: number
-  is_featured: boolean
-  view_count: number
-  order_count: number
-  created_at: string
-}
-
-export interface CategoryData {
-  title: string
-  description: string
-  count: number
-  packages: Package[]
-}
-
-export interface Categories {
-  [key: string]: CategoryData
-}
-
-export interface Pagination {
-  page: number
-  page_size: number
-  total_count: number
-  total_pages: number
-}
-
-// 페이지네이션된 API 응답 인터페이스 정의
-interface PackageApiResponse {
-  categories: Categories | Partial<Categories>
-  pagination?: Pagination
-}
+import type { Package, Categories, PackageApiResponse } from '@/types/package'
 
 type CategoryKey = keyof typeof packageMockData.categories
 
@@ -134,5 +94,3 @@ const packageHandlers = [
 ]
 
 export default packageHandlers
-
-export type { PackageApiResponse }
