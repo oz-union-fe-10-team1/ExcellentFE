@@ -69,7 +69,8 @@ const useTastingReview = () => {
       review.acidity >= 0 &&
       review.body >= 0 &&
       review.confidence >= 0 &&
-      review.rating > 0
+      review.rating > 0 &&
+      selectedTags.length > 0
     )
   }
 
