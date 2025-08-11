@@ -32,8 +32,9 @@ const Slider = ({
           onValueChange={onValueChange}
           max={max}
           step={step}
+          /* cursor-pointer 추가 소연님한테 여쭤보기 */
           className={clsx(
-            'relative flex h-[20px] w-[308px] touch-none items-center select-none',
+            'relative flex h-[20px] w-[308px] cursor-pointer touch-none items-center select-none',
             className
           )}
         >
