@@ -19,7 +19,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
-import PackagePage from './pages/PackagePage'
+import PackagePage from '@/pages/Package'
 
 const queryClient = new QueryClient()
 

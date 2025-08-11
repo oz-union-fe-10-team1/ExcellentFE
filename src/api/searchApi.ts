@@ -16,7 +16,7 @@ type QueryParamValue =
 export async function fetchProducts(
   params?: Record<string, QueryParamValue>
 ): Promise<ProductSearchResponse> {
-  const res = await axiosInstance.get(API_PATHS.PRODUCTS.SEARCH, {
+  const res = await axiosInstance.get(API_PATHS.SEARCHPRODUCTS.SEARCH, {
     params,
   })
   return res.data
