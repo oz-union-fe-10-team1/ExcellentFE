@@ -135,5 +135,4 @@ const packageHandlers = [
 
 export default packageHandlers
 
-// PackageApiResponse 타입만 export (다른 타입들은 @/types/home에서 import)
 export type { PackageApiResponse }

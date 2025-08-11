@@ -19,6 +19,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
+import PackagePage from './pages/PackagePage'
 
 const queryClient = new QueryClient()
 
@@ -44,7 +45,7 @@ function App() {
 
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="package" element={<HomePage />} />
+          <Route path="package" element={<PackagePage />} />
           <Route path="test" element={<TestMain />} />
           <Route path="search" element={<Search />} />
           <Route path="feedback" element={<HomePage />} />
