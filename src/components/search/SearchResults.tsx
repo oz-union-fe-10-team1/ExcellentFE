@@ -1,4 +1,4 @@
-import CardList from '@/components/common/CardList'
+import CardList from '@/components/common/cards/CardList'
 import Pagination from '@/components/common/Pagination'
 import type { SearchResultsProps } from '@/types/search'
 
@@ -26,6 +26,7 @@ const SearchResults = ({
     return (
       <div>
         <CardList
+          type="default"
           cards={data.map((product) => ({
             imgSrc: product.main_image_url,
             imgAlt: product.name,
