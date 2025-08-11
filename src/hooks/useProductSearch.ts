@@ -1,5 +1,6 @@
-import axios from 'axios'
+import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/react-query'
+import { PRODUCTS_SEARCH_PATH } from '@/api/apiPath/productSearchPath'
 
 export interface ProductType {
   main_image_url: string
@@ -32,7 +33,7 @@ type QueryParamValue =
 const productSearch = async (
   params?: Record<string, QueryParamValue>
 ): Promise<ProductSearchResponse> => {
-  const res = await axios.get('/api/v1/products/search/', {
+  const res = await axiosInstance.get(PRODUCTS_SEARCH_PATH, {
     params,
   })
   return res.data
