@@ -1,5 +1,5 @@
 import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
-import type { Package } from '@/mocks/handlers/package/package'
+import type { Package } from '@/types/package'
 import type { CardBaseProps } from '@/types/cardProps'
 
 export class HomeUtils {
