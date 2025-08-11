@@ -132,8 +132,8 @@ const Search = () => {
               </li>
             ))}
           </ul>
-          <div className="flex gap-[59px]">
-            <div className="flex h-[181px] flex-col justify-between gap-[30px]">
+          <div className="flex gap-8">
+            <div className="flex h-[181px] w-[480px] flex-col justify-between gap-[30px]">
               {leftSliders.map(({ id, label, value, setter }) => (
                 <Slider
                   key={id}
@@ -145,7 +145,7 @@ const Search = () => {
               ))}
             </div>
 
-            <div className="flex h-[181px] flex-col justify-between gap-[30px]">
+            <div className="flex h-[181px] w-[480px] flex-col justify-between gap-[30px]">
               {rightSliders.map(({ id, label, value, setter }) => (
                 <Slider
                   key={id}
