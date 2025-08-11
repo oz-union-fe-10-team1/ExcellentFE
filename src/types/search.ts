@@ -40,3 +40,12 @@ export interface SliderGroupProps {
   filters: SearchFilters
   onSliderChange: (key: keyof SearchFilters, value: number[]) => void
 }
+
+export interface TasteProfile {
+  sweetness_level: number
+  acidity_level: number
+  body_level: number
+  carbonation_level: number
+  bitterness_level: number
+  aroma_level: number
+}

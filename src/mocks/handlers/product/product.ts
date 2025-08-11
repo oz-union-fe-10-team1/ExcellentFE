@@ -4,6 +4,7 @@ import productFilterMockData from './mocks/productFilterMockData'
 import productSearchMockData from './mocks/productSearchMockData'
 import type { ProductFeatures } from './mocks/productSearchMockData'
 import type { ProductType } from '@/hooks/useProductSearch'
+import type { TasteProfile } from '@/types/search'
 
 const productHandlers = [
   http.get('/api/v1/products', () => {
@@ -24,23 +25,25 @@ const productHandlers = [
     const aroma = Number(searchParams.get('aroma')) || 0
 
     const matchesTaste = (item: ProductType) => {
-      const tp = item.taste_profile || {}
+      const tp = item.taste_profile
+
+      if (!tp) return false
 
       // 필터 중 값이 0이 아닌 슬라이더들만 필터링 대상
-      const tasteFilters = [
+      const tasteFilters: { key: keyof TasteProfile; value: number }[] = [
         { key: 'sweetness_level', value: sweetness },
         { key: 'acidity_level', value: acidity },
         { key: 'body_level', value: body },
         { key: 'carbonation_level', value: carbonation },
         { key: 'bitterness_level', value: bitterness },
         { key: 'aroma_level', value: aroma },
-      ].filter((f) => f.value && f.value !== 0)
+      ] as const
 
       // 필터가 없으면 다 포함
       if (tasteFilters.length === 0) return true
 
       // tasteFilters 중 한 개라도 일치하면 true
-      return tasteFilters.some(({ key, value }) => (tp as any)[key] === value)
+      return tasteFilters.some(({ key, value }) => tp[key] === value)
     }
 
     const filteredData = productSearchMockData.results.filter((item) => {

@@ -1,6 +1,6 @@
 import SearchForm from '@/components/search/SearchForm'
 import { useSearchFilters } from '@/hooks/useSearchFilters'
-import { buildSearchParams } from '@/utils/searchParams'
+import { buildSearchParamsRecommended } from '@/utils/searchParams'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Button from '@/components/common/Button'
 import FeatureFilter from '@/components/search/FeatureFilter'
@@ -30,7 +30,7 @@ const Search = () => {
     })
 
   const handleSearch = () => {
-    const queryString = buildSearchParams(filters)
+    const queryString = buildSearchParamsRecommended(filters)
     navigate(`/search?${queryString}`)
   }
 
