@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import CardList from '@/components/common/cards/CardList'
 import Carousel from '@/components/common/Carousel'
 import Button from '@/components/common/Button'
-import { useProducts, usePackages } from '@/hooks/useProduct'
+import { useProducts, usePackages } from '@/hooks/useHomePage'
 import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/mainPage/banner.png'
 

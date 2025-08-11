@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { HomeApi } from '@/api/productApi'
+import { fetchProducts, fetchPackages } from '@/api/productApi'
 
 // 상품 데이터 훅
 export const useProducts = () => {
   return useQuery({
     queryKey: ['products'],
-    queryFn: HomeApi.fetchProducts,
+    queryFn: fetchProducts,
     staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // 지수 백오프
@@ -16,7 +16,7 @@ export const useProducts = () => {
 export const usePackages = () => {
   return useQuery({
     queryKey: ['packages', 'featured'],
-    queryFn: HomeApi.fetchPackages,
+    queryFn: fetchPackages,
     staleTime: 5 * 60 * 1000, // 5분간 캐시 유지
     retry: 3,
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000), // 지수 백오프
