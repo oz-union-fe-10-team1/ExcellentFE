@@ -91,7 +91,7 @@ const PackagePage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* 히어로 섹션 */}
-      <section className="relative h-[650px]">
+      <section className="relative h-[500px]">
         <div
           className="absolute inset-0 h-full w-full bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url('${banner}')` }}
@@ -99,15 +99,15 @@ const PackagePage = () => {
         <div className="relative z-10 container mx-auto flex h-full items-center">
           <div className="max-w-2xl">
             <p className="mb-[30px] text-xl text-[#333333]">
-              2025년 추천신상 선별
+              2025년 주류대상 선정
             </p>
             <h1 className="mb-10 text-[40px] font-bold text-[#333333]">
               <span className="mb-2 block">
-                오직 {}만의 취향을 반영한 패키지
+                한 잔 취향의 특별한 인천 패키지
               </span>
             </h1>
             <Link to={`/packages/detail/${featuredPackageId}`}>
-              <Button variant="VARIANT9">구매하러 가기</Button>
+              <Button variant="VARIANT9">구매하기</Button>
             </Link>
           </div>
         </div>
@@ -116,19 +116,15 @@ const PackagePage = () => {
       {/* 추천 패키지 섹션 */}
       <section className="py-16">
         <div className="container mx-auto">
-          <div className="flex flex-row items-start gap-12">
-            <div className="w-80 flex-shrink-0">
-              <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-                추천 패키지
-              </h2>
-              <p className="text-[#666666]">
-                술에 입문하려는 사람에게 만족감 패키지
-              </p>
-            </div>
-            <div className="flex-1">
-              <CardList type="default" cards={recommendedCards} />
-            </div>
+          <div className="mb-12">
+            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
+              추천 패키지
+            </h2>
+            <p className="text-[#666666]">
+              오직 김오즈만의 취향을 반영한 패키지
+            </p>
           </div>
+          <CardList type="default" cards={recommendedCards} />
         </div>
       </section>
 
@@ -137,7 +133,7 @@ const PackagePage = () => {
         <div className="container mx-auto">
           <div className="mb-12">
             <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              주류 대상 수상 등급 패키지
+              주류 대상 수상 5종 패키지
             </h2>
             <p className="text-[#666666]">수상 대상 수상 등급 패키지</p>
           </div>
@@ -152,7 +148,7 @@ const PackagePage = () => {
             <h2 className="mb-4 text-3xl font-bold text-[#333333]">
               막걸리 패키지
             </h2>
-            <p className="text-[#666666]">막걸리 애호가들을 위한 전통 패키지</p>
+            <p className="text-[#666666]">막걸리 러버들을 위한 전용 패키지</p>
           </div>
           <CardList type="default" cards={makgeolliCards} />
         </div>
@@ -166,7 +162,7 @@ const PackagePage = () => {
               지역 특산주 패키지
             </h2>
             <p className="text-[#666666]">
-              대한민국 각 지역을 대표하는 한국 술 패키지
+              대한민국 방방곡곡을 대표하는 전통주 패키지
             </p>
           </div>
           <CardList type="default" cards={regionalCards} />
