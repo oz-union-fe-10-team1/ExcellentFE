@@ -1,11 +1,30 @@
+import useTasteTest from '@/hooks/useTasteTest'
 import TestButton from './TestButton'
+import { useState } from 'react'
 
 const ProgressStep = () => {
+  const { data, isLoading, isError } = useTasteTest()
+  // const [testNum, setTestNum] = useState(1)
+
+  //테스트 단계
+  const [first, setFirst] = useState(true)
+
   return (
     <div className="flex flex-col items-center">
-      <p className="mt-[80px] mb-[127px] text-[#666666]">문항 번호</p>
-      <p className="mb-3.5 text-[26px] font-bold">Q문항번호</p>
-      <p className="mb-[60px] text-[26px]">문항제목</p>
+      {first && (
+        <>
+          <p className="mt-[80px] mb-[127px] text-[#666666]">
+            {data?.questions[0].id}/ 6
+          </p>
+          <p className="mb-3.5 text-[26px] font-bold">
+            Q{data.questions[0].id}.
+          </p>
+          <p className="mb-[60px] text-[26px]">
+            {data?.questions[0].question_text}
+          </p>
+        </>
+      )}
+
       <TestButton className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]">
         문항 답변A
       </TestButton>
