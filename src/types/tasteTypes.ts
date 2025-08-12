@@ -33,22 +33,15 @@ export interface TasteTestProfile {
 }
 
 // 테스트 칠문 타입
+
 export interface TestQuestionType {
-  test: {
-    id: number
-    title: string
-    description: string
+  id: string
+  question: string
+  options: {
+    A: string
+    B: string
   }
-  questions: {
-    id: number
-    question_text: string
-    sequence: number
-    answers: {
-      id: number
-      answer_text: string
-    }[]
-  }[]
-  total_questions: number
-  instructions: string
-  estimated_time: string
 }
+
+//테스트 타입
+export type TestType = 'main' | 'question' | 'result'
