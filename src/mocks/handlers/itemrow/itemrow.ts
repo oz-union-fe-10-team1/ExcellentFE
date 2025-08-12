@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import CartMockData from './mocks/cartMockData'
 import historyMockData from './mocks/historyMockData'
+import { orderMockData } from './mocks/orderMockData'
 
 export interface updateQuantityType {
   item_id: number
@@ -22,6 +23,9 @@ const itemRowHandlers = [
       item_id: body.item_id,
       quantity: body.quantity,
     })
+  }),
+  http.get('/orders/list/', () => {
+    return HttpResponse.json(orderMockData)
   }),
 ]
 
