@@ -5,7 +5,7 @@ import { ROUTE_PATHS } from '@/constants/routePaths'
 import Login from '@/pages/auth/Login'
 import SocialCallback from '@/pages/auth/SocialCallback'
 import Cart from '@/pages/Cart'
-import Home from './pages/Index'
+import Home from '@/pages/Index'
 import AccountEdit from '@/pages/my-page/AccountEdit'
 import OrderHistory from '@/pages/my-page/OrderHistory'
 import TasteProfile from '@/pages/my-page/TasteProfile'
@@ -19,7 +19,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
-import Package from './pages/Package'
+import Package from '@/pages/Package'
 
 const queryClient = new QueryClient()
 
