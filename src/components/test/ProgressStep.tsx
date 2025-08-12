@@ -27,6 +27,16 @@ const ProgressStep = ({ step, setStep }: ProgressStepProps) => {
   const [fifthAnswer, setFifthAnswer] = useState('')
   const [sixthAnswer, setSixthAnswer] = useState('')
 
+  //빌드오류 해결 위해 우선 값 사용
+  console.log(
+    firstAnswer,
+    secondAnswer,
+    thirdAnswer,
+    fourthAnswer,
+    fifthAnswer,
+    sixthAnswer,
+    step
+  )
   if (isLoading) {
     return <div>로딩 중...</div>
   }
