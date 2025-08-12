@@ -36,7 +36,19 @@ const ItemRowList = (props: CartItemRowProps) => {
       }
 
     case 'order':
-      return <OrderItemRow {...props} />
+      return (
+        <OrderItemRow
+          id={props.id}
+          key={props.id}
+          order={props.order_date}
+          img={props.product?.main_image_url || ''}
+          name={props.product?.name || ''}
+          quantity={props.quantity || 0}
+          price={props.price || '0'}
+          feedback_id={props?.feedback_id || null}
+          user="임시"
+        />
+      )
 
     case 'tasting': {
       const { product, order_item, comment } = props

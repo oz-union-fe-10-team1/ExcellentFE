@@ -62,6 +62,10 @@ export interface ItemRowType {
 
   single_items?: CartSingleItem[]
   packages?: CartPackageItem[]
+
+  order_date?: string
+  feedback_id?: number | null
+  user?: string
 }
 
 export interface CartItemRowProps extends ItemRowType {
