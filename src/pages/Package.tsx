@@ -11,7 +11,7 @@ import {
 import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/packagePage/package-banner.png'
 
-const PackagePage = () => {
+const Package = () => {
   const {
     data: recommendedPackages = [],
     isLoading: recommendedLoading,
@@ -120,9 +120,7 @@ const PackagePage = () => {
             <h2 className="mb-4 text-3xl font-bold text-[#333333]">
               추천 패키지
             </h2>
-            <p className="text-[#666666]">
-              오직 김오즈만의 취향을 반영한 패키지
-            </p>
+            <p className="text-[#666666]">오직 {}의 취향을 반영한 패키지</p>
           </div>
           <CardList type="default" cards={recommendedCards} />
         </div>
@@ -172,4 +170,4 @@ const PackagePage = () => {
   )
 }
 
-export default PackagePage
+export default Package
