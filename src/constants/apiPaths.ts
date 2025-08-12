@@ -25,4 +25,8 @@ export const API_PATHS = {
   SEARCHPRODUCTS: {
     SEARCH: 'api/v1/products/search',
   },
+
+  TEST: {
+    GETTEST: '/taste-test/questions',
+  },
 } as const
