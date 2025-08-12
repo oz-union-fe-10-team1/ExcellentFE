@@ -21,6 +21,7 @@ export const feedbackApi = {
     formData.set('body', String(data.body))
     formData.set('confidence', String(data.confidence))
     formData.set('overall_rating', String(data.overall_rating))
+    /* TODO: 서버 상태에 따라서 수정해야 함 */
     formData.set('taste_tag', (data.taste_tag ?? []).join(','))
     formData.set('comment', data.comment ?? '')
 

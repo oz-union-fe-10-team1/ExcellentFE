@@ -71,7 +71,7 @@ const useTastingReview = () => {
       review.body >= 0 &&
       review.confidence >= 0 &&
       review.rating > 0 &&
-      selectedTags.length > 0
+      selectedTags.length > 2
     )
   }
 
