@@ -6,7 +6,7 @@ import leftArrow from '@/assets/icons/tasteTest/leftArrow.svg?react'
 import { useState } from 'react'
 import MainStep from './MainStep'
 import ProgressStep from './ProgressStep'
-import Icon from '../common/Icon'
+import Icon from '@/components/common/Icon'
 import ResultStep from './ResultStep'
 
 //분기 처리를 위한 테스트 페이지의 가장 큰 컴포넌트
@@ -35,7 +35,9 @@ const TestContainer = () => {
           {/* 분기처리 */}
 
           {step === 'main' && <MainStep step={step} setStep={setStep} />}
-          {step === 'question' && <ProgressStep />}
+          {step === 'question' && (
+            <ProgressStep step={step} setStep={setStep} />
+          )}
           {step === 'result' && <ResultStep />}
         </div>
       </div>
