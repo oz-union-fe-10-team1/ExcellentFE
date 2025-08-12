@@ -8,6 +8,7 @@ import instagram from '@/assets/icons/tasteTest/instagram.svg'
 import { useState } from 'react'
 import Icon from '@/components/common/Icon'
 import TestButton from './TestButton'
+import type { TestType } from '@/types/tasteTypes'
 
 const SNS_SHARE = [
   {
@@ -26,8 +27,6 @@ const SNS_SHARE = [
     label: '인스타그램 공유',
   },
 ]
-
-type TestType = 'main' | 'question' | 'result'
 
 interface MainStepProps {
   step: TestType
@@ -65,14 +64,6 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
         onClick={() => setStep('question')}
       >
         테스트 시작하기
-      </TestButton>
-
-      {/* UI 확인용 (결과) */}
-      <TestButton
-        className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-        onClick={() => setStep('result')}
-      >
-        결과 확인 하기
       </TestButton>
 
       {/* 공유하기 파트 */}
