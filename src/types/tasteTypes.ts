@@ -7,6 +7,8 @@ export type TasteType =
   | 'bitterness_level'
   | 'aroma_level'
 
+export type TasteScoreMap = Record<TasteType, number>
+
 // 맛 점수 데이터 타입
 export interface TasteScore {
   type: TasteType
@@ -17,4 +19,15 @@ export interface TasteScore {
 export interface TasteMeta {
   label: string
   color: string
+}
+
+export interface TasteTestProfile {
+  user: string
+  has_test: boolean
+  id: number
+  prefer_taste: string
+  prefer_taste_display: string
+  taste_description: string
+  image_url: string
+  created_at: string
 }

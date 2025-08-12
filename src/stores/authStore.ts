@@ -1,8 +1,11 @@
+import { getUser } from '@/api/user'
+import type { UserResponse } from '@/types/user'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { create } from 'zustand'
 
 interface AuthState {
   isLoggedIn: boolean
+  user: UserResponse | null
   login: () => void
   logout: () => void
   initializeAuth: () => void
@@ -10,15 +13,22 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
+  user: null,
 
-  login: () => {
+  login: async () => {
     set({ isLoggedIn: true })
+    const user = await getUser()
+    try {
+      set({ user, isLoggedIn: true })
+    } catch (error) {
+      set({ isLoggedIn: false, user: null })
+    }
   },
 
   logout: () => {
     tokenStorage.removeAccessToken()
     tokenStorage.removeRefreshToken()
-    set({ isLoggedIn: false })
+    set({ isLoggedIn: false, user: null })
   },
 
   initializeAuth: () => {

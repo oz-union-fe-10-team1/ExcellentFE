@@ -5,8 +5,15 @@ export const BASE_URL = import.meta.env.VITE_API_URL
 export const API_PATHS = {
   AUTH: {
     LOGIN: (provider: SocialProvider) => `/auth/login/${provider}`,
-    REFRESH: '/auth/refresh',
     STATE: '/auth/state',
+    REFRESH: '/auth/refresh',
+  },
+  USER: '/user',
+  TASTE_TEST: {
+    PROFILE: '/taste-test/profile',
+  },
+  FEEDBACK: {
+    PROFILE: '/feedback/profile',
   },
   PRODUCTS: {
     LIST: '/api/v1/products',

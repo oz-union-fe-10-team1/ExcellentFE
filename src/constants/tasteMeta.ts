@@ -2,7 +2,7 @@ import type { TasteMeta, TasteType } from '@/types/tasteTypes'
 
 // 각 타입에 대한 색상 + 라벨 정의
 export const tasteMetaMap: Record<TasteType, TasteMeta> = {
-  sweetness_level: { label: '단 맛', color: '#F2544B' },
+  sweetness_level: { label: '단맛', color: '#F2544B' },
   acidity_level: { label: '산 미', color: '#99B278' },
   body_level: { label: '바디감', color: '#3C72B4' },
   carbonation_level: { label: '탄산감', color: '#8C6BB1' },

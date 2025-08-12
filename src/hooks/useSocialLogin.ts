@@ -1,4 +1,5 @@
 import { authState, socialLogin } from '@/api/auth'
+import { ERROR_MESSAGE } from '@/constants/message'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
 import { useAuthStore } from '@/stores/authStore'
@@ -7,9 +8,9 @@ import {
   type SocialCallbackResponse,
   type SocialProvider,
 } from '@/types/auth'
+import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export const useSocialLoginURL = () => {
@@ -23,16 +24,16 @@ export const useSocialLoginURL = () => {
 
       // redirect 정보를 state에 포함시킴
       const stateWithRedirect = redirect ? `${state}:${redirect}` : state
-
       const url = SOCIAL_LOGIN[provider].getLoginUrl(stateWithRedirect)
-
       return url
     },
+
     onSuccess: (url) => {
       window.location.replace(url)
     },
+
     onError: (error) => {
-      console.error('Social Login Error', error)
+      showError(getAxiosErrorMessage(error) ?? ERROR_MESSAGE.LOGIN_FAILED)
     },
   })
 }
@@ -55,21 +56,11 @@ export const useSocialLogin = (provider: SocialProvider) => {
       tokenStorage.setRefreshToken(data.refresh_token)
 
       login()
-
       navigate(redirect ?? ROUTE_PATHS.HOME, { replace: true })
     },
 
     onError: (error) => {
-      if (axios.isAxiosError(error)) {
-        const message = error.response?.data?.detail
-        alert(
-          message ?? `${provider} 로그인에 실패했습니다. 다시 시도해주세요.`
-        )
-      } else {
-        alert(`${provider} 로그인에 실패했습니다. 다시 시도해주세요.`)
-      }
-      console.error('Social Login Error', error)
-
+      showError(getAxiosErrorMessage(error) ?? ERROR_MESSAGE.LOGIN_FAILED)
       navigate(ROUTE_PATHS.LOGIN, { replace: true })
     },
   })
