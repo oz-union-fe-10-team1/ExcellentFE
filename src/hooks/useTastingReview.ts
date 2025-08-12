@@ -14,7 +14,7 @@ const INITIAL_REVIEW_STATE: TastingReview = {
 
 const MAX_IMAGES = 3
 
-const useTastingReview = () => {
+const useTastingReview = (orderItemId?: number, onClose?: () => void) => {
   const [review, setReview] = useState<TastingReview>(INITIAL_REVIEW_STATE)
   const [files, setFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
@@ -77,8 +77,7 @@ const useTastingReview = () => {
 
   const createSubmitData = (): TastingSubmitData => {
     return {
-      // TODO: 실제 order_item_id로 교체
-      order_item_id: 123,
+      order_item_id: Number(orderItemId ?? 0),
       sweetness: review.sweetness,
       acidity: review.acidity,
       body: review.body,
@@ -112,11 +111,22 @@ const useTastingReview = () => {
       return false
     }
 
+    if (!orderItemId) {
+      alert('유효하지 않은 주문 항목입니다.')
+      return false
+    }
+
     const submitData = createSubmitData()
     mutation.mutate(submitData as FeedbackRequest)
     resetForm()
     closeModal()
     return true
+  }
+
+  const handleSubmitAndClose = () => {
+    if (handleSubmit()) {
+      onClose?.()
+    }
   }
 
   return {
@@ -133,6 +143,7 @@ const useTastingReview = () => {
     openModal,
     closeModal,
     handleSubmit,
+    handleSubmitAndClose,
   }
 }
 
