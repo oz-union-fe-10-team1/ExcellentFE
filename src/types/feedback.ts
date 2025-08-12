@@ -1,3 +1,5 @@
+import type { TasteScoreMap } from '@/types/tasteTypes'
+
 export interface TastingReview {
   sweetness: number
   acidity: number
@@ -16,4 +18,10 @@ export interface TastingSubmitData {
   taste_tag: string[]
   comment?: string
   files?: File[] | null
+}
+
+export interface FeedbackProfile {
+  id: number
+  taste_scores: TasteScoreMap
+  description: string
 }

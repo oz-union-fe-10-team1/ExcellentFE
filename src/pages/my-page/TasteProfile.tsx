@@ -1,13 +1,45 @@
-import profileImage from '@/assets/decorations/taste-profile/profile-image.svg'
-import summaryIcon from '@/assets/icons/taste-profile/summary.svg?react'
 import RefreshIcon from '@/assets/icons/taste-profile/refresh.svg?react'
+import summaryIcon from '@/assets/icons/taste-profile/summary.svg?react'
+import { GaugeBar } from '@/components/common/GaugeBar'
 import Icon from '@/components/common/Icon'
+import { ROUTE_PATHS } from '@/constants/routePaths'
+import { useFeedbackProfile } from '@/hooks/feedback/useFeedbackProfile'
+import { useTasteTestProfile } from '@/hooks/taste-test/useTasteTestProfile'
+import type { TasteType } from '@/types/tasteTypes'
+import { cn } from '@/utils/cn'
+import { insertLineBreaks } from '@/utils/stringUtils'
 import { ChevronDown } from 'lucide-react'
-// import { LikeCounts } from '@/components/common/LikeCounts';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const TasteProfile = () => {
+  const {
+    data: tasteTestProfileData,
+    isLoading: isTasteTestLoading,
+    isError: isTasteTestError,
+  } = useTasteTestProfile()
+  const {
+    data: feedbackProfileData,
+    isLoading: isFeedbackLoading,
+    isError: isFeedbackError,
+  } = useFeedbackProfile()
+
+  const { user, has_test, prefer_taste_display, taste_description, image_url } =
+    tasteTestProfileData ?? {}
+  const { taste_scores, description: feedbackDescription } =
+    feedbackProfileData ?? {}
+  const sortedTasteScores = Object.entries(taste_scores ?? {}).sort(
+    (a, b) => b[1] - a[1]
+  )
+  const [isExpanded, setIsExpanded] = useState(false)
+  const navigate = useNavigate()
+
+  if (isTasteTestError || isFeedbackError) {
+    return <div>정보를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.</div>
+  }
+
   return (
-    <div>
+    <div className="whitespace-pre-wrap">
       <div className="mb-25 w-320">
         <div className="mb-5 flex justify-between border-b-2 pb-3">
           <h1 className="text-2xl font-bold text-[#333333]">
@@ -21,46 +53,81 @@ const TasteProfile = () => {
           </button>
         </div>
         <div className="flex flex-col items-center gap-10">
-          <section className="relative flex h-92 w-315 flex-col items-center justify-center rounded-md bg-[#F2544B] text-white">
+          <section className="relative flex h-92 w-315 flex-col items-center justify-center rounded-md bg-[#F2544B] py-13 text-white">
             <h2 className="absolute top-5 left-5 flex h-11 w-35 items-center justify-center rounded-full border text-lg font-bold">
               나의 취향 유형
             </h2>
-            <div
-              className="mb-4 h-20 w-20 bg-cover bg-center bg-no-repeat"
-              aria-hidden="true"
-              style={{ backgroundImage: `url(${profileImage})` }}
-            ></div>
-            <h3 className="mb-3 text-2xl font-bold">{`님의 취향 유형은 ''유형 입니다.`}</h3>
-            <p className="mb-7 text-lg">{}</p>
+            {isTasteTestLoading && <p className="text-center">로딩 중 ...</p>}
+            {has_test ? (
+              <>
+                <div
+                  className="mb-4 h-20 w-20 bg-cover bg-center bg-no-repeat"
+                  aria-hidden="true"
+                  style={{ backgroundImage: `url(${image_url})` }}
+                ></div>
+                <h3 className="mb-3 text-2xl font-bold">{`${user}님의 취향 유형은 '${prefer_taste_display}' 입니다.`}</h3>
+                <p className="mb-7 text-center text-lg">
+                  {insertLineBreaks(taste_description ?? '', '!')}
+                </p>
+              </>
+            ) : (
+              <h3 className="mb-5 text-lg">
+                테스트를 통해 나의 취향 유형을 알아보세요!
+              </h3>
+            )}
             <button
               type="button"
-              className="flex h-10 w-44 items-center justify-center gap-2 rounded-full bg-white font-bold text-[#F2544B]"
+              onClick={() => {
+                navigate(ROUTE_PATHS.TEST)
+              }}
+              className="flex h-10 w-44 cursor-pointer items-center justify-center gap-2 rounded-full bg-white font-bold text-[#F2544B]"
             >
               <Icon icon={RefreshIcon} size={16} />
-              테스트 다시하기
+              {has_test ? '테스트 다시하기' : '테스트 시작하기'}
             </button>
           </section>
-          <section className="relative flex h-92 w-315 items-center justify-center gap-25 rounded-md bg-[#F2F2F2] text-[#333]">
+          <section
+            className={cn(
+              'relative flex h-92 w-315 items-center justify-evenly rounded-md bg-[#F2F2F2] px-10 text-[#333]',
+              isExpanded && 'h-auto py-15'
+            )}
+          >
             <h2 className="absolute top-5 left-5 flex h-11 w-35 items-center justify-center rounded-full border text-lg font-bold">
               나의 맛의 지문
             </h2>
-            <section className="">
-              {/* <LikeCounts /> */}
+            <section className="mt-11 flex w-[452px] flex-col items-center">
+              {isFeedbackLoading && <p className="text-center">로딩 중 ...</p>}
+              <figure
+                className={cn(
+                  'mb-6 h-36 overflow-hidden transition-all duration-500 ease-in-out',
+                  isExpanded && 'h-auto'
+                )}
+              >
+                {sortedTasteScores.map(([type, score]) => (
+                  <GaugeBar type={type as TasteType} score={score} key={type} />
+                ))}
+              </figure>
               <button
                 type="button"
+                onClick={() => {
+                  setIsExpanded((prev) => !prev)
+                }}
                 className="flex h-9 w-30 cursor-pointer items-center justify-center gap-2 rounded-full bg-white text-sm"
               >
-                펼쳐보기
+                {isExpanded ? '접기' : '펼쳐보기'}
                 <ChevronDown
                   size={16}
                   color="white"
-                  className="rounded-full bg-[#333]"
+                  className={cn(
+                    'rounded-full bg-[#333]',
+                    isExpanded && 'rotate-180'
+                  )}
                 />
               </button>
             </section>
             <hr className="h-55 border-r-1 border-[#D9D9D9]" />
-            <section className="">
-              <h3 className="flex items-center gap-3 text-lg font-bold">
+            <section className="w-[392px]">
+              <h3 className="mb-5 flex items-center gap-3 text-lg font-bold">
                 <Icon
                   icon={summaryIcon}
                   size={40}
@@ -69,7 +136,9 @@ const TasteProfile = () => {
                 />
                 나의 지문 요약
               </h3>
-              <p>{}</p>
+              <p className="">
+                {insertLineBreaks(feedbackDescription ?? '', '!', true)}
+              </p>
             </section>
           </section>
         </div>

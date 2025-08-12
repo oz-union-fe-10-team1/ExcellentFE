@@ -1,8 +1,9 @@
 import { http, HttpResponse } from 'msw'
+import userMockData from '@/mocks/handlers/user/userMockData'
 
 const userHandlers = [
-  http.get('/api/v1/user', () => {
-    return HttpResponse.json()
+  http.get('/user', () => {
+    return HttpResponse.json(userMockData)
   }),
 ]
 

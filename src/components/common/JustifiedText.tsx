@@ -1,7 +1,7 @@
 export const JustifiedText = (text: string) =>
   [...text].map((char, index) => {
     return (
-      <span key={index} style={{ display: 'inline-block' }}>
+      <span className="inline-block" key={index}>
         {char}
       </span>
     )

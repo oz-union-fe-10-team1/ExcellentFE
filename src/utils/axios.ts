@@ -35,7 +35,6 @@ axiosInstance.interceptors.response.use(
 
       if (!refreshToken) {
         onUnauthorized?.()
-        console.error('Refresh token not found in storage')
         return Promise.reject(error)
       }
 
@@ -48,7 +47,6 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${access_token}`
         return axiosInstance(originalRequest)
       } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError)
         tokenStorage.removeAccessToken()
         tokenStorage.removeRefreshToken()
         onUnauthorized?.()
