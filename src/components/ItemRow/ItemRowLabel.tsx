@@ -6,7 +6,7 @@ interface ItemRowLabelType {
 
 const ItemRowLabel = ({ type, children, className }: ItemRowLabelType) => {
   return (
-    <div className={`mt-26 w-320 ${className}`}>
+    <div className={`w-320 ${className}`}>
       <div className="mb-3 border-b-2 pb-5 text-2xl font-bold text-[#333333]">
         {type === 'cart' && <h1>장바구니 상품</h1>}
         {type === 'order' && <h1>주문내역</h1>}
