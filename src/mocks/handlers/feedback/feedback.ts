@@ -16,7 +16,7 @@ const feedbackHandlers = [
     return HttpResponse.json(feedbackListMockData)
   }),
 
-  http.post('/api/v1/feedbacks/', async ({ request }) => {
+  http.post('/feedbacks/', async ({ request }) => {
     try {
       const formData = await request.formData()
 

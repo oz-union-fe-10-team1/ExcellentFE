@@ -13,6 +13,6 @@ export const API_PATHS = {
     SEARCH: 'api/v1/products/search',
   },
   FEEDBACK: {
-    SUBMIT: '/api/v1/feedbacks/',
+    SUBMIT: '/feedbacks/',
   },
 } as const
