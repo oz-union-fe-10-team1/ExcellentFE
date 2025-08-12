@@ -1,5 +1,5 @@
 import useTasteTest from '@/hooks/useTasteTest'
-import TestButton from './TestButton'
+import TestButton from '@/components/test/TestButton.tsx'
 import { useState } from 'react'
 import type { TestType } from '@/types/tasteTypes'
 
@@ -26,8 +26,6 @@ const ProgressStep = ({ step, setStep }: ProgressStepProps) => {
   const [fourthAnswer, setFourthAnswer] = useState('')
   const [fifthAnswer, setFifthAnswer] = useState('')
   const [sixthAnswer, setSixthAnswer] = useState('')
-
-  console.log(data)
 
   if (isLoading) {
     return <div>로딩 중...</div>

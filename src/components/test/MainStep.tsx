@@ -7,7 +7,7 @@ import instagram from '@/assets/icons/tasteTest/instagram.svg'
 
 import { useState } from 'react'
 import Icon from '@/components/common/Icon'
-import TestButton from './TestButton'
+import TestButton from '@/components/test/TestButton.tsx'
 import type { TestType } from '@/types/tasteTypes'
 
 const SNS_SHARE = [
