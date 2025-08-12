@@ -44,6 +44,8 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
+  //빌드오류 해결 위해 우선 값 사용
+  console.log(step)
 
   return (
     <div className="flex flex-col items-center">
