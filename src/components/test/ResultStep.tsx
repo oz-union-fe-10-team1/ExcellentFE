@@ -55,12 +55,14 @@ const ResultStep = () => {
         <Icon icon={shareWhite} size={50} />
       </div>
       {/* 취향 패키지 추천 조합 섹션 */}
-      <div className="w-full">
-        <p className="ml-[50px] text-xl font-bold text-[#333333]">
+      <div className="mb-20 w-full">
+        <p className="mb-4 ml-[57px] text-xl font-bold text-[#333333]">
           달콤고소파 유형을 위한 첫 번째 추천 조합
         </p>
+        <div className="flex grid-cols-3 justify-center">
+          <CardList type="test" cards={testCardData} columns={3} />
+        </div>
       </div>
-      <CardList type="test" cards={testCardData} />
 
       {/* 버튼 섹션 */}
       <TestButton className="mb-5 bg-[#2E2F2F] text-[#FFFFFF]">
