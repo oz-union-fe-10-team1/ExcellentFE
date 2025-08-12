@@ -18,6 +18,12 @@ jobs:
       - name: 환경변수 파일 만들기 (.env)
         run: |
           echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env
+          echo "VITE_KAKAO_CLIENT_ID=${{ secrets.VITE_KAKAO_CLIENT_ID }}" >> .env
+          echo "VITE_KAKAO_REDIRECT_URI=${{ secrets.VITE_KAKAO_REDIRECT_URI }}" >> .env
+          echo "VITE_NAVER_CLIENT_ID=${{ secrets.VITE_NAVER_CLIENT_ID }}" >> .env
+          echo "VITE_NAVER_REDIRECT_URI=${{ secrets.VITE_NAVER_REDIRECT_URI }}" >> .env
+          echo "VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}" >> .env
+          echo "VITE_GOOGLE_REDIRECT_URI=${{ secrets.VITE_GOOGLE_REDIRECT_URI }}" >> .env
 
       - name: 빌드하기
         run: npm run build
