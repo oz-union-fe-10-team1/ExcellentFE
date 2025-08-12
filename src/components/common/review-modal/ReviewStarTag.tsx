@@ -50,8 +50,7 @@ const ReviewStarTag = ({
         })}
       </div>
       <p className="mt-3 text-xs text-[#666666]">
-        최대 {MAX_SELECTED_TAGS}개 선택 ({selectedTags.length}/
-        {MAX_SELECTED_TAGS})
+        {MAX_SELECTED_TAGS}개 선택 ({selectedTags.length}/{MAX_SELECTED_TAGS})
       </p>
     </>
   )
