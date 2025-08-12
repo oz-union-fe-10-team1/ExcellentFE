@@ -6,7 +6,7 @@ import { useProducts, usePackages } from '@/hooks/useHomePage'
 import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/mainPage/banner.png'
 
-const HomePage = () => {
+const Home = () => {
   // 상품 데이터
   const {
     data: products = [],
@@ -139,4 +139,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default Home
