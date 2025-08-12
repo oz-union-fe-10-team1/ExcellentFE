@@ -25,7 +25,7 @@ const ReviewSummaryForm = ({
               <div key={index} className="relative">
                 <img
                   src={preview}
-                  alt={`미리보기 ${index}`}
+                  alt={`미리보기 ${index + 1}`}
                   className="h-[150px] w-[150px] rounded-[10px] object-cover"
                 />
               </div>
