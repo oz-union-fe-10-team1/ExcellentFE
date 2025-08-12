@@ -1,10 +1,10 @@
 import firstType from '@/assets/images/tasteTest/firstType.png'
-import Icon from '../common/Icon'
+import Icon from '@/components/common/Icon.tsx'
 import kakaotalk from '@/assets/icons/tasteTest/kakaotalk.svg?react'
 import shareWhite from '@/assets/icons/tasteTest/shareWhite.svg?react'
-import CardList from '../common/cards/CardList'
+import CardList from '@/components/common/cards/CardList.tsx'
 import type { TestCardProps } from '@/types/cardProps'
-import TestButton from './TestButton'
+import TestButton from '@/components/test/TestButton.tsx'
 
 //렌더링 확인을 위한 가짜 더미데이터 (추후 삭제 예정)
 const testCardData: TestCardProps[] = [
