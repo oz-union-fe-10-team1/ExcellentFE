@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchPackagesByCategory } from '@/api/productApi'
+import { fetchPackagesByCategory } from '@/api/packageApi'
 
 export const usePackagesByCategory = (category: string) => {
   return useQuery({

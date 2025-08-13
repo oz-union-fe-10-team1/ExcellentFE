@@ -1,19 +1,23 @@
 import { http, HttpResponse } from 'msw'
 import feedbackListMockData from './mocks/feedbackListMockData'
-import { userFeedbackMockData } from './mocks/userFeedbackMockData'
 
 export interface Feedback {
   id: number
-  product_id: string
+  user: string
   order_item_id: number
-  rating: number
+  sweetness: number
+  acidity: number
+  body: number
   confidence: number
+  overall_rating: number
+  photo_url: string | null
   comment: string
   created_at: string
+  updated_at: string
 }
 
 const feedbackHandlers = [
-  http.get('/api/v1/feedback', () => {
+  http.get('/api/v1/feedbacks/', () => {
     return HttpResponse.json(feedbackListMockData)
   }),
 

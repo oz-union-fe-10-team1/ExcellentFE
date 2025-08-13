@@ -20,6 +20,7 @@ import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import Package from '@/pages/Package'
+import Detail from '@/pages/Detail'
 
 const queryClient = new QueryClient()
 
@@ -49,6 +50,8 @@ function App() {
           <Route path="test" element={<TestMain />} />
           <Route path="search" element={<Search />} />
           <Route path="feedback" element={<Home />} />
+          <Route path="products/:product_id" element={<Detail />} />
+          <Route path="packages/:package_id" element={<Detail />} />
           <Route
             path="cart"
             element={

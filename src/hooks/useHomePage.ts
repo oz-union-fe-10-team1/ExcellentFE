@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchProducts, fetchPackages } from '@/api/productApi'
+import { fetchProducts } from '@/api/productApi'
+import { fetchPackages } from '@/api/packageApi'
 
 // 상품 데이터 훅
 export const useProducts = () => {
