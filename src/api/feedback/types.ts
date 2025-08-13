@@ -3,6 +3,9 @@ export interface FeedbackRequest {
   sweetness: number
   acidity: number
   body: number
+  carbonation: number
+  bitter: number
+  aroma: number
   confidence: number
   overall_rating: number
   taste_tag: string[]

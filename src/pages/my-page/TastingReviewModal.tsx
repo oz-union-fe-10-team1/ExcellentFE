@@ -28,7 +28,7 @@ const TastingReviewModal = ({
     handleFileChange,
     imagePreviews,
     handleSubmitAndClose,
-  } = useTastingReview(orderItemId)
+  } = useTastingReview(orderItemId, onClose)
 
   return (
     <Modal

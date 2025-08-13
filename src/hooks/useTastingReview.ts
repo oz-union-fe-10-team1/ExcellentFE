@@ -9,6 +9,9 @@ const INITIAL_REVIEW_STATE: TastingReview = {
   acidity: 0,
   body: 0,
   confidence: 0,
+  carbonation: 0,
+  bitter: 0,
+  aroma: 0,
   rating: 0,
 }
 
@@ -82,6 +85,9 @@ const useTastingReview = (orderItemId?: number, onClose?: () => void) => {
       acidity: review.acidity,
       body: review.body,
       confidence: review.confidence,
+      carbonation: review.carbonation,
+      bitter: review.bitter,
+      aroma: review.aroma,
       overall_rating: review.rating,
       taste_tag: selectedTags,
       comment,
