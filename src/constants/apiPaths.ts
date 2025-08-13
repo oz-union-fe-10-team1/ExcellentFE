@@ -13,6 +13,7 @@ export const API_PATHS = {
     PROFILE: '/taste-test/profile',
   },
   FEEDBACK: {
+    SUBMIT: '/feedbacks/',
     PROFILE: '/feedback/profile',
   },
   PRODUCTS: {
@@ -21,11 +22,7 @@ export const API_PATHS = {
   PACKAGES: {
     LIST: '/api/v1/packages/',
   },
-
   SEARCHPRODUCTS: {
     SEARCH: 'api/v1/products/search',
-  },
-  FEEDBACK: {
-    SUBMIT: '/feedbacks/',
   },
 } as const
