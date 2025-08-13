@@ -1,6 +1,7 @@
 import RefreshIcon from '@/assets/icons/taste-profile/refresh.svg?react'
 import summaryIcon from '@/assets/icons/taste-profile/summary.svg?react'
-import { GaugeBar } from '@/components/common/GaugeBar'
+import Button from '@/components/common/Button'
+import GaugeBar from '@/components/common/GaugeBar'
 import Icon from '@/components/common/Icon'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { useFeedbackProfile } from '@/hooks/feedback/useFeedbackProfile'
@@ -45,12 +46,7 @@ const TasteProfile = () => {
           <h1 className="text-2xl font-bold text-[#333333]">
             나의 입맛 프로필
           </h1>
-          <button
-            type="button"
-            className="flex h-10 w-44 cursor-pointer items-center justify-center rounded-md border border-[#D9D9D9] bg-[#333] font-medium text-white"
-          >
-            나만의 패키지 구성하기
-          </button>
+          <Button variant="VARIANT11">나만의 패키지 구성하기</Button>
         </div>
         <div className="flex flex-col items-center gap-10">
           <section className="relative flex h-92 w-315 flex-col items-center justify-center rounded-md bg-[#F2544B] py-13 text-white">
@@ -75,16 +71,16 @@ const TasteProfile = () => {
                 테스트를 통해 나의 취향 유형을 알아보세요!
               </h3>
             )}
-            <button
-              type="button"
+            <Button
+              variant="VARIANT10"
+              className="font-bold"
               onClick={() => {
                 navigate(ROUTE_PATHS.TEST)
               }}
-              className="flex h-10 w-44 cursor-pointer items-center justify-center gap-2 rounded-full bg-white font-bold text-[#F2544B]"
             >
               <Icon icon={RefreshIcon} size={16} />
               {has_test ? '테스트 다시하기' : '테스트 시작하기'}
-            </button>
+            </Button>
           </section>
           <section
             className={cn(
@@ -107,12 +103,12 @@ const TasteProfile = () => {
                   <GaugeBar type={type as TasteType} score={score} key={type} />
                 ))}
               </figure>
-              <button
-                type="button"
+              <Button
                 onClick={() => {
                   setIsExpanded((prev) => !prev)
                 }}
-                className="flex h-9 w-30 cursor-pointer items-center justify-center gap-2 rounded-full bg-white text-sm"
+                variant="VARIANT11"
+                className="h-9 w-30 text-sm text-[#333]"
               >
                 {isExpanded ? '접기' : '펼쳐보기'}
                 <ChevronDown
@@ -123,7 +119,7 @@ const TasteProfile = () => {
                     isExpanded && 'rotate-180'
                   )}
                 />
-              </button>
+              </Button>
             </section>
             <hr className="h-55 border-r-1 border-[#D9D9D9]" />
             <section className="w-[392px]">
