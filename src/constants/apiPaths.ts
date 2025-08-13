@@ -11,6 +11,7 @@ export const API_PATHS = {
   USER: '/user',
   TASTE_TEST: {
     PROFILE: '/taste-test/profile',
+    GETTEST: '/taste-test/questions',
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
@@ -24,9 +25,5 @@ export const API_PATHS = {
   },
   SEARCHPRODUCTS: {
     SEARCH: 'api/v1/products/search',
-  },
-
-  TEST: {
-    GETTEST: '/taste-test/questions',
   },
 } as const
