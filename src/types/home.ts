@@ -1,4 +1,4 @@
-import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
+import type { Product } from '@/types/product'
 import type { Package, Categories, Pagination } from '@/types/package'
 
 export interface PackageResponse {

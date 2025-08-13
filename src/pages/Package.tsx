@@ -8,7 +8,7 @@ import {
   useMakgeolliPackages,
   useRegionalPackages,
 } from '@/hooks/usePackagePage'
-import { HomeUtils } from '@/utils/productUtils'
+import { packageToCard } from '@/utils/productUtils'
 import banner from '@/assets/images/packagePage/package-banner.png'
 
 const Package = () => {
@@ -53,11 +53,11 @@ const Package = () => {
   const error =
     recommendedError || awardError || makgeolliError || regionalError
 
-  // 데이터를 카드 형태로 변환
-  const recommendedCards = recommendedPackages.map(HomeUtils.packageToCard)
-  const awardCards = awardPackages.map(HomeUtils.packageToCard)
-  const makgeolliCards = makgeolliPackages.map(HomeUtils.packageToCard)
-  const regionalCards = regionalPackages.map(HomeUtils.packageToCard)
+  // 데이터를 카드 형태로 변환 (함수 사용으로 변경)
+  const recommendedCards = recommendedPackages.map(packageToCard)
+  const awardCards = awardPackages.map(packageToCard)
+  const makgeolliCards = makgeolliPackages.map(packageToCard)
+  const regionalCards = regionalPackages.map(packageToCard)
 
   // 배너에서 이동할 패키지 ID (추천 패키지 중 첫 번째)
   const featuredPackageId = recommendedPackages[0]?.id || 1
