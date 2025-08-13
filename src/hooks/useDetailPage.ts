@@ -64,48 +64,55 @@ export const useDetailPage = () => {
     if (!productData) return null
 
     const name = productData.name
-    const mainImage = isProduct
-      ? (productData as ProductDetail).main_image_url
-      : (productData as PackageDetail).main_image
-    const price = isProduct
-      ? (productData as ProductDetail).price
-      : (productData as PackageDetail).final_price
-    const originalPrice = isProduct
-      ? (productData as ProductDetail).original_price
-      : (productData as PackageDetail).total_original_price
 
-    const discountRate = originalPrice
-      ? Math.round(((originalPrice - price) / originalPrice) * 100)
-      : 0
-
-    const statistics = isProduct
-      ? (productData as ProductDetail).statistics
-      : {
-          average_rating: (productData as PackageDetail).rating_average,
-          review_count: (productData as PackageDetail).review_count,
+    // 타입별로 데이터 처리
+    const typeSpecificData = (() => {
+      switch (isProduct) {
+        case true: {
+          const product = productData as ProductDetail
+          return {
+            mainImage: product.main_image_url,
+            price: product.price,
+            originalPrice: product.original_price ?? undefined,
+            statistics: product.statistics,
+            alcoholType: product.alcohol_type?.name,
+            alcoholContent: product.alcohol_content,
+            flavorNotes: product.flavor_notes,
+          }
         }
+        case false: {
+          const packageData = productData as PackageDetail
+          return {
+            mainImage: packageData.main_image,
+            price: packageData.final_price,
+            originalPrice: packageData.total_original_price,
+            statistics: {
+              average_rating: packageData.rating_average,
+              review_count: packageData.review_count,
+            },
+            alcoholType: '패키지',
+            alcoholContent: null,
+            flavorNotes: packageData.short_description,
+          }
+        }
+        default:
+          throw new Error('Invalid product type')
+      }
+    })()
 
-    const alcoholType = isProduct
-      ? (productData as ProductDetail).alcohol_type?.name
-      : '패키지'
-    const alcoholContent = isProduct
-      ? (productData as ProductDetail).alcohol_content
-      : null
-    const flavorNotes = isProduct
-      ? (productData as ProductDetail).flavor_notes
-      : (productData as PackageDetail).short_description
+    const discountRate = typeSpecificData.originalPrice
+      ? Math.round(
+          ((typeSpecificData.originalPrice - typeSpecificData.price) /
+            typeSpecificData.originalPrice) *
+            100
+        )
+      : 0
 
     return {
       name,
-      mainImage,
-      price,
-      originalPrice: originalPrice ?? undefined,
+      ...typeSpecificData,
       discountRate,
-      statistics,
-      alcoholType,
-      alcoholContent,
-      flavorNotes,
-      totalPrice: price * quantity,
+      totalPrice: typeSpecificData.price * quantity,
     }
   }, [productData, isProduct, quantity])
 

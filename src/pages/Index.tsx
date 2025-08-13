@@ -3,7 +3,11 @@ import CardList from '@/components/common/cards/CardList'
 import Carousel from '@/components/common/Carousel'
 import Button from '@/components/common/Button'
 import { useProducts, usePackages } from '@/hooks/useHomePage'
-import { HomeUtils } from '@/utils/productUtils'
+import {
+  getMonthlyProducts,
+  getPopularPackages,
+  getRecommendedProducts,
+} from '@/utils/productUtils'
 import banner from '@/assets/images/mainPage/banner.png'
 
 const Home = () => {
@@ -28,9 +32,9 @@ const Home = () => {
   const error = productsError || packagesError
 
   // 데이터 변환
-  const monthlyProducts = HomeUtils.getMonthlyProducts(products)
-  const popularPackages = HomeUtils.getPopularPackages(packages)
-  const recommendedProducts = HomeUtils.getRecommendedProducts(products)
+  const monthlyProducts = getMonthlyProducts(products)
+  const popularPackages = getPopularPackages(packages)
+  const recommendedProducts = getRecommendedProducts(products)
 
   const handleRetry = () => {
     refetchProducts()

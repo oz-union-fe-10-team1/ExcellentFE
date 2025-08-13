@@ -183,7 +183,7 @@ const productDetailMockData: ProductDetail = {
 }
 
 const productDetailHandlers = [
-  http.get('/api/v1/products/:product_id/', ({ params }) => {
+  http.get('/api/v1/products/:product_id/', () => {
     // 현재는 product_id 무시하고 목데이터 반환
     return HttpResponse.json(productDetailMockData)
   }),
