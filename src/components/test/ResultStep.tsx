@@ -41,7 +41,7 @@ const ResultStep = () => {
         김오즈님의 취향 유형은...
       </p>
       <p className="text-[40px] font-extrabold">달콤 과일파</p>
-      <p className="text-bold mb-[28px] text-[20px] text-[#666666]">
+      <p className="mb-[28px] text-[20px] font-bold text-[#666666]">
         당신은 부드럽고 달콤한 맛에서 행복을 느끼는군요!
       </p>
       <img
@@ -75,10 +75,10 @@ const ResultStep = () => {
       {/* 하단 빨간 박스 섹션 */}
 
       <div className="relative flex h-[103px] w-[560px] items-center justify-center gap-2.5 rounded-br-[20px] rounded-bl-[20px] bg-[#F2544B]">
-        <button className="bg h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
+        <button className="h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
           테스트 다시 하기
         </button>
-        <button className="bg h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
+        <button className="h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
           다른 패키지 둘러보기
         </button>
       </div>
