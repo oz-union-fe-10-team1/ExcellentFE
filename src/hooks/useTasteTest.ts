@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 const useTasteTest = () => {
   return useQuery({
-    queryKey: ['todos'],
+    queryKey: ['getTest'],
     queryFn: getTestQuetion,
   })
 }
