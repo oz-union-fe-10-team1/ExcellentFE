@@ -46,7 +46,7 @@ const Modal = ({
             aria-modal="true"
             {...(title && { 'aria-labelledby': 'modal-title' })}
             className={cn(
-              'relative flex w-[690px] flex-col items-center rounded-[20px] bg-white px-[40px] py-[100px]',
+              'relative flex w-170 flex-col items-center rounded-[20px] bg-white px-[40px] py-[100px]',
               className
             )}
             style={{ zIndex: Z_INDEX.MODAL }}
@@ -54,7 +54,7 @@ const Modal = ({
             {title && (
               <h2
                 id="modal-title"
-                className="text-[32px] font-bold text-[#333]"
+                className="text-center text-[32px] font-bold whitespace-pre-wrap text-[#333]"
               >
                 {title}
               </h2>
