@@ -1,4 +1,4 @@
-import { getFeedbackProfile } from '@/api/feedback'
+import { feedbackApi } from '@/api/feedback'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useQuery } from '@tanstack/react-query'
 
@@ -7,7 +7,7 @@ export const useFeedbackProfile = () => {
 
   return useQuery({
     queryKey: ['feedback', accessToken],
-    queryFn: getFeedbackProfile,
+    queryFn: feedbackApi.getProfile,
     enabled: !!accessToken,
   })
 }

@@ -1,5 +1,6 @@
+import type { FeedbackRequest } from '@/api/feedback/types'
 import { API_PATHS } from '@/constants/apiPaths'
-import type { FeedbackRequest } from './types'
+import type { FeedbackProfile } from '@/types/feedback'
 import { axiosInstance } from '@/utils/axios'
 
 export const feedbackApi = {
@@ -31,5 +32,10 @@ export const feedbackApi = {
       },
     })
     return res.data
+  },
+
+  getProfile: async (): Promise<FeedbackProfile> => {
+    const { data } = await axiosInstance.get(API_PATHS.FEEDBACK.PROFILE)
+    return data
   },
 }

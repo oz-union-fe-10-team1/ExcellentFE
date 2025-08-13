@@ -46,7 +46,7 @@ const TasteProfile = () => {
           <h1 className="text-2xl font-bold text-[#333333]">
             나의 입맛 프로필
           </h1>
-          <Button variant="VARIANT11">나만의 패키지 구성하기</Button>
+          <Button variant="VARIANT7">나만의 패키지 구성하기</Button>
         </div>
         <div className="flex flex-col items-center gap-10">
           <section className="relative flex h-92 w-315 flex-col items-center justify-center rounded-md bg-[#F2544B] py-13 text-white">
@@ -72,7 +72,7 @@ const TasteProfile = () => {
               </h3>
             )}
             <Button
-              variant="VARIANT10"
+              variant="VARIANT11"
               className="font-bold"
               onClick={() => {
                 navigate(ROUTE_PATHS.TEST)
@@ -104,11 +104,11 @@ const TasteProfile = () => {
                 ))}
               </figure>
               <Button
+                variant="VARIANT11"
+                className="h-9 w-30 text-sm text-[#333]"
                 onClick={() => {
                   setIsExpanded((prev) => !prev)
                 }}
-                variant="VARIANT11"
-                className="h-9 w-30 text-sm text-[#333]"
               >
                 {isExpanded ? '접기' : '펼쳐보기'}
                 <ChevronDown
