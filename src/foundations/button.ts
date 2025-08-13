@@ -3,7 +3,7 @@ export const BUTTON_VARIANTS = {
     'w-[600px]',
     'h-[72px]',
     'bg-[#f2544b]',
-    'rounded-[8px]',
+    'rounded-lg',
     'text-2xl',
     'font-bold',
     'text-[#ffffff]',
@@ -16,7 +16,7 @@ export const BUTTON_VARIANTS = {
     'h-18',
     'text-lg',
     'tracking-[0.05em]',
-    'rounded-[8px]',
+    'rounded-lg',
     'text-[#ffffff]',
     'bg-[#f2544b]',
   ].join(' '),
@@ -27,7 +27,7 @@ export const BUTTON_VARIANTS = {
     'h-18',
     'text-lg',
     'tracking-[0.05em]',
-    'rounded-[8px]',
+    'rounded-lg',
     'text-[#666666]',
     'bg-[#ffffff]',
     'border',
@@ -39,7 +39,7 @@ export const BUTTON_VARIANTS = {
     'w-35',
     'h-13',
     'bg-[#2e2f2f]',
-    'rounded-[6px]',
+    'rounded-md',
     'text-lg',
     'font-semibold',
     'text-[#ffffff]',
@@ -53,7 +53,7 @@ export const BUTTON_VARIANTS = {
     'bg-[#000000]',
     'text-[#ffffff]',
     'tracking-[0.05em]',
-    'rounded-[6px]',
+    'rounded-md',
   ].join(' '),
 
   //후기 남기기
@@ -63,7 +63,7 @@ export const BUTTON_VARIANTS = {
     'bg-[#f2f2f2]',
     'text-[#333333]',
     'text-lg',
-    'rounded-[6px]',
+    'rounded-md',
     'tracking-[0.05em]',
   ].join(' '),
 
@@ -71,7 +71,7 @@ export const BUTTON_VARIANTS = {
   VARIANT7: [
     'w-44',
     'h-10',
-    'rounded-[6px]',
+    'rounded-md',
     'border',
     'border-[#d9d9d9]',
     'bg-[#333333]',
@@ -88,7 +88,7 @@ export const BUTTON_VARIANTS = {
     'h-[56px]',
     'pl-6',
     'pr-10',
-    'rounded-[12px]',
+    'rounded-xl',
     'font-bold',
   ].join(' '),
 
@@ -97,7 +97,7 @@ export const BUTTON_VARIANTS = {
     'w-[197px]',
     'h-[55px]',
     'bg-[#2F2F2F]',
-    'rounded-[6px]',
+    'rounded-md',
     'font-semibold',
     'text-[#FFFFFF]',
     'text-lg',
@@ -112,6 +112,20 @@ export const BUTTON_VARIANTS = {
     'border',
     'text-[11px]',
     'transition',
+  ].join(' '),
+
+  // 테스트 다시하기/펼쳐보기 (입맛 프로필 페이지)
+  VARIANT11: [
+    'w-44',
+    'h-10',
+    'rounded-full',
+    'bg-white',
+    'text-[#F2544B]',
+    'tracking-[-0.02em]',
+    'flex',
+    'items-center',
+    'justify-center',
+    'gap-2',
   ].join(' '),
 } as const
 

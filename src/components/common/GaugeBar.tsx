@@ -2,7 +2,7 @@ import { JustifiedText } from '@/components/common/JustifiedText'
 import { tasteMetaMap } from '@/constants/tasteMeta'
 import type { TasteScore } from '@/types/tasteTypes'
 
-export const GaugeBar = ({ type, score }: TasteScore) => {
+const GaugeBar = ({ type, score }: TasteScore) => {
   const { label, color } = tasteMetaMap[type]
 
   return (
@@ -66,3 +66,5 @@ export const GaugeBar = ({ type, score }: TasteScore) => {
     </div>
   )
 }
+
+export default GaugeBar
