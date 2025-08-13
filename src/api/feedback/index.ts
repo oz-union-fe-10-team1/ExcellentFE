@@ -16,15 +16,17 @@ export const feedbackApi = {
       })
     }
 
-    formData.set('order_item_id', String(data.order_item_id))
+    formData.set('order_item', String(data.order_item_id))
+    formData.set('rating', String(data.overall_rating))
     formData.set('sweetness', String(data.sweetness))
     formData.set('acidity', String(data.acidity))
     formData.set('body', String(data.body))
+    formData.set('carbonation', String(data.carbonation))
+    formData.set('bitterness', String(data.bitter))
+    formData.set('aroma', String(data.aroma))
     formData.set('confidence', String(data.confidence))
-    formData.set('overall_rating', String(data.overall_rating))
-    /* TODO: 서버 상태에 따라서 수정해야 함 */
-    formData.set('taste_tag', (data.taste_tag ?? []).join(','))
     formData.set('comment', data.comment ?? '')
+    formData.set('selected_tags', (data.taste_tag ?? []).join(','))
 
     const res = await axiosInstance.post(API_PATHS.FEEDBACK.SUBMIT, formData, {
       headers: {

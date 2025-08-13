@@ -26,4 +26,7 @@ export const API_PATHS = {
   SEARCHPRODUCTS: {
     SEARCH: 'api/v1/products/search',
   },
+  ORDER: {
+    LIST: '/orders/list/',
+  },
 } as const
