@@ -45,7 +45,7 @@ const Footer = () => {
                 'transition-transform duration-300',
                 isVisible ? 'translate-y-0' : 'translate-y-full',
               ]
-            : 'relative'
+            : 'relative mt-auto w-full'
         )}
         style={{
           backgroundColor: '#2E2F2F',
