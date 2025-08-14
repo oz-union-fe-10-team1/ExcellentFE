@@ -9,13 +9,13 @@ export interface updateQuantityType {
 }
 
 const itemRowHandlers = [
-  http.get('/api/v1/cart', () => {
+  http.get('*/api/v1/cart', () => {
     return HttpResponse.json(CartMockData)
   }),
-  http.get('/api/v1/feedbacks', () => {
+  http.get('*/api/v1/feedbacks', () => {
     return HttpResponse.json(historyMockData)
   }),
-  http.put('/api/v1/cart/update-item', async ({ request }) => {
+  http.put('*/api/v1/cart/update-item', async ({ request }) => {
     const body = (await request.json()) as updateQuantityType
 
     return HttpResponse.json({
@@ -24,7 +24,7 @@ const itemRowHandlers = [
       quantity: body.quantity,
     })
   }),
-  http.get('/orders/list/', () => {
+  http.get('*/orders/list/', () => {
     return HttpResponse.json(orderMockData)
   }),
 ]
