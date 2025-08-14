@@ -10,7 +10,7 @@ import {
 } from '@/constants/detailOptions'
 import type { ProductDetail } from '@/types/product'
 import type { PackageDetail } from '@/types/package'
-import type { Feedback } from '@/mocks/handlers/feedback/feedback'
+import type { Feedback } from '@/types/feedback'
 
 interface ProcessedProductData {
   name: string
