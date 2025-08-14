@@ -6,7 +6,7 @@ export const packageMockData = {
       count: 4,
       packages: [
         {
-          id: 1,
+          id: '1', // number → string
           name: '한산 소곡주',
           slug: 'hansan-sogokju',
           short_description: '한산에서 생산하는 대표적 증류주 한산소곡주',
@@ -22,7 +22,7 @@ export const packageMockData = {
           created_at: '2024-12-15T10:30:00Z',
         },
         {
-          id: 2,
+          id: '2', // number → string
           name: '베스트셀러 모음',
           slug: 'bestseller-collection',
           short_description: '가장 인기 있는 전통주 베스트 컬렉션',
@@ -38,7 +38,7 @@ export const packageMockData = {
           created_at: '2024-12-13T10:30:00Z',
         },
         {
-          id: 3,
+          id: '3', // number → string
           name: '가성비 추천 패키지',
           slug: 'value-recommended-package',
           short_description: '합리적인 가격의 가성비 최고 패키지',
@@ -54,7 +54,7 @@ export const packageMockData = {
           created_at: '2024-12-11T10:30:00Z',
         },
         {
-          id: 4,
+          id: '4', // number → string
           name: '선물용 추천 세트',
           slug: 'gift-recommended-set',
           short_description: '선물하기 좋은 고급 포장 패키지',
@@ -77,7 +77,7 @@ export const packageMockData = {
       count: 8,
       packages: [
         {
-          id: 5,
+          id: '5', // number → string
           name: '대한민국 주류대상 금상',
           slug: 'korea-liquor-gold-award',
           short_description: '대한민국 주류대상 금상 수상작 특별 패키지',
@@ -93,7 +93,7 @@ export const packageMockData = {
           created_at: '2024-12-13T15:20:00Z',
         },
         {
-          id: 6,
+          id: '6', // number → string
           name: '국제 주류 품평회 대상',
           slug: 'international-liquor-grand-prize',
           short_description: '국제 주류 품평회 대상 수상작 프리미엄 컬렉션',
@@ -109,7 +109,7 @@ export const packageMockData = {
           created_at: '2024-12-12T15:20:00Z',
         },
         {
-          id: 7,
+          id: '7', // number → string
           name: '우리술 품평회 최우수상',
           slug: 'korean-liquor-best-award',
           short_description: '우리술 품평회 최우수상 수상작 한정 패키지',
@@ -125,7 +125,7 @@ export const packageMockData = {
           created_at: '2024-12-09T15:20:00Z',
         },
         {
-          id: 8,
+          id: '8', // number → string
           name: '전통주 품질인증 우수상',
           slug: 'traditional-liquor-excellence-award',
           short_description: '전통주 품질인증 우수상 수상 브랜드 모음',
@@ -141,7 +141,7 @@ export const packageMockData = {
           created_at: '2024-12-11T15:20:00Z',
         },
         {
-          id: 17,
+          id: '17', // number → string
           name: '세계 주류 박람회 특별상',
           slug: 'world-liquor-expo-special-award',
           short_description: '세계 주류 박람회 특별상 수상 한국 전통주',
@@ -157,7 +157,7 @@ export const packageMockData = {
           created_at: '2024-12-07T15:20:00Z',
         },
         {
-          id: 18,
+          id: '18', // number → string
           name: '아시아 전통주 경연대회 은상',
           slug: 'asia-traditional-liquor-silver-award',
           short_description: '아시아 전통주 경연대회 은상 수상작 컬렉션',
@@ -173,7 +173,7 @@ export const packageMockData = {
           created_at: '2024-12-06T15:20:00Z',
         },
         {
-          id: 19,
+          id: '19', // number → string
           name: '한국 전통주 마스터스 대상',
           slug: 'korean-traditional-liquor-masters-award',
           short_description: '한국 전통주 마스터스 대상 수상 프리미엄 셀렉션',
@@ -189,7 +189,7 @@ export const packageMockData = {
           created_at: '2024-12-05T15:20:00Z',
         },
         {
-          id: 20,
+          id: '20', // number → string
           name: '글로벌 주류 품질 인증상',
           slug: 'global-liquor-quality-certification-award',
           short_description: '글로벌 주류 품질 인증상 수상 전통주 한정판',
@@ -212,7 +212,7 @@ export const packageMockData = {
       count: 4,
       packages: [
         {
-          id: 9,
+          id: '9', // number → string
           name: '전통 생막걸리 세트',
           slug: 'traditional-fresh-makgeolli-set',
           short_description: '전국 유명 생막걸리 모음 패키지',
@@ -228,7 +228,7 @@ export const packageMockData = {
           created_at: '2024-12-12T09:15:00Z',
         },
         {
-          id: 10,
+          id: '10', // number → string
           name: '프리미엄 막걸리 컬렉션',
           slug: 'premium-makgeolli-collection',
           short_description: '고급 막걸리만을 엄선한 프리미엄 컬렉션',
@@ -245,7 +245,7 @@ export const packageMockData = {
           created_at: '2024-12-11T09:15:00Z',
         },
         {
-          id: 11,
+          id: '11', // number → string
           name: '시원한 여름 막걸리',
           slug: 'cool-summer-makgeolli',
           short_description: '여름철 시원하게 즐기는 특별 막걸리 세트',
@@ -261,7 +261,7 @@ export const packageMockData = {
           created_at: '2024-12-08T09:15:00Z',
         },
         {
-          id: 12,
+          id: '12', // number → string
           name: '과일 막걸리 세트',
           slug: 'fruit-makgeolli-set',
           short_description: '다양한 과일맛 막걸리 모음 패키지',
@@ -284,7 +284,7 @@ export const packageMockData = {
       count: 4,
       packages: [
         {
-          id: 13,
+          id: '13', // number → string
           name: '경상도 특산주',
           slug: 'gyeongsang-specialty',
           short_description: '경상도 지역 전통주 모음',
@@ -300,7 +300,7 @@ export const packageMockData = {
           created_at: '2024-12-11T14:45:00Z',
         },
         {
-          id: 14,
+          id: '14', // number → string
           name: '전라도 명품 전통주',
           slug: 'jeolla-premium-traditional',
           short_description: '전라도 지역 명품 전통주 컬렉션',
@@ -316,7 +316,7 @@ export const packageMockData = {
           created_at: '2024-12-10T14:45:00Z',
         },
         {
-          id: 15,
+          id: '15', // number → string
           name: '충청도 향토주',
           slug: 'chungcheong-local-liquor',
           short_description: '충청도 지역 대표 향토주 모음',
@@ -332,7 +332,7 @@ export const packageMockData = {
           created_at: '2024-12-09T14:45:00Z',
         },
         {
-          id: 16,
+          id: '16', // number → string
           name: '강원도 산간 특산주',
           slug: 'gangwon-mountain-specialty',
           short_description: '강원도 산간지역 특산 전통주',

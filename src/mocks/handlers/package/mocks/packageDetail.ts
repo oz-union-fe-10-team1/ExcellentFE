@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw'
 import type { PackageDetail } from '@/types/package'
 
 const packageDetailMockData: PackageDetail = {
-  id: 1,
+  id: '1', // number에서 string으로 변경
   name: '한산 소곡주 프리미엄 세트',
   slug: 'hansan-sogokju-premium',
   description:
@@ -108,7 +108,7 @@ const packageDetailMockData: PackageDetail = {
   },
   related_packages: [
     {
-      id: 2,
+      id: '2', // string으로 변경
       name: '막걸리 베스트 3종 세트',
       slug: 'makgeolli-best-3',
       main_image: 'https://example.com/media/packages/makgeolli-best.jpg',
@@ -117,7 +117,7 @@ const packageDetailMockData: PackageDetail = {
       discount_rate: 16.0,
     },
     {
-      id: 3,
+      id: '3', // string으로 변경
       name: '청주 프리미엄 컬렉션',
       slug: 'cheongju-premium',
       main_image: 'https://example.com/media/packages/cheongju-premium.jpg',
@@ -132,7 +132,6 @@ const packageDetailMockData: PackageDetail = {
 
 const packageDetailHandlers = [
   http.get('/api/v1/packages/:package_id/', () => {
-    // 현재는 package_id 무시하고 목데이터 반환
     return HttpResponse.json(packageDetailMockData)
   }),
 ]

@@ -83,7 +83,7 @@ export interface RecommendationsInfo {
 }
 
 export interface RelatedPackageSummary {
-  id: number
+  id: string
   name: string
   slug: string
   main_image: string
@@ -93,7 +93,7 @@ export interface RelatedPackageSummary {
 }
 
 export interface PackageDetail {
-  id: number
+  id: string
   name: string
   slug: string
   description: string
