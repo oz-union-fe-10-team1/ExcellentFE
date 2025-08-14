@@ -1,5 +1,5 @@
 import StarRating from '@/components/common/StarRating'
-import type { Feedback } from '@/mocks/handlers/feedback/feedback'
+import type { Feedback } from '@/types/feedback'
 
 interface ReviewSectionProps {
   feedbackData?: Feedback[]
