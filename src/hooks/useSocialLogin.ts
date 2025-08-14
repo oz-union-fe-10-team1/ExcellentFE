@@ -1,4 +1,4 @@
-import { authState, socialLogin } from '@/api/auth'
+import { socialLogin } from '@/api/auth'
 import { ERROR_MESSAGE } from '@/constants/message'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
@@ -11,11 +11,11 @@ import {
 import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const useSocialLoginURL = () => {
-  const [searchParams] = useSearchParams()
-  const redirect = searchParams.get('redirect')
+  // const [searchParams] = useSearchParams()
+  // const redirect = searchParams.get('redirect')
 
   return useMutation({
     mutationFn: async (provider: SocialProvider) => {
