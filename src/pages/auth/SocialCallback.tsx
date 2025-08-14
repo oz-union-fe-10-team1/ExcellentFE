@@ -14,13 +14,17 @@ const SocialCallback = () => {
   const { mutate, isPending } = useSocialLogin(provider)
 
   useEffect(() => {
-    if (!provider || !code || !state) {
+    if (!provider || !code) {
       navigate(ROUTE_PATHS.LOGIN)
       return
     }
 
-    mutate({ code, state })
-  }, [code, state, mutate, provider, navigate])
+    if (provider === 'naver' && state) {
+      mutate({ code, state })
+    } else {
+      mutate({ code })
+    }
+  }, [code, provider, mutate, navigate, state])
 
   if (isPending) return <p>{provider} 로그인 처리 중입니다...</p>
 

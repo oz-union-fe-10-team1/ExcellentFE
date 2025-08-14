@@ -7,17 +7,12 @@ export interface StateRequest {
 
 export interface SocialCallbackRequest {
   code: string
-  state: string
+  state?: string
 }
 
 export interface SocialCallbackResponse {
   access_token: string
   refresh_token: string
-  user: {
-    id: number
-    email: string
-    username: string
-  }
 }
 
 export interface RefreshTokenRequest {

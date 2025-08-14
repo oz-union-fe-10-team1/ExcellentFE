@@ -1,20 +1,5 @@
-import {
-  googleMockUser,
-  kakaoMockUser,
-  naverMockUser,
-} from '@/mocks/handlers/auth/authMockData'
-import {
-  type RefreshTokenRequest,
-  type SocialCallbackRequest,
-  type StateRequest,
-} from '@/types/auth'
+import { type RefreshTokenRequest, type StateRequest } from '@/types/auth'
 import { http, HttpResponse } from 'msw'
-
-const mockUsers = {
-  kakao: kakaoMockUser,
-  naver: naverMockUser,
-  google: googleMockUser,
-} as const
 
 export const authHandlers = [
   http.post('/auth/state', async ({ request }) => {
@@ -24,26 +9,6 @@ export const authHandlers = [
       return HttpResponse.json({ detail: 'state is required' }, { status: 400 })
 
     return HttpResponse.json({ status: 200 })
-  }),
-
-  http.post('/auth/login/:provider', async ({ params, request }) => {
-    const { provider } = params
-    const { code, state } = (await request.json()) as SocialCallbackRequest
-
-    if (!code || !state) {
-      return HttpResponse.json(
-        { detail: `유효하지 않는 ${provider} 인증 코드입니다.` },
-        { status: 400 }
-      )
-    }
-
-    const user = mockUsers[provider as keyof typeof mockUsers]
-
-    if (!user) {
-      return HttpResponse.json({ detail: 'Invalid provider' }, { status: 400 })
-    }
-
-    return HttpResponse.json(user, { status: 200 })
   }),
 
   http.post('/auth/refresh', async ({ request }) => {
