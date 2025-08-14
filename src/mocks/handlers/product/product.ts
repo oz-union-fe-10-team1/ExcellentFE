@@ -54,7 +54,7 @@ const productHandlers = [
     return HttpResponse.json({ results: filteredData })
   }),
 
-  http.post('/api/v1/products/:product_id/like/', async ({ params }) => {
+  http.post('*/api/v1/products/:product_id/like/', async ({ params }) => {
     const { product_id } = params
 
     const isLiked = product_id === '123e4567-e89b-12d3-a456-426614174000'
