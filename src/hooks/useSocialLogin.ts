@@ -20,11 +20,12 @@ export const useSocialLoginURL = () => {
   return useMutation({
     mutationFn: async (provider: SocialProvider) => {
       const state = crypto.randomUUID()
-      await authState(state)
+      // await authState(state)
 
       // redirect 정보를 state에 포함시킴
-      const stateWithRedirect = redirect ? `${state}:${redirect}` : state
-      const url = SOCIAL_LOGIN[provider].getLoginUrl(stateWithRedirect)
+      // const stateWithRedirect = redirect ? `${state}:${redirect}` : state
+      // const url = SOCIAL_LOGIN[provider].getLoginUrl(stateWithRedirect)
+      const url = SOCIAL_LOGIN[provider].getLoginUrl(state)
       return url
     },
 
@@ -41,11 +42,11 @@ export const useSocialLoginURL = () => {
 export const useSocialLogin = (provider: SocialProvider) => {
   const navigate = useNavigate()
   const { login } = useAuthStore()
-  const [searchParams] = useSearchParams()
+  // const [searchParams] = useSearchParams()
 
   // state에서 redirect 추출
-  const state = searchParams.get('state')
-  const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
+  // const state = searchParams.get('state')
+  // const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
 
   return useMutation({
     mutationFn: (payload: SocialCallbackRequest) =>
@@ -56,7 +57,10 @@ export const useSocialLogin = (provider: SocialProvider) => {
       tokenStorage.setRefreshToken(data.refresh_token)
 
       login()
-      navigate(redirect ?? ROUTE_PATHS.HOME, { replace: true })
+      navigate(ROUTE_PATHS.HOME, { replace: true })
+      // navigate(redirect ?? ROUTE_PATHS.HOME, { replace: true })
+      // const url = SOCIAL_LOGIN.bbaton.getLoginUrl()
+      // window.location.replace(url)
     },
 
     onError: (error) => {

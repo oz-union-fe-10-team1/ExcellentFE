@@ -1,4 +1,3 @@
-import { getUser } from '@/api/user'
 import type { UserResponse } from '@/types/user'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { create } from 'zustand'
@@ -15,14 +14,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
   user: null,
 
-  login: async () => {
+  login: () => {
     set({ isLoggedIn: true })
-    const user = await getUser()
-    try {
-      set({ user, isLoggedIn: true })
-    } catch (error) {
-      set({ isLoggedIn: false, user: null })
-    }
+    // const user = await getUser()
+    // try {
+    //   set({ user, isLoggedIn: true })
+    // } catch (error) {
+    //   set({ isLoggedIn: false, user: null })
+    // }
   },
 
   logout: () => {
