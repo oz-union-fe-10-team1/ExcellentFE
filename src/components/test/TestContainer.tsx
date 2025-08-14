@@ -13,6 +13,9 @@ import ResultStep from '@/components/test/ResultStep.tsx'
 const TestContainer = () => {
   const [step, setStep] = useState<'main' | 'question' | 'result'>('main')
 
+  // 테스트 단계
+  const [testStep, setTestStep] = useState(0)
+
   return (
     <div className="min-h-screen overflow-y-scroll bg-[#F2F2F2]">
       <div className="mt-[100px] flex flex-col items-center">
@@ -23,6 +26,7 @@ const TestContainer = () => {
               icon={leftArrow}
               size={30}
               className="absolute left-4 w-[30px]"
+              onClick={() => setTestStep((prev) => Math.max(prev - 1, 0))}
             />
           )}
           <img src={logoTest} alt="모은" className="h-[26px] w-[54px]" />
@@ -36,7 +40,12 @@ const TestContainer = () => {
 
           {step === 'main' && <MainStep step={step} setStep={setStep} />}
           {step === 'question' && (
-            <ProgressStep step={step} setStep={setStep} />
+            <ProgressStep
+              step={step}
+              setStep={setStep}
+              testStep={testStep}
+              setTestStep={setTestStep}
+            />
           )}
           {step === 'result' && <ResultStep />}
         </div>
