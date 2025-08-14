@@ -1,7 +1,10 @@
 export const TASTE_TAGS = [
+  { label: '#단맛', value: '단맛' },
+  { label: '#산미', value: '산미' },
+  { label: '#쓴맛', value: '쓴맛' },
   {
-    label: '#단맛',
-    value: '단맛',
+    label: '#과일향',
+    value: '과일향',
   },
   {
     label: '#꽃향기',
