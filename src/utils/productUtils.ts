@@ -5,6 +5,8 @@ import type { CardBaseProps } from '@/types/cardProps'
 // Product를 CardBaseProps로 변환
 export const productToCard = (product: Product): CardBaseProps => {
   return {
+    id: product.id, // ID 추가
+    type: 'product', // 타입 추가
     imgSrc: product.main_image_url,
     imgAlt: product.name,
     title: product.name,
@@ -16,6 +18,8 @@ export const productToCard = (product: Product): CardBaseProps => {
 // Package를 CardBaseProps로 변환
 export const packageToCard = (pkg: Package): CardBaseProps => {
   return {
+    id: pkg.id,
+    type: 'package',
     imgSrc: pkg.main_image,
     imgAlt: pkg.name,
     title: pkg.name,

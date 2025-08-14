@@ -1,5 +1,5 @@
 export interface Package {
-  id: number
+  id: string
   name: string
   slug: string
   short_description: string
