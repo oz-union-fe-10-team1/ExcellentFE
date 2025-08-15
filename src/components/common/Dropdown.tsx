@@ -31,7 +31,7 @@ const Dropdown = ({
     <div className={cn('relative', className)} ref={dropdownRef}>
       <button
         type="button"
-        className="flex h-10 w-full items-center justify-between rounded border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-[#D9D9D9]"
+        className="flex h-[30px] w-full cursor-pointer items-center justify-between rounded-[5px] border border-[#D9D9D9] bg-white p-2 text-[12px] text-[#666666] transition-colors hover:border-[#D9D9D9]"
         onClick={handleToggle}
       >
         <span>{selectedOption ? selectedOption.label : placeholder}</span>
@@ -60,7 +60,7 @@ const Dropdown = ({
             <li
               key={option.value}
               className={cn(
-                'p-2 transition-colors',
+                'p-2 transition-colors hover:bg-[#D9D9D9]',
                 option.value === value && 'bg-[#D9D9D9] font-semibold'
               )}
               onClick={() => handleSelect(option.value)}
