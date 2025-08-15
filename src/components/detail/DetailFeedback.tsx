@@ -1,4 +1,4 @@
-import StarRating from '../common/StarRating'
+import StarRating from '@/components/common/StarRating'
 
 const DetailFeedback = () => {
   return (
