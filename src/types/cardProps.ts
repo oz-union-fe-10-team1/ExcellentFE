@@ -16,6 +16,7 @@ export interface ReviewCardProps {
   starRating?: number
   userId?: string
   review?: string
+  defaultRating: number
 }
 
 // 테스트 페이지 추천 카드 데이터  타입
@@ -26,6 +27,16 @@ export interface TestCardProps {
   subtitle?: string
   firstLabel?: string
   secondLabel?: string
+}
+
+export interface BestReviewCardProps {
+  imgSrc: string
+  imgAlt: string
+  review: string
+  userId: string
+  date: string
+  rating: number
+  defaultRating: number
 }
 
 // 카드 타입
@@ -44,4 +55,9 @@ interface TestType {
   data: TestCardProps
 }
 
-export type CardType = DefaultType | ReviewType | TestType
+interface BestReviewType {
+  type: 'best'
+  data: BestReviewCardProps
+}
+
+export type CardType = DefaultType | ReviewType | TestType | BestReviewType
