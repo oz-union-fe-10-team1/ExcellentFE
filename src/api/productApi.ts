@@ -2,6 +2,7 @@ import { axiosInstance } from '@/utils/axios'
 import { API_PATHS } from '@/constants/apiPaths'
 import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
 import type { Package, PackageApiResponse } from '@/types/package'
+import type { ProductDetail } from '@/mocks/detailMock'
 
 // 상품 데이터 가져오기
 export const fetchProducts = async (): Promise<Product[]> => {
@@ -64,4 +65,18 @@ export const fetchAllData = async (): Promise<{
   ])
 
   return { products, packages }
+}
+
+export const getProductDetail = async (
+  productId: string
+): Promise<ProductDetail> => {
+  const response = await axiosInstance.get(`/products/${productId}`)
+  return response.data
+}
+
+export const getPackageDetail = async (
+  packageId: string
+): Promise<ProductDetail> => {
+  const response = await axiosInstance.get(`/packages/${packageId}`)
+  return response.data
 }

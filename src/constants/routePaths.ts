@@ -5,6 +5,8 @@ export const ROUTE_PATHS = {
   SEARCH: '/search',
   FEEDBACK: '/feedback',
   CART: '/cart',
+  PRODUCT_DETAIL: (id: string) => `/product/${id}`,
+  PACKAGE_DETAIL: (id: string) => `/package/${id}`,
 
   LOGIN: '/login',
   SOCIAL_CALLBACK: (provider: string) => `/auth/${provider}/callback`,
