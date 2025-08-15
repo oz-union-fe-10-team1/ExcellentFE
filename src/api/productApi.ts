@@ -67,16 +67,7 @@ export const fetchAllData = async (): Promise<{
   return { products, packages }
 }
 
-export const getProductDetail = async (
-  productId: string
-): Promise<ProductDetail> => {
-  const response = await axiosInstance.get(`/products/${productId}`)
-  return response.data
-}
-
-export const getPackageDetail = async (
-  packageId: string
-): Promise<ProductDetail> => {
-  const response = await axiosInstance.get(`/packages/${packageId}`)
+export const getProductDetail = async (id: string): Promise<ProductDetail> => {
+  const response = await axiosInstance.get(`/api/v1/products/${id}/`)
   return response.data
 }
