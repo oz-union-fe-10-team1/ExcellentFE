@@ -68,6 +68,6 @@ export const fetchAllData = async (): Promise<{
 }
 
 export const getProductDetail = async (id: string): Promise<ProductDetail> => {
-  const response = await axiosInstance.get(`/api/v1/products/${id}/`)
+  const response = await axiosInstance.get(API_PATHS.PRODUCTS.DETAIL(id))
   return response.data
 }
