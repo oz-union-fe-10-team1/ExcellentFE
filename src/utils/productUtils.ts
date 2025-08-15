@@ -6,6 +6,8 @@ export class HomeUtils {
   // Product를 CardBaseProps로 변환
   static productToCard(product: Product): CardBaseProps {
     return {
+      id: product.id,
+      productType: 'PRODUCT',
       imgSrc: product.main_image_url,
       imgAlt: product.name,
       title: product.name,
@@ -17,6 +19,8 @@ export class HomeUtils {
   // Package를 CardBaseProps로 변환
   static packageToCard(pkg: Package): CardBaseProps {
     return {
+      id: pkg.id,
+      productType: 'PACKAGE',
       imgSrc: pkg.main_image,
       imgAlt: pkg.name,
       title: pkg.name,

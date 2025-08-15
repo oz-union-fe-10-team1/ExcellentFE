@@ -1,9 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import useCartItem from '@/hooks/useCartItem'
 import { DetailData, type ProductDetail } from '@/mocks/detailMock'
+import { getPackageDetail, getProductDetail } from '@/api/productApi'
 
 export const useDetailPage = () => {
-  const data: ProductDetail = DetailData
+  const { id } = useParams<{ id: string }>()
+  const location = useLocation()
+  const [data, setData] = useState<ProductDetail>(DetailData)
+
+  useEffect(() => {
+    if (!id) return
+
+    const loadData = async () => {
+      const isPackage = location.pathname.includes('/package/')
+      const result = await (isPackage
+        ? getPackageDetail(id)
+        : getProductDetail(id))
+      setData(result)
+    }
+
+    loadData()
+  }, [id, location.pathname])
 
   const [pickupStore, setPickupStore] = useState('')
 

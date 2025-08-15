@@ -1,5 +1,7 @@
 //main + search 카드 데이터 타입
 export interface CardBaseProps {
+  id?: string | number
+  productType?: 'PRODUCT' | 'PACKAGE'
   imgSrc: string
   imgAlt: string
   title?: string

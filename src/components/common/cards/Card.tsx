@@ -51,6 +51,8 @@ const Card = ({ type, data }: CardType) => {
     case 'default':
       return (
         <CardBase
+          id={(data as CardBaseProps).id}
+          productType={(data as CardBaseProps).productType}
           imgSrc={data.imgSrc || ''}
           imgAlt={data.imgAlt || '모은 주류'}
           title={data.title || '모은'}
