@@ -127,6 +127,32 @@ export const BUTTON_VARIANTS = {
     'justify-center',
     'gap-2',
   ].join(' '),
+
+  //상세페이지 장바구니
+  VARIANT12: [
+    'w-[280px]',
+    'h-[72px]',
+    'bg-[#ffffff]',
+    'rounded-[8px]',
+    'text-[#666666]',
+    'font-bold',
+    'text-lg',
+    'border',
+    'border-[#666666]',
+  ].join(' '),
+
+  //상세페이지 구매하기
+  VARIANT13: [
+    'w-[280px]',
+    'h-[72px]',
+    'bg-[#f2544b]',
+    'rounded-[8px]',
+    'text-[#ffffff]',
+    'font-bold',
+    'text-lg',
+    'border',
+    'border-[#f2544b]',
+  ].join(' '),
 } as const
 
 export const DEFAULT_BUTTON_VARIANT = 'VARIANT1'
