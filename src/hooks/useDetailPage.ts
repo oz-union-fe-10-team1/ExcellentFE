@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import useCartItem from '@/hooks/useCartItem'
 import { DetailData, type ProductDetail } from '@/mocks/detailMock'
-import { getPackageDetail, getProductDetail } from '@/api/productApi'
+import { getProductDetail } from '@/api/productApi'
 
 export const useDetailPage = () => {
   const { id } = useParams<{ id: string }>()
@@ -13,10 +13,7 @@ export const useDetailPage = () => {
     if (!id) return
 
     const loadData = async () => {
-      const isPackage = location.pathname.includes('/package/')
-      const result = await (isPackage
-        ? getPackageDetail(id)
-        : getProductDetail(id))
+      const result = await getProductDetail(id)
       setData(result)
     }
 
