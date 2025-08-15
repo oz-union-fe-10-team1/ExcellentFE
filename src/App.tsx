@@ -20,6 +20,8 @@ import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import Package from '@/pages/Package'
+import Detail from '@/pages/Detail'
+import ScrollToTop from '@/components/common/ScrollToTop'
 
 const queryClient = new QueryClient()
 
@@ -39,6 +41,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/auth/:provider/callback" element={<SocialCallback />} />
@@ -49,6 +52,8 @@ function App() {
           <Route path="test" element={<TestMain />} />
           <Route path="search" element={<Search />} />
           <Route path="feedback" element={<Home />} />
+          <Route path="product/:id" element={<Detail />} />
+          <Route path="package/:id" element={<Detail />} />
           <Route
             path="cart"
             element={
