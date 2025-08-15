@@ -19,6 +19,7 @@ export const API_PATHS = {
   },
   PRODUCTS: {
     LIST: '/api/v1/products',
+    DETAIL: (id: string | number) => `/products/${id}/`,
   },
   PACKAGES: {
     LIST: '/api/v1/packages/',
