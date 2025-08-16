@@ -1,5 +1,5 @@
-import type { Product } from '@/types/search'
 import type { CardBaseProps } from '@/types/cardProps'
+import type { Product } from '@/types/product'
 
 export const transformToCardData = (products: Product[]): CardBaseProps[] => {
   if (!products) return []

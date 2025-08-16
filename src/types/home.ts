@@ -1,5 +1,5 @@
 import type { Package, Categories, Pagination } from '@/types/package'
-import type { Product } from './search'
+import type { Product } from './product'
 
 export interface PackageResponse {
   categories: Categories

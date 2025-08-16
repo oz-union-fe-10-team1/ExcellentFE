@@ -3,7 +3,6 @@ import feedbackHandlers from './handlers/feedback/feedback'
 import itemRowHandlers from './handlers/itemrow/itemrow'
 import mypageHandlers from './handlers/mypage/mypage'
 import orderHandlers from './handlers/order/order'
-import packageHandlers from './handlers/package/package'
 import productHandlers from './handlers/product/product'
 import recommendationHandlers from './handlers/recommendation/recommendation'
 import tastetestHandlers from './handlers/tastetest/tastetest'
@@ -15,7 +14,6 @@ export const handlers = [
   ...itemRowHandlers,
   ...mypageHandlers,
   ...orderHandlers,
-  ...packageHandlers,
   ...productHandlers,
   ...recommendationHandlers,
   ...tastetestHandlers,

@@ -1,6 +1,6 @@
-import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
 import type { Package } from '@/types/package'
 import type { CardBaseProps } from '@/types/cardProps'
+import type { Product } from '@/types/product'
 
 export class HomeUtils {
   // Product를 CardBaseProps로 변환
