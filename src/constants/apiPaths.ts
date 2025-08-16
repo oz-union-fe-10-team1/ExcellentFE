@@ -20,7 +20,7 @@ export const API_PATHS = {
   PRODUCTS: {
     DETAIL: (id: string | number) => `/products/${id}/`,
     /* TODO: api 변경 필요 */
-    MONTH: '/products/popular',
+    MONTH: '/products/monthly',
     POPULAR: '/products/popular',
     FEATURED: '/products/featured',
     RECOMMENDED: '/products/recommended',

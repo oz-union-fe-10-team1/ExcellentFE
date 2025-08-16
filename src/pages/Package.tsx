@@ -9,17 +9,17 @@ import MakgeolliPackageSection from '@/components/package-page/MakgeolliPackageS
 import RegionalPackageSection from '@/components/package-page/RegionalPackageSection'
 
 const Package = () => {
-  const { loading, error, retry, recommended, award, makgeolli, regional } =
+  const { loading, error, retry, featured, award, makgeolli, regional } =
     usePackagePageData()
 
   // 데이터를 카드 형태로 변환
-  const recommendedCards = transformToCardData(recommended)
+  const featuredCards = transformToCardData(featured)
   const awardCards = transformToCardData(award)
   const makgeolliCards = transformToCardData(makgeolli)
   const regionalCards = transformToCardData(regional)
 
   // 배너에서 이동할 패키지 ID (추천 패키지 중 첫 번째)
-  const featuredPackageId = recommended[0]?.id || 1
+  const featuredPackageId = featured[0]?.id || 1
 
   if (loading) {
     return (
@@ -73,7 +73,7 @@ const Package = () => {
       </section>
 
       {/* 추천 패키지 섹션 */}
-      <RecommendedPackageSection recommendedCards={recommendedCards} />
+      <RecommendedPackageSection recommendedCards={featuredCards} />
       {/* 주류 대상 수상 등급 패키지 섹션 */}
       <AwardPackageSection awardCards={awardCards} />
       {/* 막걸리 패키지 섹션 */}
