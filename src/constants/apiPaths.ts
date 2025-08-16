@@ -18,8 +18,15 @@ export const API_PATHS = {
     PROFILE: '/feedback/profile',
   },
   PRODUCTS: {
-    LIST: '/api/v1/products',
     DETAIL: (id: string | number) => `/products/${id}/`,
+    /* TODO: api 변경 필요 */
+    MONTH: '/products/popular',
+    POPULAR: '/products/popular',
+    FEATURED: '/products/featured',
+    RECOMMENDED: '/products/recommended',
+    AWARD: '/products/award-winning',
+    MAKGEOLLI: '/products/makgeolli',
+    REGIONAL: '/products/regional',
   },
   PACKAGES: {
     LIST: '/api/v1/packages/',

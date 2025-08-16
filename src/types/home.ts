@@ -1,5 +1,5 @@
-import type { Product } from '@/mocks/handlers/product/mocks/productMockData'
 import type { Package, Categories, Pagination } from '@/types/package'
+import type { Product } from './search'
 
 export interface PackageResponse {
   categories: Categories
@@ -13,5 +13,6 @@ export interface HomePageData {
 }
 
 export interface ProductResponse {
-  results: Product[]
+  products?: Product[]
+  results?: Product[]
 }

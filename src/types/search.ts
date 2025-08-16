@@ -14,6 +14,9 @@ export interface Product {
   name: string
   short_description: string
   price: number
+  id: string
+  product_type: 'individual' | 'package'
+  brewery_name: string
 }
 
 export interface SearchFormProps {

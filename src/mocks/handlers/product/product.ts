@@ -1,16 +1,10 @@
 import { http, HttpResponse } from 'msw'
-import productMockData from './mocks/productMockData'
-import productFilterMockData from './mocks/productFilterMockData'
 import productSearchMockData from './mocks/productSearchMockData'
 import type { ProductFeatures } from './mocks/productSearchMockData'
 import type { ProductType } from '@/hooks/useProductSearch'
 import type { TasteFilters } from '@/hooks/useProductSearch'
 
 const productHandlers = [
-  http.get('/api/v1/products', () => {
-    return HttpResponse.json(productMockData)
-  }),
-
   http.get('/api/v1/products/search', ({ request }) => {
     const url = new URL(request.url)
     const searchParams = url.searchParams
@@ -58,16 +52,6 @@ const productHandlers = [
     })
 
     return HttpResponse.json({ results: filteredData })
-  }),
-
-  http.get('/api/v1/products/:product_id', ({ params }) => {
-    const { product_id } = params
-
-    if (product_id === '123e4567-e89b-12d3-a456-426614174000') {
-      return HttpResponse.json(productFilterMockData)
-    }
-
-    return HttpResponse.json({ message: 'Product not found' }, { status: 404 })
   }),
 
   http.post('/api/v1/products/:product_id/like/', async ({ params }) => {

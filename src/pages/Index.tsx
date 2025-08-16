@@ -1,43 +1,18 @@
 import { Link } from 'react-router-dom'
-import CardList from '@/components/common/cards/CardList'
-import Carousel from '@/components/common/Carousel'
 import Button from '@/components/common/Button'
-import { useProducts, usePackages } from '@/hooks/useHomePage'
-import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/mainPage/banner.png'
+import type { CardBaseProps } from '@/types/cardProps'
+import type { Product } from '@/types/search'
+import { useMainProducts } from '@/hooks/home/useMainProduct'
+import MonthProductsSection from '@/components/main-page/MonthProductsSection'
+import PopularSection from '@/components/main-page/PopularSection'
+import RecommendedSection from '@/components/main-page/RecommendedSection'
 
 const Home = () => {
-  // 상품 데이터
-  const {
-    data: products = [],
-    isLoading: productsLoading,
-    error: productsError,
-    refetch: refetchProducts,
-  } = useProducts()
+  const { month, popular, recommended, anyLoading, anyError, retryAll } =
+    useMainProducts()
 
-  // 패키지 데이터
-  const {
-    data: packages = [],
-    isLoading: packagesLoading,
-    error: packagesError,
-    refetch: refetchPackages,
-  } = usePackages()
-
-  // 전체 상태 계산
-  const loading = productsLoading || packagesLoading
-  const error = productsError || packagesError
-
-  // 데이터 변환
-  const monthlyProducts = HomeUtils.getMonthlyProducts(products)
-  const popularPackages = HomeUtils.getPopularPackages(packages)
-  const recommendedProducts = HomeUtils.getRecommendedProducts(products)
-
-  const handleRetry = () => {
-    refetchProducts()
-    refetchPackages()
-  }
-
-  if (loading) {
+  if (anyLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="text-center">
@@ -48,20 +23,39 @@ const Home = () => {
     )
   }
 
-  if (error) {
+  if (anyError) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-white">
         <div className="text-center">
           <div className="mb-4 text-lg text-red-600">
             데이터를 불러오는데 실패했습니다.
           </div>
-          <Button variant="VARIANT9" onClick={handleRetry}>
+          <Button variant="VARIANT9" onClick={retryAll}>
             다시 시도
           </Button>
         </div>
       </div>
     )
   }
+
+  const transformToCardData = (products: Product[]): CardBaseProps[] => {
+    if (!products) return []
+    return products.map((product) => ({
+      id: product.id,
+      productType: product.product_type === 'package' ? 'PACKAGE' : 'PRODUCT',
+      imgSrc: product.main_image_url,
+      imgAlt: `${product.name} 이미지`,
+      title: product.name,
+      subtitle: product.brewery_name,
+      price: product.price,
+    }))
+  }
+
+  const monthCards = transformToCardData(month?.data?.products ?? [])
+  const popularCards = transformToCardData(popular?.data?.products ?? [])
+  const recommendedCards = transformToCardData(
+    recommended?.data?.products ?? []
+  )
 
   return (
     <div className="min-h-screen bg-white">
@@ -91,50 +85,13 @@ const Home = () => {
       </section>
 
       {/* 이달의 전통주 섹션 */}
-      <section className="py-16">
-        <div className="container mx-auto">
-          <div className="flex flex-row items-start gap-12">
-            <div className="w-80 flex-shrink-0">
-              <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-                이달의 전통주
-              </h2>
-              <p className="text-[#666666]">
-                한 잔 취향이 추천하는 테스트를통해{' '}
-              </p>
-              <p className="text-[#666666]">입맛에 맞는 술 찾아보세요</p>
-            </div>
-            <div className="flex-1">
-              <CardList type="default" cards={monthlyProducts} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <MonthProductsSection monthCards={monthCards} />
 
       {/* 인기 패키지 섹션 */}
-      <section className="h-[704px] bg-[#f2f2f2] py-25">
-        <div className="container mx-auto">
-          <div className="mb-12">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              인기 패키지
-            </h2>
-            <p className="text-[#666666]">한 잔 취향 유저들의 Pick!</p>
-          </div>
-          <Carousel cards={popularPackages} />
-        </div>
-      </section>
+      <PopularSection popularCards={popularCards} />
 
       {/* 추천 전통주 섹션 */}
-      <section className="mb-80 py-25">
-        <div className="container mx-auto">
-          <div className="mb-12 text-left">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              추천 전통주
-            </h2>
-            <p className="text-[#666666]">한 잔 취향에서 엄선한 추천 전통주</p>
-          </div>
-          <CardList type="default" cards={recommendedProducts} />
-        </div>
-      </section>
+      <RecommendedSection recommendedCards={recommendedCards} />
     </div>
   )
 }
