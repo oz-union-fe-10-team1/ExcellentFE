@@ -6,6 +6,8 @@ import { useDetailPage } from '@/hooks/useDetailPage'
 const Detail = () => {
   const {
     data,
+    isLoading,
+    error,
     pickupStore,
     setPickupStore,
     localQuantity,
@@ -15,6 +17,30 @@ const Detail = () => {
     dropdownValues,
     handleDropdownChange,
   } = useDetailPage()
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div>로딩 중...</div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div>오류가 발생했습니다: {error.message}</div>
+      </div>
+    )
+  }
+
+  if (!data) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div>상품 정보를 찾을 수 없습니다.</div>
+      </div>
+    )
+  }
 
   return (
     <div className="mx-auto mt-41 flex max-w-320 flex-col gap-25 bg-white p-6">

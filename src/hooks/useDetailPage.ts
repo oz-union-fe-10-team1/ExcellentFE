@@ -1,24 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import useCartItem from '@/hooks/useCartItem'
-import { DetailData, type ProductDetail } from '@/mocks/detailMock'
-import { getProductDetail } from '@/api/productApi'
+import { useProductDetail } from '@/hooks/home/useProduct'
 
 export const useDetailPage = () => {
   const { id } = useParams<{ id: string }>()
-  const location = useLocation()
-  const [data, setData] = useState<ProductDetail>(DetailData)
-
-  useEffect(() => {
-    if (!id) return
-
-    const loadData = async () => {
-      const result = await getProductDetail(id)
-      setData(result)
-    }
-
-    loadData()
-  }, [id, location.pathname])
+  const { data, isLoading, error } = useProductDetail(id ?? '')
 
   const [pickupStore, setPickupStore] = useState('')
 
@@ -43,14 +30,17 @@ export const useDetailPage = () => {
   } = useCartItem({ quantity: 1 })
 
   return {
+    id,
     data,
+    isLoading,
+    error,
     pickupStore,
     setPickupStore,
+    dropdownValues,
+    handleDropdownChange,
     localQuantity,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     isDecreaseDisabled,
-    dropdownValues,
-    handleDropdownChange,
   }
 }
