@@ -1,4 +1,4 @@
-import type { ProductDetail } from '@/mocks/detailMock'
+import type { ProductDetail } from '@/types/product'
 import { DRINK_INFO_ROWS } from '@/constants/detailPage'
 
 const DetailInformation = ({ data }: { data: ProductDetail }) => {

@@ -3,7 +3,7 @@ import DetailCard from '@/components/common/cards/DetailCard'
 import StarRating from '@/components/common/StarRating'
 import Dropdown from '@/components/common/Dropdown'
 import Button from '@/components/common/Button'
-import type { ProductDetail } from '@/mocks/detailMock'
+import type { ProductDetail } from '@/types/product'
 import { cn } from '@/utils/cn'
 import { DROPDOWN_FIELDS } from '@/constants/detailPage'
 
@@ -57,9 +57,11 @@ const DetailProduct = ({
               <span className="text-[30px] font-bold text-[#333333]">
                 {data.price.toLocaleString()}원
               </span>
-              <span className="ml-2 text-gray-400 line-through">
-                {data.original_price.toLocaleString()}원
-              </span>
+              {data.original_price !== null && (
+                <span className="ml-2 text-sm text-gray-400 line-through">
+                  {data.original_price.toLocaleString()}원
+                </span>
+              )}
             </div>
           </div>
           <div className="mr-2 mb-3 flex items-center justify-end gap-2">
