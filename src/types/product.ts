@@ -76,3 +76,25 @@ export type ProductCardShape = Pick<
 > & {
   drink: { brewery: { name: string } } | null
 }
+
+export interface Product {
+  id: string | number
+  name: string
+  product_type: 'individual' | 'package'
+  main_image_url: string
+  price: number
+  final_price?: number
+  short_description?: string
+  brewery_name?: string
+  is_featured?: boolean
+  description?: string
+  discount_rate?: number
+  is_on_sale?: boolean
+  view_count?: number
+  order_count?: number
+  like_count?: number
+  review_count?: number
+  status?: 'ACTIVE' | 'INACTIVE'
+  created_at?: string
+  updated_at?: string
+}

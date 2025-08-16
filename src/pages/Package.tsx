@@ -1,66 +1,25 @@
 import { Link } from 'react-router-dom'
-import CardList from '@/components/common/cards/CardList'
-import Carousel from '@/components/common/Carousel'
 import Button from '@/components/common/Button'
-import {
-  useRecommendedPackages,
-  useAwardPackages,
-  useMakgeolliPackages,
-  useRegionalPackages,
-} from '@/hooks/usePackagePage'
-import { HomeUtils } from '@/utils/productUtils'
 import banner from '@/assets/images/packagePage/package-banner.png'
+import { transformToCardData } from '@/utils/transformToCardData'
+import { usePackagePageData } from '@/hooks/home/usePackagePageData'
+import RecommendedPackageSection from '@/components/package-page/RecommendedPackageSection'
+import AwardPackageSection from '@/components/package-page/AwardPackageSection'
+import MakgeolliPackageSection from '@/components/package-page/MakgeolliPackageSection'
+import RegionalPackageSection from '@/components/package-page/RegionalPackageSection'
 
 const Package = () => {
-  const {
-    data: recommendedPackages = [],
-    isLoading: recommendedLoading,
-    error: recommendedError,
-    refetch: refetchRecommended,
-  } = useRecommendedPackages()
-
-  const {
-    data: awardPackages = [],
-    isLoading: awardLoading,
-    error: awardError,
-    refetch: refetchAward,
-  } = useAwardPackages()
-
-  const {
-    data: makgeolliPackages = [],
-    isLoading: makgeolliLoading,
-    error: makgeolliError,
-    refetch: refetchMakgeolli,
-  } = useMakgeolliPackages()
-
-  const {
-    data: regionalPackages = [],
-    isLoading: regionalLoading,
-    error: regionalError,
-    refetch: refetchRegional,
-  } = useRegionalPackages()
-
-  const handleRetry = () => {
-    refetchRecommended()
-    refetchAward()
-    refetchMakgeolli()
-    refetchRegional()
-  }
-
-  // 전체 로딩 및 에러 상태
-  const loading =
-    recommendedLoading || awardLoading || makgeolliLoading || regionalLoading
-  const error =
-    recommendedError || awardError || makgeolliError || regionalError
+  const { loading, error, retry, recommended, award, makgeolli, regional } =
+    usePackagePageData()
 
   // 데이터를 카드 형태로 변환
-  const recommendedCards = recommendedPackages.map(HomeUtils.packageToCard)
-  const awardCards = awardPackages.map(HomeUtils.packageToCard)
-  const makgeolliCards = makgeolliPackages.map(HomeUtils.packageToCard)
-  const regionalCards = regionalPackages.map(HomeUtils.packageToCard)
+  const recommendedCards = transformToCardData(recommended)
+  const awardCards = transformToCardData(award)
+  const makgeolliCards = transformToCardData(makgeolli)
+  const regionalCards = transformToCardData(regional)
 
   // 배너에서 이동할 패키지 ID (추천 패키지 중 첫 번째)
-  const featuredPackageId = recommendedPackages[0]?.id || 1
+  const featuredPackageId = recommended[0]?.id || 1
 
   if (loading) {
     return (
@@ -80,7 +39,7 @@ const Package = () => {
           <div className="mb-4 text-lg text-red-600">
             패키지 데이터를 불러오는데 실패했습니다.
           </div>
-          <Button variant="VARIANT9" onClick={handleRetry}>
+          <Button variant="VARIANT9" onClick={retry}>
             다시 시도
           </Button>
         </div>
@@ -114,58 +73,13 @@ const Package = () => {
       </section>
 
       {/* 추천 패키지 섹션 */}
-      <section className="py-16">
-        <div className="container mx-auto">
-          <div className="mb-12">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              추천 패키지
-            </h2>
-            <p className="text-[#666666]">오직 {}의 취향을 반영한 패키지</p>
-          </div>
-          <CardList type="default" cards={recommendedCards} />
-        </div>
-      </section>
-
+      <RecommendedPackageSection recommendedCards={recommendedCards} />
       {/* 주류 대상 수상 등급 패키지 섹션 */}
-      <section className="h-[704px] bg-[#f2f2f2] py-25">
-        <div className="container mx-auto">
-          <div className="mb-12">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              주류 대상 수상 5종 패키지
-            </h2>
-            <p className="text-[#666666]">수상 대상 수상 등급 패키지</p>
-          </div>
-          <Carousel cards={awardCards} />
-        </div>
-      </section>
-
+      <AwardPackageSection awardCards={awardCards} />
       {/* 막걸리 패키지 섹션 */}
-      <section className="py-25">
-        <div className="container mx-auto">
-          <div className="mb-12 text-left">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              막걸리 패키지
-            </h2>
-            <p className="text-[#666666]">막걸리 러버들을 위한 전용 패키지</p>
-          </div>
-          <CardList type="default" cards={makgeolliCards} />
-        </div>
-      </section>
-
+      <MakgeolliPackageSection makgeolliCards={makgeolliCards} />
       {/* 지역 특산주 패키지 섹션 */}
-      <section className="mb-80 py-25">
-        <div className="container mx-auto">
-          <div className="mb-12 text-left">
-            <h2 className="mb-4 text-3xl font-bold text-[#333333]">
-              지역 특산주 패키지
-            </h2>
-            <p className="text-[#666666]">
-              대한민국 방방곡곡을 대표하는 전통주 패키지
-            </p>
-          </div>
-          <CardList type="default" cards={regionalCards} />
-        </div>
-      </section>
+      <RegionalPackageSection regionalCards={regionalCards} />
     </div>
   )
 }

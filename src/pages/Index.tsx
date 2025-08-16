@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import Button from '@/components/common/Button'
 import banner from '@/assets/images/mainPage/banner.png'
 import type { CardBaseProps } from '@/types/cardProps'
-import type { Product } from '@/types/search'
 import { useMainProducts } from '@/hooks/home/useMainProduct'
 import MonthProductsSection from '@/components/main-page/MonthProductsSection'
 import PopularSection from '@/components/main-page/PopularSection'
 import RecommendedSection from '@/components/main-page/RecommendedSection'
+import type { Product } from '@/types/product'
 
 const Home = () => {
   const { month, popular, recommended, anyLoading, anyError, retryAll } =
