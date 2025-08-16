@@ -8,6 +8,7 @@ import MainStep from '@/components/test/MainStep.tsx'
 import ProgressStep from '@/components/test/ProgressStep.tsx'
 import Icon from '@/components/common/Icon'
 import ResultStep from '@/components/test/ResultStep.tsx'
+import type { TasteTestResult } from '@/types/tasteTypes'
 
 //분기 처리를 위한 테스트 페이지의 가장 큰 컴포넌트
 const TestContainer = () => {
@@ -15,6 +16,9 @@ const TestContainer = () => {
 
   // 테스트 단계
   const [testStep, setTestStep] = useState(0)
+
+  //테스트 결과 : 진행, 결과 페이지에서 사용
+  const [testResult, setTestResult] = useState('')
 
   return (
     <div className="min-h-screen overflow-y-scroll bg-[#F2F2F2]">
@@ -45,9 +49,20 @@ const TestContainer = () => {
               setStep={setStep}
               testStep={testStep}
               setTestStep={setTestStep}
+              testResult={testResult}
+              setTestResult={setTestResult}
             />
           )}
-          {step === 'result' && <ResultStep />}
+          {step === 'result' && (
+            <ResultStep
+              step={step}
+              setStep={setStep}
+              testStep={testStep}
+              setTestStep={setTestStep}
+              testResult={testResult}
+              setTestResult={setTestResult}
+            />
+          )}
         </div>
       </div>
       {/* 푸터와의 여백용 파트 */}
