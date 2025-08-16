@@ -37,7 +37,7 @@ export const DRINK_INFO_ROWS = (data: ProductDetail) => [
   {
     label: '맛 정보',
     value: data.drink
-      ? `단맛 ${data.drink.taste_profile.sweetness}%, 산미 ${data.drink.taste_profile.acidity}%, 쓴맛 ${data.drink.taste_profile.bitterness}%, 바디감 ${data.drink.taste_profile.body}%, 향 ${data.drink.taste_profile.aroma}%`
+      ? `단맛 ${data.drink.taste_profile.sweetness}, 산미 ${data.drink.taste_profile.acidity}, 쓴맛 ${data.drink.taste_profile.bitterness}, 바디감 ${data.drink.taste_profile.body}, 향 ${data.drink.taste_profile.aroma}`
       : '-',
   },
   { label: '주종', value: data.drink?.alcohol_type_display ?? '-' },

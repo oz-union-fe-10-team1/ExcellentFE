@@ -1,8 +1,8 @@
 import { http, HttpResponse } from 'msw'
-import productSearchMockData from './mocks/productSearchMockData'
-import type { ProductFeatures } from './mocks/productSearchMockData'
-import type { ProductType } from '@/hooks/useProductSearch'
-import type { TasteFilters } from '@/hooks/useProductSearch'
+import productSearchMockData, {
+  type ProductFeatures,
+} from './mocks/productSearchMockData'
+import type { ProductType, TasteFilters } from '@/hooks/useProductSearch'
 
 const productHandlers = [
   http.get('/api/v1/products/search', ({ request }) => {

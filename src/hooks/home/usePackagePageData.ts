@@ -3,25 +3,26 @@ import {
   useAwardPackages,
   useMakgeolliPackages,
   useRegionalPackages,
+  useFeaturedPackages,
 } from '@/hooks/home/useProduct'
 
 export const usePackagePageData = () => {
-  const recommended = useRecommendedProducts()
+  const featured = useFeaturedPackages()
   const award = useAwardPackages()
   const makgeolli = useMakgeolliPackages()
   const regional = useRegionalPackages()
 
   const loading =
-    recommended.isLoading ||
+    featured.isLoading ||
     award.isLoading ||
     makgeolli.isLoading ||
     regional.isLoading
 
   const error =
-    recommended.error || award.error || makgeolli.error || regional.error
+    featured.error || award.error || makgeolli.error || regional.error
 
   const retry = () => {
-    recommended.refetch()
+    featured.refetch()
     award.refetch()
     makgeolli.refetch()
     regional.refetch()
@@ -31,7 +32,7 @@ export const usePackagePageData = () => {
     loading,
     error,
     retry,
-    recommended: recommended.data?.products ?? [],
+    featured: featured.data?.products ?? [],
     award: award.data?.products ?? [],
     makgeolli: makgeolli.data?.products ?? [],
     regional: regional.data?.products ?? [],
