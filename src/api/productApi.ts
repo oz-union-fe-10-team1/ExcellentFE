@@ -33,6 +33,18 @@ export const mainProductApi = {
   },
 }
 
+export const cartApi = {
+  ADD: async (product_id: string, quantity: number) => {
+    const response = await axiosInstance.post(API_PATHS.CART.ADD, {
+      product_id,
+      quantity,
+      pickup_store_id: 1,
+      pickup_date: '2025-08-16',
+    })
+    return response.data
+  },
+}
+
 export const getProductDetail = async (id: string): Promise<ProductDetail> => {
   const response = await axiosInstance.get(API_PATHS.PRODUCTS.DETAIL(id))
   return response.data

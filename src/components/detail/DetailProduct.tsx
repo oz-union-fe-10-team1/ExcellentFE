@@ -13,10 +13,10 @@ interface DetailProductProps {
   onIncreaseQuantity: () => void
   onDecreaseQuantity: () => void
   isDecreaseDisabled: boolean
-  pickupStore: string
-  onChangePickupStore: (value: string) => void
   dropdownValues: Record<string, string>
   handleDropdownChange: (key: string, value: string) => void
+  onAddCart: () => void
+  onPurchase: () => void
 }
 
 const DetailProduct = ({
@@ -27,10 +27,11 @@ const DetailProduct = ({
   isDecreaseDisabled,
   dropdownValues,
   handleDropdownChange,
+  onAddCart,
+  onPurchase,
 }: DetailProductProps) => {
   return (
     <div className="mb-8 grid grid-cols-2 gap-8">
-      {/* 왼쪽 이미지 */}
       <div>
         <DetailCard
           className="h-50 w-50 sm:h-100 sm:w-100 md:h-100 md:w-100 lg:h-140 lg:w-140"
@@ -43,7 +44,6 @@ const DetailProduct = ({
         />
       </div>
 
-      {/* 오른쪽 상품 정보 */}
       <div className="space-y-4">
         <div className="grid grid-cols-2 border-b pb-4">
           <div className="ml-6">
@@ -72,9 +72,7 @@ const DetailProduct = ({
           </div>
         </div>
 
-        {/* 옵션 선택 */}
         <div className="mt-8 flex flex-col gap-6 border-b border-[#D9D9D9] pb-5">
-          {/* 수량 */}
           <div className="flex items-center">
             <div>수량</div>
             <div className="ml-[110px] inline-flex h-8 w-20 items-center justify-center rounded-[5px] bg-[#f6f6f6]">
@@ -102,10 +100,9 @@ const DetailProduct = ({
             </div>
           </div>
 
-          {/* 픽업 매장 드롭다운 (예시 3개) */}
-          {DROPDOWN_FIELDS.map((field, idx) => (
+          {DROPDOWN_FIELDS.map((field) => (
             <div
-              key={idx}
+              key={field.key}
               className="flex items-center justify-between gap-2 text-[#333333]"
             >
               <div className="font-semibold text-[#333333]">{field.label}</div>
@@ -120,7 +117,6 @@ const DetailProduct = ({
           ))}
         </div>
 
-        {/* 가격 및 버튼 */}
         <div className="mt-6">
           <div className="mb-9 flex items-center justify-between">
             <span className="text-[#666666]">총 상품 금액</span>
@@ -130,8 +126,12 @@ const DetailProduct = ({
           </div>
 
           <div className="flex gap-[10px]">
-            <Button variant="VARIANT12">장바구니</Button>
-            <Button variant="VARIANT13">구매하기</Button>
+            <Button variant="VARIANT12" onClick={onAddCart}>
+              장바구니
+            </Button>
+            <Button variant="VARIANT13" onClick={onPurchase}>
+              구매하기
+            </Button>
           </div>
         </div>
       </div>

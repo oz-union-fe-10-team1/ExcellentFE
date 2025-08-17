@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { mainProductApi, getProductDetail } from '@/api/productApi'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { mainProductApi, getProductDetail, cartApi } from '@/api/productApi'
 import type { ProductDetail } from '@/types/product'
 import type { ProductResponse } from '@/types/home'
 
@@ -66,5 +66,17 @@ export const useProductDetail = (id: string) => {
     queryFn: () => getProductDetail(id),
     enabled: !!id, // id가 있을 때만 쿼리 실행
     staleTime: 5 * 60 * 1000,
+  })
+}
+
+export const useAddCart = () => {
+  return useMutation({
+    mutationFn: ({
+      product_id,
+      quantity,
+    }: {
+      product_id: string
+      quantity: number
+    }) => cartApi.ADD(product_id, quantity),
   })
 }

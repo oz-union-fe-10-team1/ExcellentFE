@@ -1,13 +1,22 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useProductDetail, useAddCart } from '@/hooks/home/useProduct'
 import useCartItem from '@/hooks/useCartItem'
-import { useProductDetail } from '@/hooks/home/useProduct'
+import { showSuccess, showError } from '@/utils/feedbackUtils'
+import { SUCCESS_MESSAGE, ERROR_MESSAGE } from '@/constants/message'
 
 export const useDetailPage = () => {
-  const { id } = useParams<{ id: string }>()
-  const { data, isLoading, error } = useProductDetail(id ?? '')
+  const { id: productId } = useParams<{ id: string }>()
+  const navigate = useNavigate()
 
-  const [pickupStore, setPickupStore] = useState('')
+  const { data, isLoading, error } = useProductDetail(productId ?? '')
+
+  const {
+    localQuantity,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+    isDecreaseDisabled,
+  } = useCartItem({ quantity: 1 })
 
   const [dropdownValues, setDropdownValues] = useState({
     orderRegion: '',
@@ -22,25 +31,42 @@ export const useDetailPage = () => {
     }))
   }
 
-  const {
-    localQuantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    isDecreaseDisabled,
-  } = useCartItem({ quantity: 1 })
+  const { mutate: addCart } = useAddCart()
+
+  const handleAddToCart = () => {
+    if (!productId) return
+    addCart(
+      { product_id: productId, quantity: localQuantity },
+      {
+        onSuccess: () => showSuccess(SUCCESS_MESSAGE.ADD_CART_SUCCESS),
+        onError: () => showError(ERROR_MESSAGE.ADD_CART_FAILED),
+      }
+    )
+  }
+
+  const handlePurchase = () => {
+    if (!productId) return
+    addCart(
+      { product_id: productId, quantity: localQuantity },
+      {
+        onSuccess: () => navigate('/cart'),
+        onError: () => showError(ERROR_MESSAGE.ADD_CART_FAILED),
+      }
+    )
+  }
 
   return {
-    id,
     data,
-    isLoading,
     error,
-    pickupStore,
-    setPickupStore,
+    isLoading,
+    productId,
     dropdownValues,
     handleDropdownChange,
     localQuantity,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     isDecreaseDisabled,
+    handleAddToCart,
+    handlePurchase,
   }
 }
