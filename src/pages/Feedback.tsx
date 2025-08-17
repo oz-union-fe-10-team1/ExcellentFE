@@ -7,8 +7,7 @@ import BestReviewCard from '@/components/common/cards/BestReviewCard'
 import type { BestReviewCardProps, CardBaseProps } from '@/types/cardProps'
 
 export const Feedback = () => {
-  const { data, isLoading, isError } = useFeedbackList()
-  console.log(data)
+  const { data, isLoading, isError, refetch } = useFeedbackList()
 
   if (isLoading) return <p>로딩중...</p>
   if (isError) return <p>데이터를 불러오는데 실패했습니다.</p>
@@ -42,7 +41,7 @@ export const Feedback = () => {
 
   return (
     <div>
-      <div className="flex h-200 w-full flex-col items-center bg-[#F2F2F2] px-60 py-25">
+      <div className="flex h-220 w-full flex-col items-center bg-[#F2F2F2] px-60 py-44">
         <h1 className="mb-[60px] text-[40px] font-bold text-[#333333]">
           한 잔 취향 이 달의 후기
         </h1>
@@ -66,7 +65,9 @@ export const Feedback = () => {
               <h5 className="text-[18px] text-[#666666]">
                 한 잔 취향을 이용한 고객님들의 실시간 후기
               </h5>
-              <Icon icon={ResetIcon} size={40} />
+              <button onClick={() => refetch()}>
+                <Icon icon={ResetIcon} size={40} />
+              </button>
             </div>
           </div>
           <CardList
@@ -91,7 +92,9 @@ export const Feedback = () => {
               <h5 className="text-[18px] text-[#666666]">
                 한 잔 취향을 이용한 고객님들의 실시간 후기
               </h5>
-              <Icon icon={ResetIcon} size={40} />
+              <button onClick={() => refetch()}>
+                <Icon icon={ResetIcon} size={40} />
+              </button>
             </div>
           </div>
           <CardList
