@@ -18,7 +18,7 @@ const TestContainer = () => {
   const [testStep, setTestStep] = useState(0)
 
   //테스트 결과 : 진행, 결과 페이지에서 사용
-  const [testResult, setTestResult] = useState('')
+  const [testResult, setTestResult] = useState<TasteTestResult>()
 
   return (
     <div className="min-h-screen overflow-y-scroll bg-[#F2F2F2]">

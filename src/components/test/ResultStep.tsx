@@ -45,13 +45,13 @@ const ResultStep = ({
       <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
         김오즈님의 취향 유형은...
       </p>
-      <p className="mb-[10px] text-[40px] font-extrabold">{testResult.type}</p>
+      <p className="mb-[10px] text-[40px] font-extrabold">{testResult?.type}</p>
       <p className="mx-[62px] mb-[28px] text-center text-[19px] whitespace-pre-line text-[#666666]">
-        {testResult.info.description}
+        {testResult?.info.description}
       </p>
       <img
-        src={testResult.info.image_url}
-        alt={testResult.type}
+        src={testResult?.info.image_url}
+        alt={testResult?.type}
         className="mb-[50px] h-[200px] w-[200px]"
       />
       {/* 공유하기 섹션 */}
@@ -62,7 +62,7 @@ const ResultStep = ({
       {/* 취향 패키지 추천 조합 섹션 */}
       <div className="mb-20 w-full">
         <p className="mb-4 ml-[57px] text-xl font-bold text-[#333333]">
-          {testResult.type} 유형을 위한 첫 번째 추천 조합
+          {testResult?.type} 유형을 위한 첫 번째 추천 조합
         </p>
         <div className="flex grid-cols-3 justify-center">
           <CardList type="test" cards={testCardData} columns={3} />

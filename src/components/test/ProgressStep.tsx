@@ -51,6 +51,16 @@ const ProgressStep = ({
     }
   }
 
+  //로컬 저장 함수 (유틸로 분리하기)
+  const saveResultToLocal = (resultData: AnswerType) => {
+    try {
+      localStorage.setItem('selectedAnswers', JSON.stringify(resultData))
+      console.log('로컬 저장 성공')
+    } catch (error) {
+      console.error('로컬 저장에 실패 했습니다. :', error)
+    }
+  }
+
   //결과 보내고 응답 받아오기
   const handleResult = () => {
     if (isLoggedIn) {
@@ -161,6 +171,7 @@ const ProgressStep = ({
                     key={index}
                     className={`mb-[57px] text-[#FFFFFF] ${
                       btn.text === '결과 확인 하기' && !isClicked
+                        ? 'cursor-not-allowed'
                         ? 'cursor-not-allowed'
                         : 'bg-[#2E2F2F]'
                     }`}
