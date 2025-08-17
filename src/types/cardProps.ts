@@ -16,7 +16,7 @@ export interface ReviewCardProps {
   starRating?: number
   userId?: string
   review?: string
-  defaultRating: number
+  defaultRating?: number
 }
 
 // 테스트 페이지 추천 카드 데이터  타입
