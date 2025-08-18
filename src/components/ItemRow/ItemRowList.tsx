@@ -4,7 +4,6 @@ import OrderItemRow from './ListComponent/OrderItemRow'
 import TastingItemRow from './ListComponent/TastingItemRow'
 
 const ItemRowList = (props: CartItemRowProps) => {
-  console.log(props)
   switch (props.type) {
     case 'cart':
       return (
