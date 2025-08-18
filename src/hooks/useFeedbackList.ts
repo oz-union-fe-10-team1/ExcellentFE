@@ -1,15 +1,37 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchFeedbackList } from '@/api/feedbackList/feedbackApi'
-import type { FeedbackResponse } from '@/api/feedbackList/types'
+import { fetchFeedbackByType } from '@/api/feedbackList/feedbackApi'
+import type { Feedback } from '@/api/feedbackList/types'
 
-export const useFeedbackList = (enabled = true) => {
-  const { data, isLoading, isError, refetch } = useQuery<FeedbackResponse>({
-    queryKey: ['feedbackList'],
-    queryFn: fetchFeedbackList,
-    enabled,
+export const useFeedbackList = () => {
+  const popularQuery = useQuery<Feedback[]>({
+    queryKey: ['popularFeedback'],
+    queryFn: () => fetchFeedbackByType('popular'),
   })
 
-  const feedbacks = data?.results ?? []
+  const recentQuery = useQuery<Feedback[]>({
+    queryKey: ['recentFeedback'],
+    queryFn: () => fetchFeedbackByType('recent'),
+  })
 
-  return { data: feedbacks, isLoading, isError, refetch }
+  const personalizedQuery = useQuery<Feedback[]>({
+    queryKey: ['personalizedFeedback'],
+    queryFn: () => fetchFeedbackByType('personalized'),
+  })
+
+  return {
+    popular: popularQuery.data,
+    recent: recentQuery.data,
+    personalized: personalizedQuery.data,
+    refetchAll: () => {
+      popularQuery.refetch()
+      recentQuery.refetch()
+      personalizedQuery.refetch()
+    },
+    isLoading:
+      popularQuery.isLoading ||
+      recentQuery.isLoading ||
+      personalizedQuery.isLoading,
+    isError:
+      popularQuery.isError || recentQuery.isError || personalizedQuery.isError,
+  }
 }

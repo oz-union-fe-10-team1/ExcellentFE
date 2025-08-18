@@ -6,61 +6,72 @@ import Carousel from '@/components/common/Carousel'
 import BestReviewCard from '@/components/common/cards/BestReviewCard'
 import type {
   BestReviewCardProps,
-  CardBaseProps,
   ReviewCardProps,
+  CardBaseProps,
 } from '@/types/cardProps'
+import type { Feedback as FeedbackType } from '@/api/feedbackList/types'
 
 export const Feedback = () => {
-  const { data, isLoading, isError, refetch } = useFeedbackList()
+  const { popular, recent, personalized, refetchAll, isLoading, isError } =
+    useFeedbackList()
 
   if (isLoading) return <p>로딩중...</p>
   if (isError) return <p>데이터를 불러오는데 실패했습니다.</p>
 
   const bestReviewCards =
-    data?.map((item) => ({
-      imgSrc: item.product?.main_image_url ?? '',
-      imgAlt: item.product?.name ?? '',
-      review: item.comment ?? '',
-      userId: item.user_id ?? '',
-      date: item.created_at ?? '',
+    popular?.map((item) => ({
+      imgSrc: item.main_image_url || undefined,
+      imgAlt: item.product || undefined,
+      review: item.comment ?? undefined,
+      userId: item.masked_username ?? undefined,
+      date: item.created_at ?? undefined,
       defaultRating: item.rating ?? 0,
     })) ?? []
 
   const renderBestReviewCard = (item: BestReviewCardProps | CardBaseProps) => {
     if ('review' in item) {
-      return (
-        <BestReviewCard
-          imgSrc={item.imgSrc}
-          imgAlt={item.imgAlt}
-          review={item.review}
-          userId={item.userId}
-          date={item.date}
-          defaultRating={item.defaultRating}
-        />
-      )
+      return <BestReviewCard {...item} />
     }
-
     return null
   }
 
   const mapToReviewCards = (
-    sliceStart: number,
-    sliceEnd: number,
+    data: FeedbackType[] | undefined,
     modalTitle: string
   ): ReviewCardProps[] =>
-    data?.slice(sliceStart, sliceEnd).map((item) => ({
-      id: item.product?.id ?? '',
-      imgSrc: item.product?.main_image_url ?? '',
-      imgAlt: item.product?.name ?? '',
-      userId: item.user_id ?? '',
-      review: item.comment ?? '',
-      defaultRating: item?.rating ?? 0,
+    data?.map((item) => ({
+      id: String(item.id),
+      imgSrc: item.main_image_url || undefined,
+      imgAlt: item.product || undefined,
+      userId: item.masked_username,
+      review: item.comment,
+      defaultRating: item.rating,
+      date: item.created_at,
       modalTitle,
     })) ?? []
 
+  const renderReviewSection = (
+    title: string,
+    description: string,
+    data: FeedbackType[]
+  ) => (
+    <div className="flex flex-col gap-[50px]">
+      <div className="flex w-320 flex-col gap-[10px]">
+        <h2 className="text-[32px] font-bold text-[#333333]">{title}</h2>
+        <div className="flex items-center justify-between">
+          <h5 className="text-[18px] text-[#666666]">{description}</h5>
+          <button onClick={refetchAll}>
+            <Icon icon={ResetIcon} size={40} />
+          </button>
+        </div>
+      </div>
+      <CardList type="review" cards={mapToReviewCards(data, title)} />
+    </div>
+  )
+
   return (
     <div>
-      <div className="flex h-220 w-full flex-col items-center bg-[#F2F2F2] px-60 py-44">
+      <div className="flex h-220 w-full flex-col items-center bg-[#F2F2F2] px-60 py-34">
         <h1 className="mb-[60px] text-[40px] font-bold text-[#333333]">
           한 잔 취향 이 달의 후기
         </h1>
@@ -75,43 +86,17 @@ export const Feedback = () => {
       </div>
 
       <div className="m-auto my-25 flex flex-col items-center gap-25">
-        <div className="flex flex-col gap-[50px]">
-          <div className="flex w-320 flex-col gap-[10px]">
-            <h2 className="text-[32px] font-bold text-[#333333]">
-              실시간 후기
-            </h2>
-            <div className="flex items-center justify-between">
-              <h5 className="text-[18px] text-[#666666]">
-                한 잔 취향을 이용한 고객님들의 실시간 후기
-              </h5>
-              <button onClick={() => refetch()}>
-                <Icon icon={ResetIcon} size={40} />
-              </button>
-            </div>
-          </div>
-          <CardList
-            type="review"
-            cards={mapToReviewCards(0, 4, '실시간 후기')}
-          />
-        </div>
-        <div className="flex flex-col">
-          <div className="mb-[50px] flex w-320 flex-col gap-[10px]">
-            <h2 className="text-[32px] font-bold text-[#333333]">
-              나와 비슷한 취향의 후기
-            </h2>
-            <div className="flex items-center justify-between">
-              <h5 className="text-[18px] text-[#666666]">
-                한 잔 취향을 이용한 고객님들의 실시간 후기
-              </h5>
-              <button onClick={() => refetch()}>
-                <Icon icon={ResetIcon} size={40} />
-              </button>
-            </div>
-          </div>
-          <CardList
-            type="review"
-            cards={mapToReviewCards(0, 8, '나와 비슷한 취향의 후기')}
-          />
+        <div className="m-auto my-25 flex flex-col items-center gap-25">
+          {renderReviewSection(
+            '실시간 후기',
+            '한 잔 취향을 이용한 고객님들의 실시간 후기',
+            recent || []
+          )}
+          {renderReviewSection(
+            '나와 비슷한 취향의 후기',
+            '한 잔 취향을 이용한 고객님들의 실시간 후기',
+            personalized || []
+          )}
         </div>
       </div>
     </div>

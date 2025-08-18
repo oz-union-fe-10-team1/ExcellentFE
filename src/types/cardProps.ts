@@ -2,8 +2,8 @@
 export interface CardBaseProps {
   id?: string | number
   productType?: 'PRODUCT' | 'PACKAGE'
-  imgSrc: string
-  imgAlt: string
+  imgSrc: string | undefined
+  imgAlt: string | undefined
   title?: string
   subtitle?: string
   price?: number
@@ -12,9 +12,8 @@ export interface CardBaseProps {
 // 리뷰 카드 데이터 타입
 export interface ReviewCardProps {
   id?: string | number
-  imgSrc: string
-  imgAlt: string
-  starRating?: number
+  imgSrc: string | undefined
+  imgAlt: string | undefined
   userId?: string
   review?: string
   defaultRating?: number
