@@ -7,9 +7,17 @@ interface ItemRowProps {
   items: ItemRowType[]
   type: 'cart' | 'order' | 'tasting'
   onQuantityChange?: () => void
+  checkedItems?: number[]
+  onCheckChange?: (itemId: number, isChecked: boolean) => void
 }
 
-const ItemRowContent = ({ items, type, onQuantityChange }: ItemRowProps) => {
+const ItemRowContent = ({
+  items,
+  type,
+  onQuantityChange,
+  checkedItems,
+  onCheckChange,
+}: ItemRowProps) => {
   const { itemList, handleQuantityChange } = useItemRow(items || [])
 
   if (items.length === 0) {
@@ -32,9 +40,12 @@ const ItemRowContent = ({ items, type, onQuantityChange }: ItemRowProps) => {
           key={`${items[idx]?.id} - ${idx}`}
           {...item}
           type={type}
+          checked={checkedItems?.includes(item.id as number)}
+          onCheckChange={(isChecked) =>
+            onCheckChange?.(item.id as number, isChecked)
+          }
           onQuantityChange={async (newQuantity: number) => {
             await handleQuantityChange(idx, newQuantity)
-            // 수량 변경 후 장바구니 데이터 새로고침
             onQuantityChange?.()
           }}
         />

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useProductDetail, useAddCart } from '@/hooks/home/useProduct'
-import useCartItem from '@/hooks/useCartItem'
 import { showSuccess, showError } from '@/utils/feedbackUtils'
 import { SUCCESS_MESSAGE, ERROR_MESSAGE } from '@/constants/message'
 
@@ -11,12 +10,11 @@ export const useDetailPage = () => {
 
   const { data, isLoading, error } = useProductDetail(productId ?? '')
 
-  const {
-    localQuantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    isDecreaseDisabled,
-  } = useCartItem({ quantity: 1 })
+  const [localQuantity, setLocalQuantity] = useState(1)
+
+  const onIncreaseQuantity = () => setLocalQuantity((prev) => prev + 1)
+  const onDecreaseQuantity = () =>
+    setLocalQuantity((prev) => (prev > 1 ? prev - 1 : 1))
 
   const [dropdownValues, setDropdownValues] = useState({
     orderRegion: '',
@@ -63,9 +61,8 @@ export const useDetailPage = () => {
     dropdownValues,
     handleDropdownChange,
     localQuantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    isDecreaseDisabled,
+    onIncreaseQuantity,
+    onDecreaseQuantity,
     handleAddToCart,
     handlePurchase,
   }
