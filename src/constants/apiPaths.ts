@@ -19,6 +19,7 @@ export const API_PATHS = {
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
+    LIST: '/feedbacks/recent/', // 추후 수정 예정
   },
   PRODUCTS: {
     DETAIL: (id: string | number) => `/products/${id}/`,

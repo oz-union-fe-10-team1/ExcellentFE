@@ -16,7 +16,7 @@ interface CarouselProps {
     tablet?: number
     desktop?: number
   }
-  renderCard: (
+  renderCard?: (
     item: BestReviewCardProps | CardBaseProps
   ) => React.ReactElement | null
 }
