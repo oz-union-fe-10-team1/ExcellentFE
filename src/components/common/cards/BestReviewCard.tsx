@@ -1,10 +1,12 @@
 import maskingUserId from '@/utils/masking'
-import StarRating from '../StarRating'
-import Button from '../Button'
+import StarRating from '@/components/common/StarRating'
+import Button from '@/components/common/Button'
 import { useState } from 'react'
 import Modal from '@/components/common/Modal'
+import { Link } from 'react-router-dom'
 
 interface BestReviewCardProps {
+  id?: string | number
   imgSrc: string
   imgAlt: string
   review: string
@@ -14,6 +16,7 @@ interface BestReviewCardProps {
 }
 
 const BestReviewCard = ({
+  id,
   imgSrc,
   imgAlt,
   review,
@@ -74,7 +77,9 @@ const BestReviewCard = ({
               <p> {userId ? maskingUserId(userId) : 'Unknown User'}</p>
               <p>{date ? date.slice(0, 10) : ''}</p>
             </div>
-            <Button>제품 상세보기</Button>
+            <Link to={`/product/${id}`}>
+              <Button>제품 상세보기</Button>
+            </Link>
           </div>
         </Modal>
       </div>
