@@ -50,11 +50,20 @@ const ResultStep = ({
     setTestStep(0)
   }
 
+  console.log(isLoggedIn)
+
   return (
     <div className="flex flex-col items-center">
-      <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
-        김오즈님의 취향 유형은...
-      </p>
+      {isLoggedIn ? (
+        <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
+          김오즈님의 취향 유형은...
+        </p>
+      ) : (
+        <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
+          게스트님의 취향 유형은...
+        </p>
+      )}
+
       <p className="mb-[10px] text-[40px] font-extrabold">{testResult?.type}</p>
       <p className="mx-[62px] mb-[28px] text-center text-[19px] whitespace-pre-line text-[#666666]">
         {testResult?.info.description}
@@ -100,6 +109,9 @@ const ResultStep = ({
           onClick={() => {
             if (!isLoggedIn) {
               handleNonMemberReset()
+            } else {
+              setStep('main')
+              setTestStep(0)
             }
           }}
         >
