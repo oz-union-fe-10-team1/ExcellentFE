@@ -47,3 +47,24 @@ export const DRINK_INFO_ROWS = (data: ProductDetail) => [
     value: data.drink?.ingredients ?? '-',
   },
 ]
+
+export const PACKAGE_INFO_ROWS = (data: ProductDetail) => [
+  {
+    label: '구성품',
+    value:
+      data.package?.drinks
+        ?.map((drink) => `${drink.name} (${drink.abv}%)`)
+        ?.join(',\n') ?? '-',
+  },
+  {
+    label: '용량',
+    value:
+      data.package?.drinks
+        ?.map((drink) => `${drink.name} (${drink.volume_ml}ml)`)
+        ?.join(',\n') ?? '-',
+  },
+  {
+    label: '특징',
+    value: data.description ?? '-',
+  },
+]
