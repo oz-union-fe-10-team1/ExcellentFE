@@ -8,14 +8,17 @@ export const API_PATHS = {
     STATE: '/auth/state',
     REFRESH: '/auth/refresh',
   },
-  USER: '/user',
+  USER: {
+    PROFILE: '/user',
+    TASTE_PROFILE: '/user/taste-profile/',
+  },
   TASTE_TEST: {
-    PROFILE: '/taste-test/profile',
-    GETTEST: '/taste-test/questions',
+    PROFILE: '/taste-test/profile/',
+    QUESTIONS: '/taste-test/questions/',
+    RESULT: '/taste-test/submit/',
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
-    PROFILE: '/feedback/profile',
   },
   PRODUCTS: {
     DETAIL: (id: string | number) => `/products/${id}/`,

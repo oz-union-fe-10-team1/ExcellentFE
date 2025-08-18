@@ -1,13 +1,22 @@
-import { getTasteTestProfile } from '@/api/tasteTest'
-import { tokenStorage } from '@/utils/tokenStorage'
-import { useQuery } from '@tanstack/react-query'
+import { tasteTestApi } from '@/api/taste-test/index'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useTasteTestProfile = () => {
-  const accessToken = tokenStorage.getAccessToken()
-
   return useQuery({
-    queryKey: ['tasteTestProfile', accessToken],
-    queryFn: getTasteTestProfile,
-    enabled: !!accessToken,
+    queryKey: ['tasteTestProfile'],
+    queryFn: tasteTestApi.getTasteTestProfile,
+  })
+}
+
+export const useTasteTestQuestion = () => {
+  return useQuery({
+    queryKey: ['tasteTestQuestion'],
+    queryFn: tasteTestApi.getTestQuestion,
+  })
+}
+
+export const useTasteTestResult = () => {
+  return useMutation({
+    mutationFn: tasteTestApi.postTestResult,
   })
 }

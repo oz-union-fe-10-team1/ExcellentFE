@@ -45,3 +45,24 @@ export interface TestQuestionType {
 
 //테스트 타입
 export type TestType = 'main' | 'question' | 'result'
+
+//문항 선택 타입
+export interface AnswerType {
+  [key: string]: 'A' | 'B'
+}
+
+//테스트 결과 타입
+export interface TasteTestResult {
+  type: string
+  scores: {
+    [key: string]: number // '달콤과일파' | '상큼톡톡파' | ... 등 문자열 키
+  }
+  info: {
+    name: string
+    enum: string
+    description: string
+    characteristics: string[]
+    image_url: string
+  }
+  saved: boolean
+}

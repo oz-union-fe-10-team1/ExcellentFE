@@ -1,4 +1,4 @@
-import useTasteTest from '@/hooks/useTasteTest'
+import { useTasteTestQuestion } from '@/hooks/taste-test/useTasteTestProfile'
 import TestButton from '@/components/test/TestButton.tsx'
 import { useState } from 'react'
 import type { TestType } from '@/types/tasteTypes'
@@ -9,7 +9,7 @@ interface ProgressStepProps {
 }
 
 const ProgressStep = ({ step, setStep }: ProgressStepProps) => {
-  const { data, isLoading, isError } = useTasteTest()
+  const { data, isLoading, isError } = useTasteTestQuestion()
 
   // 테스트 단계
   const [first, setFirst] = useState(true)
