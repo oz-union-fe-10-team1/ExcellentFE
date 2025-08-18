@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
-import { getUser } from '@/api/user'
-import { tokenStorage } from '@/utils/tokenStorage'
+import { userApi } from '@/api/user'
 
 export const useUser = () => {
-  const accessToken = tokenStorage.getAccessToken()
-
   return useQuery({
-    queryKey: ['user', accessToken],
-    queryFn: getUser,
-    enabled: !!accessToken,
+    queryKey: ['user'],
+    queryFn: userApi.getProfile,
+  })
+}
+
+export const useFeedbackProfile = () => {
+  return useQuery({
+    queryKey: ['feedbackProfile'],
+    queryFn: userApi.getTasteProfile,
   })
 }

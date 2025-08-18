@@ -5,10 +5,9 @@ import GaugeBar from '@/components/common/GaugeBar'
 import Icon from '@/components/common/Icon'
 import PackageMakeupModal from '@/components/my-page/PackageMakeupModal'
 import { ROUTE_PATHS } from '@/constants/routePaths'
-import { useFeedbackProfile } from '@/hooks/feedback/useFeedbackProfile'
 import { useTasteTestProfile } from '@/hooks/taste-test/useTasteTestProfile'
 import { useModal } from '@/hooks/useModal'
-import { userFeedbackMockData } from '@/mocks/handlers/feedback/mocks/userFeedbackMockData'
+import { useFeedbackProfile } from '@/hooks/user/useUser'
 import type { TasteType } from '@/types/tasteTypes'
 import { cn } from '@/utils/cn'
 import { insertLineBreaks } from '@/utils/stringUtils'
@@ -22,11 +21,11 @@ const TasteProfile = () => {
     isLoading: isTasteTestLoading,
     isError: isTasteTestError,
   } = useTasteTestProfile()
-  // const {
-  //   data: feedbackProfileData,
-  //   isLoading: isFeedbackLoading,
-  //   isError: isFeedbackError,
-  // } = useFeedbackProfile()
+  const {
+    data: feedbackProfileData,
+    isLoading: isFeedbackLoading,
+    isError: isFeedbackError,
+  } = useFeedbackProfile()
 
   const navigate = useNavigate()
   const [isExpanded, setIsExpanded] = useState(false)
@@ -36,18 +35,18 @@ const TasteProfile = () => {
     onClose: () => setIsModalOpen(false),
   })
 
-  if (isTasteTestLoading) {
+  if (isTasteTestLoading || isFeedbackLoading) {
     return <div>로딩 중 ...</div>
   }
 
-  if (isTasteTestError) {
+  if (isTasteTestError || isFeedbackError) {
     return <div>정보를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.</div>
   }
 
   const { user, has_test, prefer_taste_display, taste_description, image_url } =
     tasteTestProfileData ?? {}
   const { taste_scores, description: feedbackDescription } =
-    userFeedbackMockData ?? {}
+    feedbackProfileData ?? {}
   const sortedTasteScores = Object.entries(taste_scores ?? {}).sort(
     (a, b) => b[1] - a[1]
   )
@@ -150,9 +149,7 @@ const TasteProfile = () => {
                 />
                 나의 지문 요약
               </h3>
-              <p className="">
-                {insertLineBreaks(feedbackDescription ?? '', '!', true)}
-              </p>
+              <p>{insertLineBreaks(feedbackDescription ?? '', '!', true)}</p>
             </section>
           </section>
         </div>
