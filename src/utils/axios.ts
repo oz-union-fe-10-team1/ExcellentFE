@@ -1,7 +1,13 @@
-import { refreshAccessToken } from '@/api/auth'
+import { authApi } from '@/api/auth'
 import { BASE_URL } from '@/constants/apiPaths'
 import { tokenStorage } from '@/utils/tokenStorage'
-import axios from 'axios'
+import axios, { AxiosError, AxiosHeaders, type AxiosRequestConfig } from 'axios'
+
+interface FailedRequest {
+  resolve: (value: unknown) => void
+  reject: (error: AxiosError) => void
+  originalRequest: AxiosRequestConfig & { _retry?: boolean }
+}
 
 let onUnauthorized: (() => void) | undefined = undefined
 
@@ -17,40 +23,77 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use((config) => {
-  const accessToken = tokenStorage.getAccessToken()
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`
+  const access = tokenStorage.getAccessToken()
+  if (access) {
+    ;(config.headers as AxiosHeaders).set('Authorization', `Bearer ${access}`)
   }
   return config
 })
 
+// 동시 요청 처리 변수
+let isRefreshing = false // tokenRefresh API 호출 중인지 체크
+let failedQueue: FailedRequest[] = []
+
+const processQueue = (error: AxiosError | null, access: string | null) => {
+  failedQueue.forEach(({ resolve, reject, originalRequest }) => {
+    if (error) {
+      reject(error)
+    } else if (access) {
+      ;(originalRequest.headers as AxiosHeaders).set(
+        'Authorization',
+        `Bearer ${access}`
+      )
+      resolve(axiosInstance(originalRequest))
+    }
+  })
+  failedQueue = []
+}
+
 axiosInstance.interceptors.response.use(
   (res) => res,
   async (error) => {
-    const originalRequest = error.config
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean
+    }
 
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-      const refreshToken = tokenStorage.getRefreshToken()
+      const refresh = tokenStorage.getRefreshToken()
 
-      if (!refreshToken) {
+      if (!refresh) {
         onUnauthorized?.()
         return Promise.reject(error)
       }
 
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject, originalRequest })
+        })
+      }
+
+      isRefreshing = true
+
       try {
-        const response = await refreshAccessToken(refreshToken)
+        const { access: newAccess, refresh: newRefresh } =
+          await authApi.refreshToken(refresh)
+        tokenStorage.setAccessToken(newAccess)
+        tokenStorage.setRefreshToken(newRefresh)
 
-        const { access_token } = response.data
-        tokenStorage.setAccessToken(access_token)
+        processQueue(null, newAccess)
 
-        originalRequest.headers.Authorization = `Bearer ${access_token}`
+        ;(originalRequest.headers as AxiosHeaders).set(
+          'Authorization',
+          `Bearer ${newAccess}`
+        )
         return axiosInstance(originalRequest)
-      } catch (refreshError) {
+      } catch (error) {
+        processQueue(error as AxiosError, null)
         tokenStorage.removeAccessToken()
         tokenStorage.removeRefreshToken()
         onUnauthorized?.()
-        return Promise.reject(refreshError)
+        return Promise.reject(error)
+      } finally {
+        isRefreshing = false
       }
     }
     return Promise.reject(error)
