@@ -1,10 +1,10 @@
-import type { UserResponse } from '@/types/user'
+import type { UserProfile } from '@/types/user'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { create } from 'zustand'
 
 interface AuthState {
   isLoggedIn: boolean
-  user: UserResponse | null
+  user: UserProfile | null
   login: () => void
   logout: () => void
   initializeAuth: () => void
