@@ -13,6 +13,7 @@ const OrderItemRow = ({
   quantity,
   price,
   feedback_id,
+  product,
 }: ItemRowType) => {
   const {
     isModalOpen,
@@ -20,14 +21,26 @@ const OrderItemRow = ({
     closeModal,
     getOrderItemId,
     getButtonConfig,
-  } = useOrderItemRow({ id, feedback_id })
+  } = useOrderItemRow({
+    id,
+    feedback_id,
+    productId: product?.id,
+  })
 
   const buttonConfig = getButtonConfig()
+  const numericPrice = typeof price === 'number' ? price : Number(price ?? 0)
+  const numericQuantity =
+    typeof quantity === 'number' ? quantity : Number(quantity ?? 0)
+  const totalPrice = numericPrice * numericQuantity
+  const orderString = String(order ?? '')
+  const datePart = orderString.slice(0, 10)
+  const timePart = orderString.slice(11, 19)
+  const orderDate = `${datePart} ${timePart}`
 
   return (
     <>
       <div className="flex items-center border-b border-[#e1e1e1] py-4 text-center text-[#666666]">
-        <div className="w-[15%] min-w-[80px] text-lg">{order}</div>
+        <div className="w-[15%] min-w-[80px] text-lg">{orderDate}</div>
 
         <div className="flex w-[40%] min-w-[250px] items-center gap-4 pl-2">
           <div className="ml-36 flex items-center justify-center overflow-hidden border">
@@ -39,7 +52,7 @@ const OrderItemRow = ({
         <div className="mx-auto w-20 text-lg">{quantity}</div>
 
         <div className="w-[15%] min-w-[80px] text-lg">
-          {price?.toLocaleString()}원
+          {totalPrice.toLocaleString()}원
         </div>
 
         <div className="flex w-[20%] min-w-[100px] justify-center">
