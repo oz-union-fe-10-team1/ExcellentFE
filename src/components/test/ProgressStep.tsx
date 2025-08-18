@@ -1,7 +1,7 @@
-import { useTasteTestQuestion } from '@/hooks/taste-test/useTasteTestProfile'
 import TestButton from '@/components/test/TestButton.tsx'
-import { useState } from 'react'
+import { useTasteTestQuestion } from '@/hooks/taste-test/useTasteTest'
 import type { TestType } from '@/types/tasteTypes'
+import { useState } from 'react'
 
 interface ProgressStepProps {
   step: TestType
