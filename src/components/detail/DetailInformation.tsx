@@ -41,13 +41,9 @@ const DetailInformation = ({ data }: { data: ProductDetail }) => {
       <div className="mt-[50px]">
         <div className="w-full">
           <img
-            src="/api/placeholder/800/600"
+            src={data?.description_image_url}
             alt="막걸리 브랜드"
-            className="h-96 w-full object-cover"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%23f5f5dc'/%3E%3Ctext x='50%25' y='30%25' font-size='48' font-family='serif' text-anchor='middle' fill='%23333'%3E막걸리%3C/text%3E%3Ctext x='50%25' y='40%25' font-size='18' text-anchor='middle' fill='%23666'%3E우리나라 전통의%3C/text%3E%3Ctext x='50%25' y='45%25' font-size='18' text-anchor='middle' fill='%23666'%3E아름다운 맛%3C/text%3E%3C/svg%3E")`,
-              backgroundSize: 'cover',
-            }}
+            className="h-full w-full object-cover"
           />
         </div>
       </div>

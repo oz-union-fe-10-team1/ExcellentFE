@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom'
 import type { CartItemRowProps } from '@/types/ItemRow/itemRows'
 import PlusIcon from '@/assets/icons/cart/plus.svg?react'
 import MinusIcon from '@/assets/icons/cart/minus.svg?react'
 import Icon from '@/components/common/Icon'
-import useCartItem from '@/hooks/useCartItem'
-import { cn } from '@/utils/cn'
+import useCartItem from '@/hooks/cart/useCartItem'
 
 const CartItemRow = ({
   id,
+  detailId,
   img,
   name,
   quantity,
@@ -30,15 +31,17 @@ const CartItemRow = ({
       <div className="flex w-[40%] min-w-[250px] items-center gap-12">
         <input
           type="checkbox"
-          checked={checked}
+          checked={checked || false}
           onChange={(e) => onCheckChange?.(e.target.checked)}
           className="ml-12 h-5 w-5 accent-[#f2544b]"
         />
-        <img
-          src={img || '상품 이미지'}
-          alt={name || '상품 이름'}
-          className="h-25 w-25 rounded border border-[#d9d9d9]"
-        />
+        <Link to={`/product/${detailId}`}>
+          <img
+            src={img || '상품 이미지'}
+            alt={name || '상품 이름'}
+            className="h-25 w-25 rounded border border-[#d9d9d9]"
+          />
+        </Link>
         <p className="text-left text-lg font-bold">{name || '상품 이름'}</p>
       </div>
 
@@ -51,9 +54,7 @@ const CartItemRow = ({
             wrapperClassName={'rounded-[4px] bg-[#cccccc] cursor-not-allowed'}
           />
         </button>
-        <span className="w-6 text-center">
-          {isUpdating ? '...' : localQuantity}
-        </span>
+        <span className="w-6 text-center">{localQuantity}</span>
         <button
           aria-label="수량 증가"
           onClick={onIncreaseQuantity}
@@ -70,7 +71,6 @@ const CartItemRow = ({
         {parseInt(String(price ?? '0'), 10).toLocaleString()}원
       </div>
 
-      {/* 추후 pickup 내용 더 추가될 예정 */}
       <div className="w-[25%] min-w-[150px] text-[#666666]">
         <p className="mb-2 text-lg text-[#333333] underline">{pickupName}</p>
         <p className="text-sm">{pickupAddress}</p>

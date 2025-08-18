@@ -12,7 +12,7 @@ interface DetailProductProps {
   quantity: number
   onIncreaseQuantity: () => void
   onDecreaseQuantity: () => void
-  isDecreaseDisabled: boolean
+  isDecreaseDisabled?: boolean
   dropdownValues: Record<string, string>
   handleDropdownChange: (key: string, value: string) => void
   onAddCart: () => void
@@ -31,18 +31,16 @@ const DetailProduct = ({
   onPurchase,
 }: DetailProductProps) => {
   return (
-    <div className="mb-8 grid grid-cols-2 gap-8">
-      <div>
-        <DetailCard
-          className="h-50 w-50 sm:h-100 sm:w-100 md:h-100 md:w-100 lg:h-140 lg:w-140"
-          imgSrc={
-            Array.isArray(data.images)
-              ? data.images.find((img) => img.is_main)?.image_url || ''
-              : (data.images as unknown as string)
-          }
-          imgAlt={data.name}
-        />
-      </div>
+    <div className="grid grid-cols-2 gap-8">
+      <DetailCard
+        className="h-50 w-50 sm:h-100 sm:w-100 md:h-100 md:w-100 lg:h-140 lg:w-140"
+        imgSrc={
+          Array.isArray(data.images)
+            ? data.images.find((img) => img.is_main)?.image_url || ''
+            : (data.images as unknown as string)
+        }
+        imgAlt={data.name}
+      />
 
       <div className="space-y-4">
         <div className="grid grid-cols-2 border-b pb-4">

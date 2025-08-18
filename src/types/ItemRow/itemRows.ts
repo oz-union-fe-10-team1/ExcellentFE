@@ -2,6 +2,7 @@ export interface Product {
   id?: string | number
   name?: string
   price?: string | number
+  main_image?: string
   main_image_url?: string
 }
 
@@ -77,6 +78,7 @@ export interface ItemRowType {
 }
 
 export interface CartItemRowProps extends ItemRowType {
+  detailId?: string | number
   checked?: boolean
   onCheckChange?: (checked: boolean) => void
   onQuantityChange?: (newQuantity: number) => void

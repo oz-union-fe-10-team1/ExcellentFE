@@ -7,4 +7,11 @@ export const orderApi = {
     const response = await axiosInstance.get(API_PATHS.ORDER.LIST)
     return response.data
   },
+  CREATE_FROM_CART: async (itemIds: number[]) => {
+    const response = await axiosInstance.post(
+      API_PATHS.ORDER.CREATE_FROM_CART,
+      { item_ids: itemIds }
+    )
+    return response.data
+  },
 }

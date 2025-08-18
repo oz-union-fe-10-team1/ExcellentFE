@@ -39,6 +39,7 @@ export const API_PATHS = {
   },
   ORDER: {
     LIST: '/orders/list/',
+    CREATE_FROM_CART: '/orders/create_from_cart/',
   },
   CART: {
     ADD: '/cart/',

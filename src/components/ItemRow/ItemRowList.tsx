@@ -9,15 +9,17 @@ const ItemRowList = (props: CartItemRowProps) => {
       return (
         <CartItemRow
           id={props.id}
-          key={props.id}
-          img={props.product?.main_image_url || ''}
-          name={props.name || ''}
+          detailId={props.product?.id}
+          img={props.product?.main_image || ''}
+          name={props.product?.name || ''}
           quantity={props.quantity || 0}
           price={props.subtotal || '0'}
           pickupName={props.pickup_store?.name || ''}
           pickupAddress={props.pickup_store?.address || ''}
           pickupContact={props.pickup_store?.contact || ''}
           onQuantityChange={props.onQuantityChange}
+          checked={props.checked}
+          onCheckChange={props.onCheckChange}
         />
       )
 

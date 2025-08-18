@@ -1,7 +1,7 @@
 import DetailProduct from '@/components/detail/DetailProduct'
 import DetailInformation from '@/components/detail/DetailInformation'
 import DetailFeedback from '@/components/detail/DetailFeedback'
-import { useDetailPage } from '@/hooks/useDetailPage'
+import { useDetailPage } from '@/hooks/home/useDetailPage'
 
 const Detail = () => {
   const {
@@ -11,9 +11,8 @@ const Detail = () => {
     dropdownValues,
     handleDropdownChange,
     localQuantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    isDecreaseDisabled,
+    onIncreaseQuantity,
+    onDecreaseQuantity,
     handleAddToCart,
     handlePurchase,
   } = useDetailPage()
@@ -41,13 +40,12 @@ const Detail = () => {
   }
 
   return (
-    <div className="mx-auto mt-41 flex max-w-320 flex-col gap-25 bg-white p-6">
+    <div className="mx-auto mt-25 flex max-w-320 flex-col gap-25">
       <DetailProduct
         data={data}
         quantity={localQuantity}
-        onIncreaseQuantity={handleIncreaseQuantity}
-        onDecreaseQuantity={handleDecreaseQuantity}
-        isDecreaseDisabled={isDecreaseDisabled}
+        onIncreaseQuantity={onIncreaseQuantity}
+        onDecreaseQuantity={onDecreaseQuantity}
         dropdownValues={dropdownValues}
         handleDropdownChange={handleDropdownChange}
         onAddCart={handleAddToCart}

@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { cartApi } from '@/api/productApi'
 
-const useUserCart = () => {
+export const useUserCart = () => {
   const queryClient = useQueryClient()
 
   const { data, isLoading, error, isError } = useQuery({
@@ -21,5 +21,3 @@ const useUserCart = () => {
     invalidateCart,
   }
 }
-
-export default useUserCart
