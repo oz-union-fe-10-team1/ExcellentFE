@@ -1,20 +1,24 @@
 export const SOCIAL_PROVIDERS = ['kakao', 'naver', 'google'] as const
 export type SocialProvider = (typeof SOCIAL_PROVIDERS)[number]
 
-export interface StateRequest {
-  state: string
-}
-
-export interface SocialCallbackRequest {
+export interface SocialLoginRequest {
   code: string
   state?: string
 }
 
-export interface SocialCallbackResponse {
+export interface SocialLoginResponse {
   access_token: string
   refresh_token: string
+  user: {
+    nickname: string
+    email: string | null
+    role: string
+    created_at: string
+  }
+  auth_type: string
 }
 
-export interface RefreshTokenRequest {
-  refresh_token: string
+export interface RefreshTokenResponse {
+  access: string
+  refresh: string
 }

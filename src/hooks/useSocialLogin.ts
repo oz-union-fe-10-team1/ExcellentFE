@@ -1,11 +1,11 @@
-import { socialLogin } from '@/api/auth'
+import { authApi } from '@/api/auth'
 import { ERROR_MESSAGE } from '@/constants/message'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
 import { useAuthStore } from '@/stores/authStore'
 import {
-  type SocialCallbackRequest,
-  type SocialCallbackResponse,
+  type SocialLoginRequest,
+  type SocialLoginResponse,
   type SocialProvider,
 } from '@/types/auth'
 import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
@@ -20,7 +20,7 @@ export const useSocialLoginURL = () => {
   return useMutation({
     mutationFn: async (provider: SocialProvider) => {
       const state = crypto.randomUUID()
-      // await authState(state)
+      // await authauthState(state)
 
       // redirect 정보를 state에 포함시킴
       // const stateWithRedirect = redirect ? `${state}:${redirect}` : state
@@ -49,10 +49,10 @@ export const useSocialLogin = (provider: SocialProvider) => {
   // const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
 
   return useMutation({
-    mutationFn: (payload: SocialCallbackRequest) =>
-      socialLogin(provider, payload),
+    mutationFn: (payload: SocialLoginRequest) =>
+      authApi.socialLogin(provider, payload),
 
-    onSuccess: (data: SocialCallbackResponse) => {
+    onSuccess: (data: SocialLoginResponse) => {
       tokenStorage.setAccessToken(data.access_token)
       tokenStorage.setRefreshToken(data.refresh_token)
 
