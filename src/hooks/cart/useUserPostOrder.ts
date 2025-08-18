@@ -11,6 +11,7 @@ const useUserPostOrder = () => {
     mutationFn: (itemIds: number[]) => orderApi.CREATE_FROM_CART(itemIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['UserCart'] })
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
       showSuccess('주문이 완료되었습니다.')
       navigate('/mypage/order-history')
     },

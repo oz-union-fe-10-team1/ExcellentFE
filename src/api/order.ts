@@ -1,11 +1,11 @@
 import { API_PATHS } from '@/constants/apiPaths'
 import { axiosInstance } from '@/utils/axios'
-import type { OrderType } from '@/types/orderType'
+import type { PaginatedResponse, ServerOrder } from '@/types/orderType'
 
 export const orderApi = {
-  list: async (): Promise<OrderType[]> => {
+  list: async (): Promise<PaginatedResponse<ServerOrder>> => {
     const response = await axiosInstance.get(API_PATHS.ORDER.LIST)
-    return response.data
+    return response.data as PaginatedResponse<ServerOrder>
   },
   CREATE_FROM_CART: async (itemIds: number[]) => {
     const response = await axiosInstance.post(

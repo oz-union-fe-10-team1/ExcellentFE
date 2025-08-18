@@ -5,9 +5,16 @@ import type { ItemRowType } from '@/types/ItemRow/itemRows'
 interface UseOrderItemRowProps {
   id: ItemRowType['id']
   feedback_id: ItemRowType['feedback_id']
+  productId?: ItemRowType['product'] extends { id?: infer T }
+    ? T
+    : string | number | undefined
 }
 
-export const useOrderItemRow = ({ id, feedback_id }: UseOrderItemRowProps) => {
+export const useOrderItemRow = ({
+  id,
+  feedback_id,
+  productId,
+}: UseOrderItemRowProps) => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -20,7 +27,8 @@ export const useOrderItemRow = ({ id, feedback_id }: UseOrderItemRowProps) => {
     if (isFeedbackNull) {
       openModal()
     } else {
-      navigate(`/product/${feedback_id}`)
+      const targetId = productId ?? feedback_id
+      navigate(`/product/${targetId}`)
     }
   }
 

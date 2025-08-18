@@ -4,6 +4,7 @@ import OrderItemRow from './ListComponent/OrderItemRow'
 import TastingItemRow from './ListComponent/TastingItemRow'
 
 const ItemRowList = (props: CartItemRowProps) => {
+  console.log(props)
   switch (props.type) {
     case 'cart':
       return (
@@ -34,6 +35,7 @@ const ItemRowList = (props: CartItemRowProps) => {
           quantity={props.quantity || 0}
           price={props.price || '0'}
           feedback_id={props?.feedback_id || null}
+          product={props.product}
           user="임시"
         />
       )

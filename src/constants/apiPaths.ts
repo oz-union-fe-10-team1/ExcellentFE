@@ -40,7 +40,7 @@ export const API_PATHS = {
     SEARCH: '/api/v1/products/search/',
   },
   ORDER: {
-    LIST: '/orders/list/',
+    LIST: '/orders/',
     CREATE_FROM_CART: '/orders/create_from_cart/',
   },
   CART: {
