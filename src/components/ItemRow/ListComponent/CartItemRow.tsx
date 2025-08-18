@@ -6,21 +6,24 @@ import useCartItem from '@/hooks/useCartItem'
 import { cn } from '@/utils/cn'
 
 const CartItemRow = ({
+  id,
   img,
   name,
   quantity,
   price,
-  pickup,
-  onQuantityChange,
+  pickupName,
+  pickupAddress,
+  pickupContact,
   onCheckChange,
   checked,
+  onQuantityChange,
 }: CartItemRowProps) => {
-  const {
-    localQuantity,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity,
-    isDecreaseDisabled,
-  } = useCartItem({ quantity, onQuantityChange })
+  const { localQuantity, onIncreaseQuantity, onDecreaseQuantity, isUpdating } =
+    useCartItem({
+      quantity: quantity || 0,
+      id,
+      onQuantityChange,
+    })
 
   return (
     <div className="flex items-center border-b border-[#e1e1e1] py-5 text-center text-[#333333]">
@@ -41,39 +44,37 @@ const CartItemRow = ({
 
       {/* 수량 조절 */}
       <div className="mx-auto inline-flex h-8 w-20 items-center justify-center gap-1 rounded-[5px] bg-[#f6f6f6]">
-        <button
-          aria-label="수량 감소"
-          onClick={handleDecreaseQuantity}
-          disabled={isDecreaseDisabled}
-        >
+        <button aria-label="수량 감소" onClick={onDecreaseQuantity}>
           <Icon
             icon={MinusIcon}
             size={16}
-            wrapperClassName={cn(
-              'rounded-[4px]',
-              isDecreaseDisabled
-                ? 'bg-[#cccccc] cursor-not-allowed'
-                : 'bg-[#e1e1e1]'
-            )}
+            wrapperClassName={'rounded-[4px] bg-[#cccccc] cursor-not-allowed'}
           />
         </button>
-        <span className="w-6 text-center">{localQuantity}</span>
-        <button aria-label="수량 증가" onClick={handleIncreaseQuantity}>
+        <span className="w-6 text-center">
+          {isUpdating ? '...' : localQuantity}
+        </span>
+        <button
+          aria-label="수량 증가"
+          onClick={onIncreaseQuantity}
+          disabled={isUpdating}
+        >
           <Icon
             icon={PlusIcon}
             size={16}
-            wrapperClassName="rounded-[4px] bg-[#000000]"
+            wrapperClassName={'rounded-[4px] bg-[#000000] cursor-not-allowed'}
           />
         </button>
       </div>
-
       <div className="w-[15%] min-w-[80px] font-medium">
         {parseInt(String(price ?? '0'), 10).toLocaleString()}원
       </div>
 
       {/* 추후 pickup 내용 더 추가될 예정 */}
-      <div className="w-[25%] min-w-[150px] text-sm text-[#666666]">
-        {pickup}
+      <div className="w-[25%] min-w-[150px] text-[#666666]">
+        <p className="mb-2 text-lg text-[#333333] underline">{pickupName}</p>
+        <p className="text-sm">{pickupAddress}</p>
+        <p className="text-sm">{pickupContact}</p>
       </div>
     </div>
   )
