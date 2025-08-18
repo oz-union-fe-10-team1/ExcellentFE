@@ -5,6 +5,7 @@ import CardList from '@/components/common/cards/CardList.tsx'
 import type { TestCardProps } from '@/types/cardProps'
 import TestButton from '@/components/test/TestButton.tsx'
 import type { ProgressStepProps } from './ProgressStep'
+import { useAuthStore } from '@/stores/authStore'
 
 //렌더링 확인을 위한 가짜 더미데이터 (추후 삭제 예정)
 const testCardData: TestCardProps[] = [
@@ -40,6 +41,15 @@ const ResultStep = ({
 
   setTestStep,
 }: ProgressStepProps) => {
+  const { isLoggedIn } = useAuthStore()
+
+  //다시 하기 눌렀을 때 비회원 로직
+  const handleNonMemberReset = () => {
+    localStorage.removeItem('selectedAnswers')
+    setStep('main')
+    setTestStep(0)
+  }
+
   return (
     <div className="flex flex-col items-center">
       <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
@@ -70,6 +80,11 @@ const ResultStep = ({
       </div>
 
       {/* 버튼 섹션 */}
+      {!isLoggedIn && (
+        <TestButton className="mb-[10px] bg-[#FFFFFF] text-[#2E2F2F]">
+          회원 가입하고 결과 저장하기
+        </TestButton>
+      )}
       <TestButton className="mb-5 bg-[#2E2F2F] text-[#FFFFFF]">
         이 조합으로 나만의 패키지 만들기
       </TestButton>
@@ -83,9 +98,8 @@ const ResultStep = ({
         <button
           className="h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]"
           onClick={() => {
-            {
-              setStep('main')
-              setTestStep(0)
+            if (!isLoggedIn) {
+              handleNonMemberReset()
             }
           }}
         >
