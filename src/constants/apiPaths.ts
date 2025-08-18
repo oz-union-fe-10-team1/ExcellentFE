@@ -33,9 +33,6 @@ export const API_PATHS = {
     MAKGEOLLI: '/products/makgeolli',
     REGIONAL: '/products/regional',
   },
-  PACKAGES: {
-    LIST: '/api/v1/packages/',
-  },
   SEARCHPRODUCTS: {
     SEARCH: '/api/v1/products/search/',
   },
