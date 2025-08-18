@@ -28,7 +28,14 @@ const ReviewCard = ({
       }}
     >
       <div className="relative mb-5 flex h-[290px] w-full items-center justify-center overflow-hidden rounded-[6px] border border-[#D9D9D9] bg-gray-200">
-        <img src={imgSrc} alt={imgAlt} className="h-full w-full object-cover" />
+        {imgSrc && (
+          <img
+            src={imgSrc}
+            alt={imgAlt ?? ''}
+            className="h-full w-full object-cover"
+          />
+        )}
+
         <div
           onClick={(e) => e.stopPropagation()}
           className="absolute right-2 bottom-2"
