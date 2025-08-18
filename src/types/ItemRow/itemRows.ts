@@ -1,5 +1,5 @@
 export interface Product {
-  id?: number
+  id?: string | number
   name?: string
   price?: string | number
   main_image_url?: string
@@ -41,7 +41,9 @@ export interface ItemRowType {
   name?: string
   quantity?: number
   price?: number | string
-  pickup?: string
+  pickupName?: string
+  pickupAddress?: string
+  pickupContact?: string
 
   product?: Product
   subtotal?: string
@@ -66,6 +68,12 @@ export interface ItemRowType {
   order_date?: string
   feedback_id?: number | null
   user?: string
+
+  pickup_store?: {
+    name?: string
+    address?: string
+    contact?: string
+  }
 }
 
 export interface CartItemRowProps extends ItemRowType {

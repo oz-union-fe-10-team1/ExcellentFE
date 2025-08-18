@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/utils/axios'
 import { API_PATHS } from '@/constants/apiPaths'
 import type { ProductDetail } from '@/types/product'
+import type { CartResponse } from '@/types/cart'
 
 export const mainProductApi = {
   MonthProducts: async () => {
@@ -40,6 +41,20 @@ export const cartApi = {
       quantity,
       pickup_store_id: 1,
       pickup_date: '2025-08-16',
+    })
+    return response.data
+  },
+  GET: async (): Promise<CartResponse> => {
+    const response = await axiosInstance.get<CartResponse>(API_PATHS.CART.GET)
+    return response.data
+  },
+  DELETE: async (id: string) => {
+    const response = await axiosInstance.delete(API_PATHS.CART.DELETE(id))
+    return response.data
+  },
+  UPDATE: async (id: string, quantity: number) => {
+    const response = await axiosInstance.patch(API_PATHS.CART.UPDATE(id), {
+      quantity,
     })
     return response.data
   },

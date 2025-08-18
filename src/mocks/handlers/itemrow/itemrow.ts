@@ -1,5 +1,4 @@
 import { http, HttpResponse } from 'msw'
-import CartMockData from './mocks/cartMockData'
 import historyMockData from './mocks/historyMockData'
 import { orderMockData } from './mocks/orderMockData'
 
@@ -9,9 +8,6 @@ export interface updateQuantityType {
 }
 
 const itemRowHandlers = [
-  http.get('*/api/v1/cart', () => {
-    return HttpResponse.json(CartMockData)
-  }),
   http.get('*/api/v1/feedbacks', () => {
     return HttpResponse.json(historyMockData)
   }),

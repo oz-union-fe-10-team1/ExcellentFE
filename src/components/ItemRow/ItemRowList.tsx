@@ -6,34 +6,20 @@ import TastingItemRow from './ListComponent/TastingItemRow'
 const ItemRowList = (props: CartItemRowProps) => {
   switch (props.type) {
     case 'cart':
-      /* props가 어떤 타입인지 체크 */
-      if (props.product) {
-        return (
-          <CartItemRow
-            key={props.id}
-            img={props.product.main_image_url || ''}
-            name={props.product.name || ''}
-            quantity={props.quantity || 0}
-            price={props.subtotal || '0'}
-            pickup={props.pickup}
-            onQuantityChange={props.onQuantityChange}
-          />
-        )
-      } else if (props.package) {
-        return (
-          <CartItemRow
-            key={props.cart_package_id || props.id}
-            img={''}
-            name={props.package.name || ''}
-            quantity={props.quantity || 0}
-            price={props.subtotal || '0'}
-            pickup={props.pickup}
-            onQuantityChange={props.onQuantityChange}
-          />
-        )
-      } else {
-        return <div>올바르지 않은 props 타입입니다.</div>
-      }
+      return (
+        <CartItemRow
+          id={props.id}
+          key={props.id}
+          img={props.product?.main_image_url || ''}
+          name={props.name || ''}
+          quantity={props.quantity || 0}
+          price={props.subtotal || '0'}
+          pickupName={props.pickup_store?.name || ''}
+          pickupAddress={props.pickup_store?.address || ''}
+          pickupContact={props.pickup_store?.contact || ''}
+          onQuantityChange={props.onQuantityChange}
+        />
+      )
 
     case 'order':
       return (

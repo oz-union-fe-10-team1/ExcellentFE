@@ -1,14 +1,15 @@
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 import useItemRow from '@/hooks/useItemRow'
-import ItemRowLabel from '../ItemRow/ItemRowLabel'
-import ItemRowList from '../ItemRow/ItemRowList'
+import ItemRowLabel from '@/components/ItemRow/ItemRowLabel'
+import ItemRowList from '@/components/ItemRow/ItemRowList'
 
 interface ItemRowProps {
   items: ItemRowType[]
   type: 'cart' | 'order' | 'tasting'
+  onQuantityChange?: () => void
 }
 
-const ItemRowContent = ({ items, type }: ItemRowProps) => {
+const ItemRowContent = ({ items, type, onQuantityChange }: ItemRowProps) => {
   const { itemList, handleQuantityChange } = useItemRow(items || [])
 
   if (items.length === 0) {
@@ -31,9 +32,11 @@ const ItemRowContent = ({ items, type }: ItemRowProps) => {
           key={`${items[idx]?.id} - ${idx}`}
           {...item}
           type={type}
-          onQuantityChange={(newQuantity) =>
-            handleQuantityChange(idx, newQuantity)
-          }
+          onQuantityChange={async (newQuantity: number) => {
+            await handleQuantityChange(idx, newQuantity)
+            // 수량 변경 후 장바구니 데이터 새로고침
+            onQuantityChange?.()
+          }}
         />
       ))}
     </ItemRowLabel>
