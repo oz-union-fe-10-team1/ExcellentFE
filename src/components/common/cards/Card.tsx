@@ -39,7 +39,6 @@ const Card = ({ type, data }: CardType) => {
         <ReviewCard
           imgSrc={data.imgSrc || ''}
           imgAlt={data.imgAlt || '모은 주류'}
-          starRating={data.starRating || 0}
           userId={data.userId || ''}
           review={data.review || ''}
           defaultRating={Number(data.defaultRating) || 0}
