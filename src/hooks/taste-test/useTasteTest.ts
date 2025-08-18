@@ -20,3 +20,9 @@ export const useTasteTestResult = () => {
     mutationFn: tasteTestApi.postTestResult,
   })
 }
+
+export const useTasteTestRetake = () => {
+  return useMutation({
+    mutationFn: tasteTestApi.putTestResult,
+  })
+}

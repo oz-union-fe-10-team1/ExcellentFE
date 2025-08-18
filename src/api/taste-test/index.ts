@@ -21,4 +21,12 @@ export const tasteTestApi = {
     })
     return data
   },
+
+  //테스트 결과 업데이트 함수 (put)
+  putTestResult: async (answers: AnswerType) => {
+    const { data } = await axiosInstance.put(API_PATHS.TASTE_TEST.RETAKE, {
+      answers,
+    })
+    return data
+  },
 }
