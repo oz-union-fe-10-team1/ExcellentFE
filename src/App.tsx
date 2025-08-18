@@ -20,6 +20,7 @@ import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import Package from '@/pages/Package'
+import Feedback from './pages/Feedback'
 import Detail from '@/pages/Detail'
 import ScrollToTop from '@/components/common/ScrollToTop'
 
@@ -51,7 +52,7 @@ function App() {
           <Route path="package" element={<Package />} />
           <Route path="test" element={<TestMain />} />
           <Route path="search" element={<Search />} />
-          <Route path="feedback" element={<Home />} />
+          <Route path="feedback" element={<Feedback />} />
           <Route path="product/:id" element={<Detail />} />
           <Route path="package/:id" element={<Detail />} />
           <Route

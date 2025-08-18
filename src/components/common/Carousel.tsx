@@ -3,10 +3,10 @@ import Card from '@/components/common/cards/CardBase.tsx'
 import Icon from '@/components/common/Icon'
 import ArrowLeftIcon from '@/assets/icons/carousel/arrow_left.svg?react'
 import ArrowRightIcon from '@/assets/icons/carousel/arrow_right.svg?react'
-import type { CardBaseProps } from '@/types/cardProps'
+import type { BestReviewCardProps, CardBaseProps } from '@/types/cardProps'
 
 interface CarouselProps {
-  cards: CardBaseProps[]
+  cards: CardBaseProps[] | BestReviewCardProps[]
   slidesToShow?: number // 한번에 보여줄 카드 수 (기본 4개)
   gap?: string // 카드 간의 간격 (기본 '27px')
   className?: string
@@ -16,6 +16,9 @@ interface CarouselProps {
     tablet?: number
     desktop?: number
   }
+  renderCard?: (
+    item: BestReviewCardProps | CardBaseProps
+  ) => React.ReactElement | null
 }
 
 const Carousel = ({
@@ -25,6 +28,7 @@ const Carousel = ({
   className = '',
   containerClassName = '',
   responsive,
+  renderCard,
 }: CarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [currentSlidesToShow, setCurrentSlidesToShow] = useState(slidesToShow)
@@ -109,7 +113,11 @@ const Carousel = ({
               >
                 {slideCards.map((item, cardIndex) => (
                   <div key={`${slideIndex}-${cardIndex}`}>
-                    <Card {...item} />
+                    {renderCard ? (
+                      renderCard(item)
+                    ) : (
+                      <Card {...(item as CardBaseProps)} />
+                    )}
                   </div>
                 ))}
                 {/* 빈 공간을 채우기 위한 더미 div들 */}

@@ -19,6 +19,7 @@ export const API_PATHS = {
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
+    LIST: '/feedbacks/recent/', // 추후 수정 예정
   },
   PRODUCTS: {
     DETAIL: (id: string | number) => `/products/${id}/`,
@@ -34,7 +35,7 @@ export const API_PATHS = {
     LIST: '/api/v1/packages/',
   },
   SEARCHPRODUCTS: {
-    SEARCH: 'api/v1/products/search',
+    SEARCH: '/api/v1/products/search/',
   },
   ORDER: {
     LIST: '/orders/list/',

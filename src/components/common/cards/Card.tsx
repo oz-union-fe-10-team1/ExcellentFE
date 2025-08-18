@@ -2,11 +2,13 @@ import type {
   CardBaseProps,
   ReviewCardProps,
   TestCardProps,
+  BestReviewCardProps,
 } from '@/types/cardProps'
 
 import CardBase from '@/components/common/cards/CardBase.tsx'
 import ReviewCard from '@/components/common/cards/ReviewCard.tsx'
 import TestCard from '@/components/common/cards/TestCard.tsx'
+import BestReviewCard from '@/components/common/cards/BestReviewCard.tsx'
 
 interface DefaultType {
   type: 'default'
@@ -23,7 +25,12 @@ interface TestType {
   data: TestCardProps
 }
 
-export type CardType = DefaultType | ReviewType | TestType
+interface BestCardType {
+  type: 'best'
+  data: BestReviewCardProps
+}
+
+export type CardType = DefaultType | ReviewType | TestType | BestCardType
 
 const Card = ({ type, data }: CardType) => {
   switch (type) {
@@ -35,6 +42,8 @@ const Card = ({ type, data }: CardType) => {
           starRating={data.starRating || 0}
           userId={data.userId || ''}
           review={data.review || ''}
+          defaultRating={Number(data.defaultRating) || 0}
+          modalTitle={data.modalTitle || ''}
         />
       )
     case 'test':
@@ -58,6 +67,17 @@ const Card = ({ type, data }: CardType) => {
           title={data.title || '모은'}
           subtitle={data.subtitle || '모은 주류'}
           price={data.price || 0}
+        />
+      )
+    case 'best':
+      return (
+        <BestReviewCard
+          imgSrc={data.imgSrc || ''}
+          imgAlt={data.imgAlt || '모은 주류'}
+          userId={data.userId || ''}
+          review={data.review || ''}
+          date={data.date || ''}
+          defaultRating={Number(data.rating) || 0}
         />
       )
   }
