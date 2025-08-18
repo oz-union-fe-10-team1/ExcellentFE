@@ -1,8 +1,13 @@
 import TestButton from '@/components/test/TestButton.tsx'
 import { useEffect, useState } from 'react'
 import type { AnswerType, TasteTestResult, TestType } from '@/types/tasteTypes'
-import { useTasteTest, useTasteTestResult } from '@/hooks/useTasteTest'
+
 import { useAuthStore } from '@/stores/authStore'
+import {
+  useTasteTestProfile,
+  useTasteTestQuestion,
+  useTasteTestResult,
+} from '@/hooks/taste-test/useTasteTest'
 
 export interface ProgressStepProps {
   step: TestType
@@ -25,7 +30,7 @@ const ProgressStep = ({
   const { isLoggedIn } = useAuthStore()
 
   //테스트 문항
-  const { data, isLoading, isError } = useTasteTest()
+  const { data, isLoading, isError } = useTasteTestQuestion()
 
   //결과 보내는 함수 및 응답
   const { mutate } = useTasteTestResult()
@@ -50,16 +55,8 @@ const ProgressStep = ({
       console.error('로컬 저장에 실패 했습니다. :', error)
     }
   }
-
-  //로컬 저장 함수 (유틸로 분리하기)
-  const saveResultToLocal = (resultData: AnswerType) => {
-    try {
-      localStorage.setItem('selectedAnswers', JSON.stringify(resultData))
-      console.log('로컬 저장 성공')
-    } catch (error) {
-      console.error('로컬 저장에 실패 했습니다. :', error)
-    }
-  }
+  //서버에 유저 정보 확인용
+  const { data: server } = useTasteTestProfile()
 
   //결과 보내고 응답 받아오기
   const handleResult = () => {
@@ -171,7 +168,6 @@ const ProgressStep = ({
                     key={index}
                     className={`mb-[57px] text-[#FFFFFF] ${
                       btn.text === '결과 확인 하기' && !isClicked
-                        ? 'cursor-not-allowed'
                         ? 'cursor-not-allowed'
                         : 'bg-[#2E2F2F]'
                     }`}

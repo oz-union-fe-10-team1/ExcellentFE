@@ -8,7 +8,7 @@ export const getTasteTestProfile = async (): Promise<TasteTestProfile> => {
 }
 //테스트 문항 가져오기 함수
 export const getTestQuetion = async () => {
-  const res = await axiosInstance.get(API_PATHS.TASTE_TEST.GETTEST)
+  const res = await axiosInstance.get(API_PATHS.TASTE_TEST.QUESTIONS)
   return res.data
 }
 
