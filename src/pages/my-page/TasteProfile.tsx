@@ -8,6 +8,7 @@ import { ROUTE_PATHS } from '@/constants/routePaths'
 import { useFeedbackProfile } from '@/hooks/feedback/useFeedbackProfile'
 import { useTasteTestProfile } from '@/hooks/taste-test/useTasteTestProfile'
 import { useModal } from '@/hooks/useModal'
+import { userFeedbackMockData } from '@/mocks/handlers/feedback/mocks/userFeedbackMockData'
 import type { TasteType } from '@/types/tasteTypes'
 import { cn } from '@/utils/cn'
 import { insertLineBreaks } from '@/utils/stringUtils'
@@ -21,11 +22,11 @@ const TasteProfile = () => {
     isLoading: isTasteTestLoading,
     isError: isTasteTestError,
   } = useTasteTestProfile()
-  const {
-    data: feedbackProfileData,
-    isLoading: isFeedbackLoading,
-    isError: isFeedbackError,
-  } = useFeedbackProfile()
+  // const {
+  //   data: feedbackProfileData,
+  //   isLoading: isFeedbackLoading,
+  //   isError: isFeedbackError,
+  // } = useFeedbackProfile()
 
   const navigate = useNavigate()
   const [isExpanded, setIsExpanded] = useState(false)
@@ -35,18 +36,18 @@ const TasteProfile = () => {
     onClose: () => setIsModalOpen(false),
   })
 
-  if (isTasteTestLoading || isFeedbackLoading) {
+  if (isTasteTestLoading) {
     return <div>로딩 중 ...</div>
   }
 
-  if (isTasteTestError || isFeedbackError) {
+  if (isTasteTestError) {
     return <div>정보를 불러오는데 실패했습니다. 잠시 후 다시 시도해주세요.</div>
   }
 
   const { user, has_test, prefer_taste_display, taste_description, image_url } =
     tasteTestProfileData ?? {}
   const { taste_scores, description: feedbackDescription } =
-    feedbackProfileData ?? {}
+    userFeedbackMockData ?? {}
   const sortedTasteScores = Object.entries(taste_scores ?? {}).sort(
     (a, b) => b[1] - a[1]
   )
