@@ -4,7 +4,11 @@ import CardList from '@/components/common/cards/CardList'
 import { useFeedbackList } from '@/hooks/useFeedbackList'
 import Carousel from '@/components/common/Carousel'
 import BestReviewCard from '@/components/common/cards/BestReviewCard'
-import type { BestReviewCardProps, CardBaseProps } from '@/types/cardProps'
+import type {
+  BestReviewCardProps,
+  CardBaseProps,
+  ReviewCardProps,
+} from '@/types/cardProps'
 
 export const Feedback = () => {
   const { data, isLoading, isError, refetch } = useFeedbackList()
@@ -39,6 +43,21 @@ export const Feedback = () => {
     return null
   }
 
+  const mapToReviewCards = (
+    sliceStart: number,
+    sliceEnd: number,
+    modalTitle: string
+  ): ReviewCardProps[] =>
+    data?.slice(sliceStart, sliceEnd).map((item) => ({
+      id: item.product?.id ?? '',
+      imgSrc: item.product?.main_image_url ?? '',
+      imgAlt: item.product?.name ?? '',
+      userId: item.user_id ?? '',
+      review: item.comment ?? '',
+      defaultRating: item?.rating ?? 0,
+      modalTitle,
+    })) ?? []
+
   return (
     <div>
       <div className="flex h-220 w-full flex-col items-center bg-[#F2F2F2] px-60 py-44">
@@ -72,15 +91,7 @@ export const Feedback = () => {
           </div>
           <CardList
             type="review"
-            cards={
-              data?.slice(0, 4).map((item) => ({
-                imgSrc: item.product?.main_image_url ?? '',
-                imgAlt: item.product?.name ?? '',
-                userId: item.user_id ?? '',
-                review: item.comment,
-                defaultRating: item?.rating ?? 0,
-              })) ?? []
-            }
+            cards={mapToReviewCards(0, 4, '실시간 후기')}
           />
         </div>
         <div className="flex flex-col">
@@ -99,15 +110,7 @@ export const Feedback = () => {
           </div>
           <CardList
             type="review"
-            cards={
-              data?.slice(0, 8).map((item) => ({
-                imgSrc: item.product?.main_image_url ?? '',
-                imgAlt: item.product?.name ?? '',
-                userId: item.user_id ?? '',
-                review: item.comment,
-                defaultRating: item?.rating ?? 0,
-              })) ?? []
-            }
+            cards={mapToReviewCards(0, 8, '나와 비슷한 취향의 후기')}
           />
         </div>
       </div>

@@ -11,12 +11,15 @@ export interface CardBaseProps {
 
 // 리뷰 카드 데이터 타입
 export interface ReviewCardProps {
+  id?: string | number
   imgSrc: string
   imgAlt: string
   starRating?: number
   userId?: string
   review?: string
   defaultRating?: number
+  date?: string
+  modalTitle: string
 }
 
 // 테스트 페이지 추천 카드 데이터  타입

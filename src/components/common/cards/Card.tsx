@@ -43,6 +43,7 @@ const Card = ({ type, data }: CardType) => {
           userId={data.userId || ''}
           review={data.review || ''}
           defaultRating={Number(data.defaultRating) || 0}
+          modalTitle={data.modalTitle || ''}
         />
       )
     case 'test':
