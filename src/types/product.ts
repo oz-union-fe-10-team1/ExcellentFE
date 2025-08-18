@@ -30,6 +30,18 @@ export interface DrinkInfo {
   updated_at: string
 }
 
+// 패키지 상세 정보
+export interface PackageDetail {
+  id: number
+  name: string
+  drinks: {
+    id: number
+    name: string
+    abv: number
+    volume_ml: number
+  }[]
+}
+
 // 이미지 정보
 export interface ProductImage {
   image_url: string
@@ -43,7 +55,7 @@ export interface ProductDetail {
   name: string
   product_type: 'individual' | 'package'
   drink: DrinkInfo | null
-  package: unknown | null
+  package: PackageDetail | null
   price: number
   original_price: number | null
   discount: number | null

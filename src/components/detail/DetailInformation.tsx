@@ -1,8 +1,11 @@
 import type { ProductDetail } from '@/types/product'
-import { DRINK_INFO_ROWS } from '@/constants/detailPage'
+import { DRINK_INFO_ROWS, PACKAGE_INFO_ROWS } from '@/constants/detailPage'
 
 const DetailInformation = ({ data }: { data: ProductDetail }) => {
-  const drinkInfoRows = DRINK_INFO_ROWS(data)
+  const infoRows =
+    data.product_type === 'package'
+      ? PACKAGE_INFO_ROWS(data)
+      : DRINK_INFO_ROWS(data)
 
   return (
     <div>
@@ -25,7 +28,7 @@ const DetailInformation = ({ data }: { data: ProductDetail }) => {
       <div className="mt-[50px]">
         <table className="w-full border-collapse border-t border-b border-[#d9d9d9]">
           <tbody>
-            {drinkInfoRows.map((row, idx) => (
+            {infoRows.map((row, idx) => (
               <tr key={idx} className="h-20 border-b border-[#d9d9d9]">
                 <td className="w-95 bg-[#f2f2f2] px-4 py-3 text-center text-lg font-bold">
                   {row.label}

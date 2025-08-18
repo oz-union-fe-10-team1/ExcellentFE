@@ -52,7 +52,7 @@ const DetailProduct = ({
               <span className="flex h-[26px] w-[45px] items-center justify-center rounded-[5px] bg-[#ffe5e3] text-sm font-bold text-[#f2544b]">
                 -{data.discount_rate}%
               </span>
-              <span className="text-[30px] font-bold text-[#333333]">
+              <span className="text-[29px] font-bold text-[#333333]">
                 {data.price.toLocaleString()}원
               </span>
               {data.original_price !== null && (
