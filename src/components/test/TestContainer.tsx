@@ -37,7 +37,7 @@ const TestContainer = () => {
         </div>
         {/* 메인 박스 */}
         <div
-          className="mb-[100px] w-[560px] rounded-bl-[20px] bg-contain"
+          className="mb-[100px] w-[560px] rounded-bl-[20px] bg-cover"
           style={{ backgroundImage: `url(${testTestBg})` }}
         >
           {/* 분기처리 */}
