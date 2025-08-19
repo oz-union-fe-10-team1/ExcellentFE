@@ -6,19 +6,22 @@ import type { TestCardProps } from '@/types/cardProps'
 import TestButton from '@/components/test/TestButton.tsx'
 import type { ProgressStepProps } from './ProgressStep'
 import { useAuthStore } from '@/stores/authStore'
+import exampl1 from '@/assets/images/tasteTest/example1.png'
+import exampl2 from '@/assets/images/tasteTest/example2.png'
+import exampl3 from '@/assets/images/tasteTest/example3.png'
 
 //렌더링 확인을 위한 가짜 더미데이터 (추후 삭제 예정)
 const testCardData: TestCardProps[] = [
   {
-    imgSrc: 'https://example.com/soju.jpg',
+    imgSrc: exampl1,
     imgAlt: 'A bottle of soju with glass',
-    title: '참이슬',
+    title: '한산 소곡주',
     subtitle: '한국 대표 소주',
-    firstLabel: '단맛',
+    firstLabel: '부드러운',
     secondLabel: '쓴맛',
   },
   {
-    imgSrc: 'https://example.com/whiskey.jpg',
+    imgSrc: exampl2,
     imgAlt: 'Whiskey glass with ice',
     title: '싱글 몰트 위스키',
     subtitle: '풍부한 향과 깊은 맛',
@@ -26,7 +29,7 @@ const testCardData: TestCardProps[] = [
     secondLabel: '스모키',
   },
   {
-    imgSrc: 'https://example.com/cocktail.jpg',
+    imgSrc: exampl3,
     imgAlt: 'Colorful cocktail glass',
     title: '모히토',
     subtitle: '상큼한 민트 칵테일',
