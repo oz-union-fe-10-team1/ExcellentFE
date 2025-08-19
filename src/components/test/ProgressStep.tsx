@@ -1,6 +1,11 @@
 import TestButton from '@/components/test/TestButton.tsx'
 import { useEffect, useState } from 'react'
-import type { AnswerType, TasteTestResult, TestType } from '@/types/tasteTypes'
+import type {
+  AnswerType,
+  TasteTestResult,
+  TestQuestionType,
+  TestType,
+} from '@/types/tasteTypes'
 
 import { useAuthStore } from '@/stores/authStore'
 import {
@@ -25,7 +30,6 @@ const ProgressStep = ({
   setStep,
   testStep,
   setTestStep,
-  testResult,
   setTestResult,
 }: ProgressStepProps) => {
   // 회원 / 비회원 분기 처리를 위한 로그인 정보 꺼내오기
@@ -115,7 +119,7 @@ const ProgressStep = ({
 
   return (
     <div className="flex w-full flex-col items-center">
-      {data?.map((question, index) => {
+      {data?.map((question: TestQuestionType, index: number) => {
         if (index !== testStep) return null
         const buttons = [
           {
