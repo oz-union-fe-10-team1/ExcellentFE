@@ -24,7 +24,7 @@ const AdultCallback = () => {
         await adultAuthToken(code)
         await adultAuthComplete(tempToken)
       } catch (error) {
-        navigate(ROUTE_PATHS.ADULT_AUTH_BEFORE, { replace: true })
+        navigate(ROUTE_PATHS.ADULT_AUTH_MANUAL, { replace: true })
       } finally {
         navigate(ROUTE_PATHS.HOME, { replace: true })
       }
