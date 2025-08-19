@@ -12,8 +12,6 @@ const Package = () => {
   const { loading, error, retry, featured, award, makgeolli, regional } =
     usePackagePageData()
 
-  console.log(featured)
-
   // 데이터를 카드 형태로 변환
   const featuredCards = transformToCardData(featured)
   const awardCards = transformToCardData(award)
