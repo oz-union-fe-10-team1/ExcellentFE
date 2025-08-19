@@ -24,7 +24,7 @@ import Feedback from '@/pages/Feedback'
 import Detail from '@/pages/Detail'
 import ScrollToTop from '@/components/common/ScrollToTop'
 import AdultCallback from '@/pages/auth/AdultCallback'
-import AdultAuthBefore from '@/pages/auth/AdultAuthBefore'
+import AdultAuthManual from '@/pages/auth/AdultAuthManual'
 
 const queryClient = new QueryClient()
 
@@ -48,7 +48,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/auth/:provider/callback" element={<SocialCallback />} />
-        <Route path="/auth/adult-before" element={<AdultAuthBefore />} />
+        <Route path="/auth/adult-manual" element={<AdultAuthManual />} />
         <Route
           path="/auth/adult-verification/callback"
           element={<AdultCallback />}
