@@ -12,6 +12,8 @@ const Package = () => {
   const { loading, error, retry, featured, award, makgeolli, regional } =
     usePackagePageData()
 
+  console.log(featured)
+
   // 데이터를 카드 형태로 변환
   const featuredCards = transformToCardData(featured)
   const awardCards = transformToCardData(award)
@@ -65,7 +67,7 @@ const Package = () => {
                 한 잔 취향의 특별한 인천 패키지
               </span>
             </h1>
-            <Link to={`/packages/detail/${featuredPackageId}`}>
+            <Link to={`/package/${featuredPackageId}`}>
               <Button variant="VARIANT9">구매하기</Button>
             </Link>
           </div>
