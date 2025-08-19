@@ -26,7 +26,7 @@ export interface TastingSubmitData {
   files?: File[] | null
 }
 
-export interface FeedbackProfile {
+export interface TasteProfile {
   id: number
   taste_scores: TasteScoreMap
   description: string

@@ -1,21 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchFeedbackByType } from '@/api/feedbackList/feedbackApi'
-import type { Feedback } from '@/api/feedbackList/types'
+import { feedbackApi } from '@/api/feedback'
+import type { Feedback } from '@/api/feedback/types'
 
 export const useFeedbackList = () => {
   const popularQuery = useQuery<Feedback[]>({
     queryKey: ['popularFeedback'],
-    queryFn: () => fetchFeedbackByType('popular'),
+    queryFn: () => feedbackApi.fetchFeedbackByType('popular'),
   })
 
   const recentQuery = useQuery<Feedback[]>({
     queryKey: ['recentFeedback'],
-    queryFn: () => fetchFeedbackByType('recent'),
+    queryFn: () => feedbackApi.fetchFeedbackByType('recent'),
   })
 
   const personalizedQuery = useQuery<Feedback[]>({
     queryKey: ['personalizedFeedback'],
-    queryFn: () => fetchFeedbackByType('personalized'),
+    queryFn: () => feedbackApi.fetchFeedbackByType('personalized'),
   })
 
   return {

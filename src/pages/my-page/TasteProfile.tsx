@@ -5,9 +5,8 @@ import GaugeBar from '@/components/common/GaugeBar'
 import Icon from '@/components/common/Icon'
 import PackageMakeupModal from '@/components/my-page/PackageMakeupModal'
 import { ROUTE_PATHS } from '@/constants/routePaths'
-import { useTasteTestProfile } from '@/hooks/taste-test/useTasteTest'
 import { useModal } from '@/hooks/useModal'
-import { useFeedbackProfile } from '@/hooks/user/useUser'
+import { useTasteProfile, useTasteTestProfile } from '@/hooks/user/useUser'
 import type { TasteType } from '@/types/tasteTypes'
 import { cn } from '@/utils/cn'
 import { insertLineBreaks } from '@/utils/stringUtils'
@@ -25,7 +24,7 @@ const TasteProfile = () => {
     data: feedbackProfileData,
     isLoading: isFeedbackLoading,
     isError: isFeedbackError,
-  } = useFeedbackProfile()
+  } = useTasteProfile()
 
   const navigate = useNavigate()
   const [isExpanded, setIsExpanded] = useState(false)

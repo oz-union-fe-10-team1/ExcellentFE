@@ -1,4 +1,4 @@
-import type { FeedbackRequest } from '@/api/feedback/types'
+import type { FeedbackRequest, FeedbackResponse } from '@/api/feedback/types'
 import { API_PATHS } from '@/constants/apiPaths'
 import { axiosInstance } from '@/utils/axios'
 
@@ -55,24 +55,23 @@ export const feedbackApi = {
     return response.data
   },
 
-  tastingHistory: async () => {
-    const { data } = await axiosInstance.get(API_PATHS.FEEDBACK.TASTING_HISTORY)
-    return data
-  },
-}
+  fetchFeedbackByType: async (
+    type: 'popular' | 'recent' | 'personalized'
+  ): Promise<FeedbackResponse> => {
+    let url = ''
+    switch (type) {
+      case 'popular':
+        url = API_PATHS.FEEDBACK.POPULAR
+        break
+      case 'recent':
+        url = API_PATHS.FEEDBACK.RECENT
+        break
+      case 'personalized':
+        url = API_PATHS.FEEDBACK.PERSONALIZED
+        break
+    }
 
-export const feedbackApiSimple = {
-  submit: async (data: FeedbackRequest) => {
-    const formData = createFormDataFromFeedback(data)
-    const { data: responseData } = await axiosInstance.post(
-      API_PATHS.FEEDBACK.SUBMIT,
-      formData
-    )
-    return responseData
-  },
-
-  tastingHistory: async () => {
-    const { data } = await axiosInstance.get(API_PATHS.FEEDBACK.TASTING_HISTORY)
-    return data
+    const res = await axiosInstance.get<FeedbackResponse>(url)
+    return res.data
   },
 }
