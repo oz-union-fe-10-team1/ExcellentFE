@@ -31,7 +31,7 @@ const BestReviewCard = ({
   const closeModal = () => setIsModalOpen(false)
 
   return (
-    <div className="flex h-123 w-316 items-center justify-center gap-19">
+    <div className="flex h-123 w-317 items-center justify-center gap-19">
       <img
         src={imgSrc || defaultImg}
         alt={imgAlt || '모은 주류'}
