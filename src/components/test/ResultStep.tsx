@@ -60,7 +60,7 @@ const ResultStep = () => {
           달콤고소파 유형을 위한 첫 번째 추천 조합
         </p>
         <div className="flex grid-cols-3 justify-center">
-          <CardList type="test" cards={testCardData} />
+          <CardList type="test" cards={testCardData} columns={3} />
         </div>
       </div>
 
