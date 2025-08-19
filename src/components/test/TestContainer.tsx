@@ -8,10 +8,17 @@ import MainStep from '@/components/test/MainStep.tsx'
 import ProgressStep from '@/components/test/ProgressStep.tsx'
 import Icon from '@/components/common/Icon'
 import ResultStep from '@/components/test/ResultStep.tsx'
+import type { TasteTestResult } from '@/types/tasteTypes'
 
 //분기 처리를 위한 테스트 페이지의 가장 큰 컴포넌트
 const TestContainer = () => {
   const [step, setStep] = useState<'main' | 'question' | 'result'>('main')
+
+  // 테스트 단계
+  const [testStep, setTestStep] = useState(0)
+
+  //테스트 결과 : 진행, 결과 페이지에서 사용
+  const [testResult, setTestResult] = useState<TasteTestResult>()
 
   return (
     <div className="min-h-screen overflow-y-scroll bg-[#F2F2F2]">
@@ -23,6 +30,7 @@ const TestContainer = () => {
               icon={leftArrow}
               size={30}
               className="absolute left-4 w-[30px]"
+              onClick={() => setTestStep((prev) => Math.max(prev - 1, 0))}
             />
           )}
           <img src={logoTest} alt="모은" className="h-[26px] w-[54px]" />
@@ -36,9 +44,25 @@ const TestContainer = () => {
 
           {step === 'main' && <MainStep step={step} setStep={setStep} />}
           {step === 'question' && (
-            <ProgressStep step={step} setStep={setStep} />
+            <ProgressStep
+              step={step}
+              setStep={setStep}
+              testStep={testStep}
+              setTestStep={setTestStep}
+              testResult={testResult}
+              setTestResult={setTestResult}
+            />
           )}
-          {step === 'result' && <ResultStep />}
+          {step === 'result' && (
+            <ResultStep
+              step={step}
+              setStep={setStep}
+              testStep={testStep}
+              setTestStep={setTestStep}
+              testResult={testResult}
+              setTestResult={setTestResult}
+            />
+          )}
         </div>
       </div>
       {/* 푸터와의 여백용 파트 */}

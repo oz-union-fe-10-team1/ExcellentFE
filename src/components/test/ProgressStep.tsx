@@ -1,42 +1,114 @@
 import TestButton from '@/components/test/TestButton.tsx'
-import { useTasteTestQuestion } from '@/hooks/taste-test/useTasteTest'
-import type { TestType } from '@/types/tasteTypes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import type {
+  AnswerType,
+  TasteTestResult,
+  TestQuestionType,
+  TestType,
+} from '@/types/tasteTypes'
 
-interface ProgressStepProps {
+import { useAuthStore } from '@/stores/authStore'
+import {
+  useTasteTestProfile,
+  useTasteTestQuestion,
+  useTasteTestResult,
+  useTasteTestRetake,
+} from '@/hooks/taste-test/useTasteTest'
+
+export interface ProgressStepProps {
   step: TestType
   setStep: React.Dispatch<React.SetStateAction<TestType>>
+  testStep: number
+  setTestStep: React.Dispatch<React.SetStateAction<number>>
+  testResult: TasteTestResult | undefined
+  setTestResult: React.Dispatch<
+    React.SetStateAction<TasteTestResult | undefined>
+  >
 }
 
-const ProgressStep = ({ step, setStep }: ProgressStepProps) => {
+const ProgressStep = ({
+  setStep,
+  testStep,
+  setTestStep,
+  setTestResult,
+}: ProgressStepProps) => {
+  // 회원 / 비회원 분기 처리를 위한 로그인 정보 꺼내오기
+  const { isLoggedIn } = useAuthStore()
+
+  //테스트 문항
   const { data, isLoading, isError } = useTasteTestQuestion()
 
-  // 테스트 단계
-  const [first, setFirst] = useState(true)
-  const [second, setSecond] = useState(false)
-  const [third, setThird] = useState(false)
-  const [fourth, setFourth] = useState(false)
-  const [fifth, setFifth] = useState(false)
-  const [sixth, setSixth] = useState(false)
-
   // 점수 계산
-  const [firstAnswer, setFirstAnswer] = useState('')
-  const [secondAnswer, setSecondAnswer] = useState('')
-  const [thirdAnswer, setThirdAnswer] = useState('')
-  const [fourthAnswer, setFourthAnswer] = useState('')
-  const [fifthAnswer, setFifthAnswer] = useState('')
-  const [sixthAnswer, setSixthAnswer] = useState('')
+  const [answers, setAnswers] = useState<{ [key: string]: 'A' | 'B' }>({})
 
-  //빌드오류 해결 위해 우선 값 사용
-  console.log(
-    firstAnswer,
-    secondAnswer,
-    thirdAnswer,
-    fourthAnswer,
-    fifthAnswer,
-    sixthAnswer,
-    step
-  )
+  //점수 계산 함수
+  const handlerAnswer = (option: 'A' | 'B') => {
+    setAnswers((prev) => ({
+      ...prev,
+      [`Q${testStep + 1}`]: option,
+    }))
+  }
+
+  //로컬 저장 함수 (유틸로 분리하기)
+  const saveResultToLocal = (resultData: AnswerType) => {
+    try {
+      localStorage.setItem('selectedAnswers', JSON.stringify(resultData))
+      console.log('로컬 저장 성공')
+    } catch (error) {
+      console.error('로컬 저장에 실패 했습니다. :', error)
+    }
+  }
+  //서버에 유저 정보 확인용
+  const { data: server } = useTasteTestProfile()
+
+  //결과 보내는 함수 및 응답 (Post로 첫 응시)
+  const { mutate: postResult } = useTasteTestResult()
+
+  //결과 보내는 함수 및 응답 (Put으로 재 응시)
+
+  const { mutate: putResult } = useTasteTestRetake()
+
+  //결과 보내고 응답 받아오기
+  const handleResult = () => {
+    if (isLoggedIn) {
+      //로그인 true라면 서버에 put 또는 post로 보내기 및 결과 저장 후 이동
+      if (server) {
+        //서버에 기록까지 있다면, put으로 업데이트
+        putResult(answers, {
+          onSuccess: (res) => {
+            setTestResult(res)
+            setStep('result')
+          },
+        })
+      } else {
+        //첫 응시는 post
+        postResult(answers, {
+          onSuccess: (res) => {
+            setTestResult(res)
+            setStep('result')
+          },
+        })
+      }
+    } else {
+      // 로컬 저장 (결과 확인을 위해 계산용으로 api 호출)
+      postResult(answers, {
+        onSuccess: (res) => {
+          saveResultToLocal(answers)
+          setTestResult(res)
+          setStep('result')
+        },
+      })
+    }
+  }
+
+  //클릭에 따른 버튼 색 변경을 위한 상태
+  const [isClicked, setIsClicked] = useState<'A' | 'B' | null>(null)
+
+  //스텝 바뀔 때 클릭 상태 초기화
+  useEffect(() => {
+    setIsClicked(null)
+  }, [testStep])
+
   if (isLoading) {
     return <div>로딩 중...</div>
   }
@@ -46,206 +118,90 @@ const ProgressStep = ({ step, setStep }: ProgressStepProps) => {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      {first && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">1 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[0]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[0]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFirstAnswer('A')
-              setSecond(true)
-              setFirst(false)
-            }}
-          >
-            A. {data?.[0]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFirstAnswer('B')
-              setSecond(true)
-              setFirst(false)
-            }}
-          >
-            B. {data?.[0]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setStep('main')}
-          >
-            처음으로 돌아가기
-          </TestButton>
-        </>
-      )}
+    <div className="flex w-full flex-col items-center">
+      {data?.map((question: TestQuestionType, index: number) => {
+        if (index !== testStep) return null
+        const buttons = [
+          {
+            condition: index === 0,
+            text: '처음으로 돌아가기',
+            onclick: () => setStep('main'),
+          },
+          {
+            condition: index > 0 && index < data.length - 1,
+            text: '이전으로 돌아가기',
+            onclick: () => setTestStep(testStep - 1),
+          },
+          {
+            condition: index === data.length - 1,
+            text: '결과 확인 하기',
+            onclick: handleResult,
+          },
+        ]
+        return (
+          <div key={question?.id} className="flex w-full flex-col items-center">
+            <p className="mt-[80px] mb-[127px] text-[#666666]">
+              {index + 1} / {data.length}
+            </p>
+            <p className="mb-3.5 text-[26px] font-bold">{question?.id}.</p>
+            <p className="mb-[60px] text-[26px]">{question?.question}</p>
+            <TestButton
+              className={
+                isClicked === 'A'
+                  ? 'mb-[14px] border border-[#F2544B] bg-[#F2544B] text-[#FFFFFF]'
+                  : 'mb-[14px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]'
+              }
+              onClick={() => {
+                handlerAnswer('A')
+                setIsClicked('A')
+                setTimeout(() => {
+                  if (testStep < data.length - 1) {
+                    setTestStep(testStep + 1)
+                  }
+                }, 100)
+              }}
+            >
+              A. {question?.options?.A}
+            </TestButton>
+            <TestButton
+              className={
+                isClicked === 'B'
+                  ? 'mb-[168px] border border-[#F2544B] bg-[#F2544B] text-[#FFFFFF]'
+                  : 'mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]'
+              }
+              onClick={() => {
+                handlerAnswer('B')
+                setIsClicked('B')
+                setTimeout(() => {
+                  if (testStep < data.length - 1) {
+                    setTestStep(testStep + 1)
+                  }
+                }, 100)
+              }}
+            >
+              B. {question?.options?.B}
+            </TestButton>
 
-      {second && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">2 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[1]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[1]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setSecondAnswer('A')
-              setThird(true)
-              setSecond(false)
-            }}
-          >
-            A. {data?.[1]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setSecondAnswer('B')
-              setThird(true)
-              setSecond(false)
-            }}
-          >
-            B. {data?.[1]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setFirst(true)}
-          >
-            이전 문항으로 돌아가기
-          </TestButton>
-        </>
-      )}
-
-      {third && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">3 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[2]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[2]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setThirdAnswer('A')
-              setFourth(true)
-              setThird(false)
-            }}
-          >
-            A. {data?.[2]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setThirdAnswer('B')
-              setFourth(true)
-              setThird(false)
-            }}
-          >
-            B. {data?.[2]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setSecond(true)}
-          >
-            이전 문항으로 돌아가기
-          </TestButton>
-        </>
-      )}
-
-      {fourth && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">4 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[3]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[3]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFourthAnswer('A')
-              setFifth(true)
-              setFourth(false)
-            }}
-          >
-            A. {data?.[3]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFourthAnswer('B')
-              setFifth(true)
-              setFourth(false)
-            }}
-          >
-            B. {data?.[3]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setThird(true)}
-          >
-            이전 문항으로 돌아가기
-          </TestButton>
-        </>
-      )}
-
-      {fifth && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">5 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[4]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[4]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFifthAnswer('A')
-              setSixth(true)
-              setFifth(false)
-            }}
-          >
-            A. {data?.[4]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setFifthAnswer('B')
-              setSixth(true)
-              setFifth(false)
-            }}
-          >
-            B. {data?.[4]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setFourth(true)}
-          >
-            이전 문항으로 돌아가기
-          </TestButton>
-        </>
-      )}
-
-      {sixth && (
-        <>
-          <p className="mt-[80px] mb-[127px] text-[#666666]">6 / 6</p>
-          <p className="mb-3.5 text-[26px] font-bold">{data?.[5]?.id}.</p>
-          <p className="mb-[60px] text-[26px]">{data?.[5]?.question}</p>
-          <TestButton
-            className="mb-3.5 border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setSixthAnswer('A')
-            }}
-          >
-            A. {data?.[5]?.options?.A}
-          </TestButton>
-          <TestButton
-            className="mb-[168px] border border-[#F2544B] bg-[#FFFFFF] text-[#F2544B]"
-            onClick={() => {
-              setSixthAnswer('B')
-            }}
-          >
-            B. {data?.[5]?.options?.B}
-          </TestButton>
-          <TestButton
-            className="mb-[57px] bg-[#2E2F2F] text-[#FFFFFF]"
-            onClick={() => setStep('result')}
-          >
-            결과확인 하기
-          </TestButton>
-        </>
-      )}
+            {buttons.map(
+              (btn, index) =>
+                btn.condition && (
+                  <TestButton
+                    key={index}
+                    className={`mb-[57px] text-[#FFFFFF] ${
+                      btn.text === '결과 확인 하기' && !isClicked
+                        ? 'cursor-not-allowed'
+                        : 'bg-[#2E2F2F]'
+                    }`}
+                    onClick={btn.onclick}
+                    disabled={btn.text === '결과 확인 하기' && !isClicked}
+                  >
+                    {btn.text}
+                  </TestButton>
+                )
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }

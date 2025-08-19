@@ -16,6 +16,7 @@ export const API_PATHS = {
     PROFILE: '/taste-test/profile/',
     QUESTIONS: '/taste-test/questions/',
     RESULT: '/taste-test/submit/',
+    RETAKE: '/taste-test/retake/',
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
