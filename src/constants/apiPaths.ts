@@ -36,7 +36,7 @@ export const API_PATHS = {
     REGIONAL: '/products/regional/',
   },
   SEARCHPRODUCTS: {
-    SEARCH: '/api/v1/products/search/',
+    SEARCH: '/products/search/',
   },
   ORDER: {
     LIST: '/orders/order-items',

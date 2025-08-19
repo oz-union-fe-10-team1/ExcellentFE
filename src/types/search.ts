@@ -5,21 +5,38 @@ export interface SearchFilters {
   acidity: number[]
   body: number[]
   carbonation: number[]
-  bitter: number[]
+  bitterness: number[]
   aroma: number[]
 }
 
 export interface Product {
-  main_image_url: string
+  id: string
   name: string
-  short_description: string
+  product_type: 'individual' | 'package'
   price: number
+  original_price?: number | null
+  discount?: number
+  discount_rate?: number
+  final_price: number
+  is_on_sale: boolean
+  main_image_url: string
+  brewery_name?: string | null
+  alcohol_type?: string | null
+  is_gift_suitable: boolean
+  is_regional_specialty: boolean
+  is_limited_edition: boolean
+  is_premium: boolean
+  is_award_winning: boolean
+  view_count: number
+  like_count: number
+  status: string
+  created_at: string
 }
 
 export interface SearchFormProps {
   keyword: string
   onKeywordChange: (keyword: string) => void
-  onSearch: () => void
+  onSearch: (keyword: string) => void
 }
 
 export interface FeatureFilterProps {

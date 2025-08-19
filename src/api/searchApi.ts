@@ -1,9 +1,12 @@
 import { axiosInstance } from '@/utils/axios'
-import type { ProductType } from '@/hooks/useProductSearch'
+import type { Product } from '@/types/search'
 import { API_PATHS } from '@/constants/apiPaths'
 
 export interface ProductSearchResponse {
-  results: ProductType[]
+  count: number
+  next: string | null
+  previous: string | null
+  results: Product[]
 }
 
 type QueryParamValue =
@@ -16,8 +19,30 @@ type QueryParamValue =
 export async function fetchProducts(
   params?: Record<string, QueryParamValue>
 ): Promise<ProductSearchResponse> {
+  const filteredParams: Record<string, string | number | (string | number)[]> =
+    {}
+  if (params) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        filteredParams[key] = value as any
+      }
+    })
+  }
+
   const res = await axiosInstance.get(API_PATHS.SEARCHPRODUCTS.SEARCH, {
-    params,
+    params: filteredParams,
+    paramsSerializer: (params) => {
+      const entries: [string, string][] = []
+      Object.entries(params).forEach(([key, val]) => {
+        if (Array.isArray(val)) {
+          val.forEach((v) => entries.push([`${key}[]`, String(v)]))
+        } else {
+          entries.push([key, String(val)])
+        }
+      })
+      return new URLSearchParams(entries).toString()
+    },
   })
+
   return res.data
 }
