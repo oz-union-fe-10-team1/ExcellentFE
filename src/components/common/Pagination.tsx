@@ -18,7 +18,7 @@ const Pagination = ({
 }: PaginationProps) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
 
-  if (totalPages <= 1) return null
+  if (totalPages === 0) return null
 
   const handlePrevious = () => {
     if (currentPage === 1) return
