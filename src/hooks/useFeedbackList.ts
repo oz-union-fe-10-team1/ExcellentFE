@@ -22,11 +22,9 @@ export const useFeedbackList = () => {
     popular: popularQuery.data,
     recent: recentQuery.data,
     personalized: personalizedQuery.data,
-    refetchAll: () => {
-      popularQuery.refetch()
-      recentQuery.refetch()
-      personalizedQuery.refetch()
-    },
+    refetchPopular: popularQuery.refetch,
+    refetchRecent: recentQuery.refetch,
+    refetchPersonalized: personalizedQuery.refetch,
     isLoading:
       popularQuery.isLoading ||
       recentQuery.isLoading ||

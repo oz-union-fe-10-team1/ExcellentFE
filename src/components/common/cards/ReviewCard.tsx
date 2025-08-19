@@ -6,6 +6,7 @@ import StarRating from '@/components/common/StarRating'
 import Modal from '@/components/common/Modal'
 import Button from '@/components/common/Button'
 import { Link } from 'react-router-dom'
+import defaultImg from '@/assets/images/backgrounds/login.jpg'
 
 const ReviewCard = ({
   id,
@@ -27,14 +28,12 @@ const ReviewCard = ({
         if (!isModalOpen) setIsModalOpen(true)
       }}
     >
-      <div className="relative mb-5 flex h-[290px] w-full items-center justify-center overflow-hidden rounded-[6px] border border-[#D9D9D9] bg-gray-200">
-        {imgSrc && (
-          <img
-            src={imgSrc}
-            alt={imgAlt ?? ''}
-            className="h-full w-full object-cover"
-          />
-        )}
+      <div className="relative mb-5 flex h-[290px] w-full items-center justify-center overflow-hidden rounded-[6px] border border-[#D9D9D9]">
+        <img
+          src={imgSrc || defaultImg}
+          alt={imgAlt || '모은 주류'}
+          className="h-full w-full object-cover"
+        />
 
         <div
           onClick={(e) => e.stopPropagation()}
@@ -62,11 +61,12 @@ const ReviewCard = ({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={modalTitle}
+        className="review-modal-scroll h-[1292px] w-170 overflow-auto"
       >
         <div>
           <img
-            src={imgSrc}
-            alt={imgAlt}
+            src={imgSrc || defaultImg}
+            alt={imgAlt || '모은 주류'}
             className="mt-14 mb-[34px] h-119 w-150 rounded-[10px] border border-[#333333]"
           />
           <StarRating

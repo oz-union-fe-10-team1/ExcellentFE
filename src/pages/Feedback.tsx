@@ -12,16 +12,23 @@ import type {
 import type { Feedback as FeedbackType } from '@/api/feedbackList/types'
 
 export const Feedback = () => {
-  const { popular, recent, personalized, refetchAll, isLoading, isError } =
-    useFeedbackList()
+  const {
+    popular,
+    recent,
+    personalized,
+    refetchPersonalized,
+    refetchRecent,
+    isLoading,
+    isError,
+  } = useFeedbackList()
 
   if (isLoading) return <p>로딩중...</p>
   if (isError) return <p>데이터를 불러오는데 실패했습니다.</p>
 
   const bestReviewCards =
     popular?.map((item) => ({
-      imgSrc: item.main_image_url || undefined,
-      imgAlt: item.product || undefined,
+      imgSrc: item.image_url || undefined,
+      imgAlt: item.product_name ?? '모은 주류',
       review: item.comment ?? undefined,
       userId: item.masked_username ?? undefined,
       date: item.created_at ?? undefined,
@@ -41,8 +48,8 @@ export const Feedback = () => {
   ): ReviewCardProps[] =>
     data?.map((item) => ({
       id: String(item.id),
-      imgSrc: item.main_image_url || undefined,
-      imgAlt: item.product || undefined,
+      imgSrc: item.image_url || undefined,
+      imgAlt: item.product_name ?? '모은 주류',
       userId: item.masked_username,
       review: item.comment,
       defaultRating: item.rating,
@@ -53,14 +60,15 @@ export const Feedback = () => {
   const renderReviewSection = (
     title: string,
     description: string,
-    data: FeedbackType[]
+    data: FeedbackType[],
+    onReset: () => void
   ) => (
     <div className="flex flex-col gap-[50px]">
       <div className="flex w-320 flex-col gap-[10px]">
         <h2 className="text-[32px] font-bold text-[#333333]">{title}</h2>
         <div className="flex items-center justify-between">
           <h5 className="text-[18px] text-[#666666]">{description}</h5>
-          <button onClick={refetchAll}>
+          <button onClick={onReset}>
             <Icon icon={ResetIcon} size={40} />
           </button>
         </div>
@@ -90,12 +98,14 @@ export const Feedback = () => {
           {renderReviewSection(
             '실시간 후기',
             '한 잔 취향을 이용한 고객님들의 실시간 후기',
-            recent || []
+            recent || [],
+            refetchRecent
           )}
           {renderReviewSection(
             '나와 비슷한 취향의 후기',
             '한 잔 취향을 이용한 고객님들의 실시간 후기',
-            personalized || []
+            personalized || [],
+            refetchPersonalized
           )}
         </div>
       </div>

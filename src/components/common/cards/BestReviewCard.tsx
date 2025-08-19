@@ -4,6 +4,7 @@ import Button from '@/components/common/Button'
 import { useState } from 'react'
 import Modal from '@/components/common/Modal'
 import { Link } from 'react-router-dom'
+import defaultImg from '@/assets/images/backgrounds/login.jpg'
 
 interface BestReviewCardProps {
   id?: string | number
@@ -30,11 +31,11 @@ const BestReviewCard = ({
   const closeModal = () => setIsModalOpen(false)
 
   return (
-    <div className="flex h-123 w-316 items-center justify-center gap-19">
+    <div className="flex h-123 w-317 items-center justify-center gap-19">
       <img
-        src={imgSrc}
-        alt={imgAlt}
-        className="h-123 w-155 border border-[#333333]"
+        src={imgSrc || defaultImg}
+        alt={imgAlt || '모은 주류'}
+        className="h-123 w-155"
       />
       <div className="flex h-[439px] w-[570px] flex-col">
         <StarRating
@@ -57,11 +58,12 @@ const BestReviewCard = ({
           isOpen={isModalOpen}
           onClose={closeModal}
           title="한 잔 취향 이 달의 후기"
+          className="review-modal-scroll h-[1292px] w-170 overflow-auto"
         >
           <div>
             <img
-              src={imgSrc}
-              alt={imgAlt}
+              src={imgSrc || defaultImg}
+              alt={imgAlt || '모은 주류'}
               className="mt-14 mb-[34px] h-119 w-150 rounded-[10px] border border-[#333333]"
             />
             <StarRating
