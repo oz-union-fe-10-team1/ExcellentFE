@@ -56,3 +56,5 @@ export const SOCIAL_LOGIN: Record<SocialProvider, SocialLoginConfig> = {
     },
   },
 } as const
+
+export const ADULT_VERIFICATION_URL = `https://bauth.bbaton.com/oauth/authorize?client_id=${import.meta.env.VITE_BBATON_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_BBATON_REDIRECT_URI}&response_type=code&scope=read_profile`

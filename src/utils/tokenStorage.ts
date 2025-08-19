@@ -1,23 +1,15 @@
-const ACCESS_TOKEN = 'access_token'
-const REFRESH_TOKEN = 'refresh_token'
+export const tokenStorage = {
+  getTempToken: () => sessionStorage.getItem('temp_token'),
+  setTempToken: (value: string) => sessionStorage.setItem('temp_token', value),
+  removeTempToken: () => sessionStorage.removeItem('temp_token'),
 
-interface TokenStorage {
-  getAccessToken: () => string | null
-  setAccessToken: (accessToken: string) => void
-  removeAccessToken: () => void
-  getRefreshToken: () => string | null
-  setRefreshToken: (refreshToken: string) => void
-  removeRefreshToken: () => void
-}
+  getAccessToken: () => localStorage.getItem('access_token'),
+  setAccessToken: (value: string) =>
+    localStorage.setItem('access_token', value),
+  removeAccessToken: () => localStorage.removeItem('access_token'),
 
-export const tokenStorage: TokenStorage = {
-  getAccessToken: () => localStorage.getItem(ACCESS_TOKEN),
-  setAccessToken: (accessToken) =>
-    localStorage.setItem(ACCESS_TOKEN, accessToken),
-  removeAccessToken: () => localStorage.removeItem(ACCESS_TOKEN),
-
-  getRefreshToken: () => localStorage.getItem(REFRESH_TOKEN),
-  setRefreshToken: (refreshToken) =>
-    localStorage.setItem(REFRESH_TOKEN, refreshToken),
-  removeRefreshToken: () => localStorage.removeItem(REFRESH_TOKEN),
+  getRefreshToken: () => localStorage.getItem('refresh_token'),
+  setRefreshToken: (value: string) =>
+    localStorage.setItem('refresh_token', value),
+  removeRefreshToken: () => localStorage.removeItem('refresh_token'),
 }

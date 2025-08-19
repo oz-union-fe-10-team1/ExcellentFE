@@ -6,16 +6,20 @@ export interface SocialLoginRequest {
   state?: string
 }
 
-export interface SocialLoginResponse {
-  access_token: string
-  refresh_token: string
-  user: {
+export interface SocialLoginTempToken {
+  temp_token: string
+}
+
+export interface SocialLoginUser {
+  success: boolean
+  access: string
+  refresh: string
+  user_info: {
     nickname: string
     email: string | null
     role: string
     created_at: string
   }
-  auth_type: string
 }
 
 export interface RefreshTokenResponse {

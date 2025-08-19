@@ -20,9 +20,11 @@ import { useEffect } from 'react'
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import Package from '@/pages/Package'
-import Feedback from './pages/Feedback'
+import Feedback from '@/pages/Feedback'
 import Detail from '@/pages/Detail'
 import ScrollToTop from '@/components/common/ScrollToTop'
+import AdultCallback from '@/pages/auth/AdultCallback'
+import AdultAuthBefore from '@/pages/auth/AdultAuthBefore'
 
 const queryClient = new QueryClient()
 
@@ -46,6 +48,11 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/auth/:provider/callback" element={<SocialCallback />} />
+        <Route path="/auth/adult-before" element={<AdultAuthBefore />} />
+        <Route
+          path="/auth/adult-verification/callback"
+          element={<AdultCallback />}
+        />
 
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

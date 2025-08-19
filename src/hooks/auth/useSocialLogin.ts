@@ -1,17 +1,16 @@
 import { authApi } from '@/api/auth'
 import { ERROR_MESSAGE } from '@/constants/message'
-import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
 import { useAuthStore } from '@/stores/authStore'
 import {
   type SocialLoginRequest,
-  type SocialLoginResponse,
+  type SocialLoginTempToken,
+  type SocialLoginUser,
   type SocialProvider,
 } from '@/types/auth'
 import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 
 export const useSocialLoginURL = () => {
   // const [searchParams] = useSearchParams()
@@ -40,7 +39,6 @@ export const useSocialLoginURL = () => {
 }
 
 export const useSocialLogin = (provider: SocialProvider) => {
-  const navigate = useNavigate()
   const { login } = useAuthStore()
   // const [searchParams] = useSearchParams()
 
@@ -52,20 +50,21 @@ export const useSocialLogin = (provider: SocialProvider) => {
     mutationFn: (payload: SocialLoginRequest) =>
       authApi.socialLogin(provider, payload),
 
-    onSuccess: (data: SocialLoginResponse) => {
-      tokenStorage.setAccessToken(data.access_token)
-      tokenStorage.setRefreshToken(data.refresh_token)
+    onSuccess: (data: SocialLoginTempToken | SocialLoginUser) => {
+      if ('temp_token' in data) {
+        tokenStorage.setTempToken(data.temp_token)
+      }
 
-      login()
-      navigate(ROUTE_PATHS.HOME, { replace: true })
-      // navigate(redirect ?? ROUTE_PATHS.HOME, { replace: true })
-      // const url = SOCIAL_LOGIN.bbaton.getLoginUrl()
-      // window.location.replace(url)
+      if ('access' in data && 'refresh' in data) {
+        tokenStorage.setAccessToken(data.access)
+        tokenStorage.setRefreshToken(data.refresh)
+
+        login()
+      }
     },
 
     onError: (error) => {
       showError(getAxiosErrorMessage(error) ?? ERROR_MESSAGE.LOGIN_FAILED)
-      navigate(ROUTE_PATHS.LOGIN, { replace: true })
     },
   })
 }
