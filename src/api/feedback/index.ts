@@ -35,4 +35,9 @@ export const feedbackApi = {
     const res = await axiosInstance.post(API_PATHS.FEEDBACK.SUBMIT, formData)
     return res.data
   },
+
+  tastingHistory: async () => {
+    const { data } = await axiosInstance.get(API_PATHS.FEEDBACK.TASTING_HISTORY)
+    return data
+  },
 }
