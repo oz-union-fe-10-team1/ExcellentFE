@@ -105,7 +105,7 @@ const Carousel = ({
             return (
               <div
                 key={slideIndex}
-                className={`grid w-full flex-shrink-0 grid-cols-${currentSlidesToShow}`}
+                className={`grid w-full shrink-0 grid-cols-${currentSlidesToShow}`}
                 style={{
                   gap: gap,
                   width: '100%', // 명시적으로 100% 너비 설정
