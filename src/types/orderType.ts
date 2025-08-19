@@ -47,8 +47,16 @@ export interface ServerOrder {
   user: string
   total_price: number
   status: string
+  order_date: string
+  pickup_day: string
+  pickup_store: OrderPickupStore
+  pickup_status: boolean
+  feedback_id: number | null
+  price: number
+  quantity: number
   created_at: string
   updated_at: string
+  product: OrderProduct
   items: ServerOrderItem[]
 }
 
