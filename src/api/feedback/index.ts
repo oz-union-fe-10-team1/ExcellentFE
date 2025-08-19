@@ -2,38 +2,73 @@ import type { FeedbackRequest } from '@/api/feedback/types'
 import { API_PATHS } from '@/constants/apiPaths'
 import { axiosInstance } from '@/utils/axios'
 
+const createFormDataFromFeedback = (data: FeedbackRequest): FormData => {
+  const formData = new FormData()
+
+  const fields = {
+    order_item: String(data.order_item_id),
+    rating: String(Math.round(data.overall_rating)),
+    sweetness: String(data.sweetness),
+    acidity: String(data.acidity),
+    body: String(data.body),
+    carbonation: String(data.carbonation),
+    bitterness: String(data.bitter),
+    aroma: String(data.aroma),
+    confidence: String(Math.round(data.confidence)),
+    comment: data.comment ?? '',
+  }
+
+  Object.entries(fields).forEach(([key, value]) => {
+    formData.set(key, value)
+  })
+
+  if (data.files?.length) {
+    Array.from(data.files).forEach((file) => {
+      formData.append('image', file)
+    })
+  }
+
+  // 태그 추가
+  if (data.taste_tag?.length) {
+    data.taste_tag.forEach((tag, index) => {
+      formData.append(`selected_tags[${index}]`, tag)
+    })
+  }
+
+  return formData
+}
+
 export const feedbackApi = {
   submit: async (data: FeedbackRequest) => {
-    const formData = new FormData()
+    const formData = createFormDataFromFeedback(data)
 
-    if (data.files && data.files.length > 0) {
-      const filesArray = Array.isArray(data.files)
-        ? data.files
-        : Array.from(data.files)
-      filesArray.forEach((file) => {
-        formData.append('files', file)
-      })
-    }
+    const response = await axiosInstance.post(
+      API_PATHS.FEEDBACK.SUBMIT,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    )
 
-    formData.set('order_item', String(data.order_item_id))
-    formData.set('rating', String(Math.round(data.overall_rating)))
-    formData.set('sweetness', String(data.sweetness))
-    formData.set('acidity', String(data.acidity))
-    formData.set('body', String(data.body))
-    formData.set('carbonation', String(data.carbonation))
-    formData.set('bitterness', String(data.bitter))
-    formData.set('aroma', String(data.aroma))
-    formData.set('confidence', String(Math.round(data.confidence)))
-    formData.set('comment', data.comment ?? '')
+    return response.data
+  },
 
-    if (data.taste_tag && data.taste_tag.length > 0) {
-      data.taste_tag.forEach((tag, index) => {
-        formData.append(`selected_tags[${index}]`, tag)
-      })
-    }
+  tastingHistory: async () => {
+    const { data } = await axiosInstance.get(API_PATHS.FEEDBACK.TASTING_HISTORY)
+    return data
+  },
+}
 
-    const res = await axiosInstance.post(API_PATHS.FEEDBACK.SUBMIT, formData)
-    return res.data
+export const feedbackApiSimple = {
+  submit: async (data: FeedbackRequest) => {
+    const formData = createFormDataFromFeedback(data)
+    const { data: responseData } = await axiosInstance.post(
+      API_PATHS.FEEDBACK.SUBMIT,
+      formData
+    )
+    return responseData
   },
 
   tastingHistory: async () => {
