@@ -33,7 +33,7 @@ const SocialCallback = () => {
 
         // 신규 유저: 임시 토큰 존재 시 성인 인증 페이지로 이동
         if (tempToken) {
-          navigate(ROUTE_PATHS.ADULT_AUTH_BEFORE, { replace: true })
+          navigate(ROUTE_PATHS.ADULT_AUTH_MANUAL, { replace: true })
         } else {
           navigate(ROUTE_PATHS.HOME, { replace: true })
         }

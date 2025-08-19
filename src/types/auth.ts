@@ -7,7 +7,10 @@ export interface SocialLoginRequest {
 }
 
 export interface SocialLoginTempToken {
+  success: boolean
+  status: string
   temp_token: string
+  message: string
 }
 
 export interface SocialLoginUser {
@@ -20,6 +23,7 @@ export interface SocialLoginUser {
     role: string
     created_at: string
   }
+  auth_type: string
 }
 
 export interface RefreshTokenResponse {
