@@ -1,13 +1,13 @@
 import Pagination from '@/components/common/Pagination'
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
-import useHistory from '@/hooks/useHistory'
 import { usePagination } from '@/hooks/usePagination'
 import ItemRowContent from '@/components/common/ItemRowContent'
+import { useTasteHistory } from '@/hooks/taste-history/useTasteHistory'
 
 const ITEMS_PER_PAGE = 3
 
 const TastingHistory = () => {
-  const { data, isLoading, isFetched } = useHistory()
+  const { data, isLoading, isFetched } = useTasteHistory()
 
   const {
     paginatedData: paginatedItems,
@@ -15,7 +15,7 @@ const TastingHistory = () => {
     totalPages,
     handlePageChange,
   } = usePagination<ItemRowType>({
-    items: data?.results ?? [],
+    items: data ?? [],
     pageSize: ITEMS_PER_PAGE,
   })
 

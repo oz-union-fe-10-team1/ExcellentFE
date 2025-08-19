@@ -75,6 +75,23 @@ export interface ItemRowType {
     address?: string
     contact?: string
   }
+
+  rating?: number
+  sweetness?: string
+  acidity?: string
+  body?: string
+  carbonation?: string
+  aroma?: string
+  bitterness?: string
+  confidence?: number
+  selected_tags?: string[]
+  created_at?: string
+  updated_at?: string
+  masked_username?: string
+  view_count?: number
+  has_image?: boolean
+  image_url?: string | null
+  product_name?: string
 }
 
 export interface CartItemRowProps extends ItemRowType {

@@ -40,14 +40,16 @@ const ItemRowList = (props: CartItemRowProps) => {
       )
 
     case 'tasting': {
-      const { product, order_item, comment } = props
-
       return (
         <TastingItemRow
-          img={product?.main_image_url || ''}
-          name={product?.name || ''}
-          order={`${order_item?.purchase_date?.slice(0, 10)} ${order_item?.purchase_date?.slice(11, 16)} `}
-          feedback={comment || ''}
+          img={props.image_url || ''}
+          name={props.product_name || ''}
+          order={
+            props.created_at
+              ? `${props.created_at.slice(0, 10)} ${props.created_at.slice(11, 16)}`
+              : ''
+          }
+          feedback={props.comment || ''}
         />
       )
     }
