@@ -12,30 +12,29 @@ export const useSearchFilters = () => {
     acidity: [0],
     body: [0],
     carbonation: [0],
-    bitter: [0],
+    bitterness: [0],
     aroma: [0],
   })
 
   useEffect(() => {
     const queryParams = Object.fromEntries(searchParams.entries())
 
-    const featuresMap = Object.fromEntries(
-      FEATURE_OPTIONS.map((option) => [option.key, option.label])
-    )
-
-    const urlFeatures = searchParams.getAll('feature[]')
-    const selectedLabels = urlFeatures
-      .map((feature) => featuresMap[feature])
-      .filter(Boolean)
+    // URL의 boolean 파라미터에서 선택된 기능들 찾기
+    const selectedFeatures: string[] = []
+    FEATURE_OPTIONS.forEach((option) => {
+      if (queryParams[option.key] === 'true') {
+        selectedFeatures.push(option.label)
+      }
+    })
 
     setFilters({
-      keyword: queryParams.q || '',
-      selectedFeatures: selectedLabels,
+      keyword: queryParams.search || '',
+      selectedFeatures: selectedFeatures,
       sweetness: [Number(queryParams.sweetness) || 0],
       acidity: [Number(queryParams.acidity) || 0],
       body: [Number(queryParams.body) || 0],
       carbonation: [Number(queryParams.carbonation) || 0],
-      bitter: [Number(queryParams.bitterness) || 0],
+      bitterness: [Number(queryParams.bitterness) || 0],
       aroma: [Number(queryParams.aroma) || 0],
     })
 
@@ -47,7 +46,7 @@ export const useSearchFilters = () => {
         acidity: [0],
         body: [0],
         carbonation: [0],
-        bitter: [0],
+        bitterness: [0],
         aroma: [0],
       })
     }

@@ -8,9 +8,8 @@ const SearchForm = ({
 }: SearchFormProps) => {
   const handleSearch = (e?: React.FormEvent | React.MouseEvent) => {
     if (e) e.preventDefault()
-    onSearch()
+    onSearch(keyword)
   }
-
   return (
     <div className="flex flex-col items-center gap-[50px]">
       <h1 className="mt-25 text-[40px] font-bold text-[#333]">제품 검색</h1>

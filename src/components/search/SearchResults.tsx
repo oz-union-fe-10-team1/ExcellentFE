@@ -31,7 +31,7 @@ const SearchResults = ({
             imgSrc: product.main_image_url,
             imgAlt: product.name,
             title: product.name,
-            subtitle: product.short_description,
+            subtitle: product.brewery_name ?? undefined,
             price: product.price,
           }))}
         />
@@ -39,6 +39,7 @@ const SearchResults = ({
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
+          className="mt-20"
         />
       </div>
     )
