@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useSubmitFeedback from '@/hooks/useSubmitFeedback'
+import useSubmitFeedback from '@/hooks/order/useSubmitFeedback'
 import type { TastingReview, TastingSubmitData } from '@/types/feedback'
 import { MAX_SELECTED_TAGS } from '@/constants/feedbackReview'
 import type { FeedbackRequest } from '@/api/feedback/types'
