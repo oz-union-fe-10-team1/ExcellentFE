@@ -1,7 +1,7 @@
 import Button from '@/components/common/Button'
 import Modal from '@/components/common/Modal'
 import ReviewSummaryForm from '@/components/common/review-modal/ReviewSummaryForm'
-import useTastingReview from '@/hooks/useTastingReview'
+import useTastingReview from '@/hooks/order/useTastingReview'
 import ReviewSlider from '@/components/common/review-modal/ReviewSlider'
 import ReviewStarTag from '@/components/common/review-modal/ReviewStarTag'
 
