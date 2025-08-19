@@ -7,6 +7,7 @@ import {
   useTasteTestProfile,
   useTasteTestQuestion,
   useTasteTestResult,
+  useTasteTestRetake,
 } from '@/hooks/taste-test/useTasteTest'
 
 export interface ProgressStepProps {
@@ -24,6 +25,7 @@ const ProgressStep = ({
   setStep,
   testStep,
   setTestStep,
+  testResult,
   setTestResult,
 }: ProgressStepProps) => {
   // 회원 / 비회원 분기 처리를 위한 로그인 정보 꺼내오기
@@ -31,9 +33,6 @@ const ProgressStep = ({
 
   //테스트 문항
   const { data, isLoading, isError } = useTasteTestQuestion()
-
-  //결과 보내는 함수 및 응답
-  const { mutate } = useTasteTestResult()
 
   // 점수 계산
   const [answers, setAnswers] = useState<{ [key: string]: 'A' | 'B' }>({})
@@ -58,22 +57,41 @@ const ProgressStep = ({
   //서버에 유저 정보 확인용
   const { data: server } = useTasteTestProfile()
 
+  //결과 보내는 함수 및 응답 (Post로 첫 응시)
+  const { mutate: postResult } = useTasteTestResult()
+
+  //결과 보내는 함수 및 응답 (Put으로 재 응시)
+
+  const { mutate: putResult } = useTasteTestRetake()
+
   //결과 보내고 응답 받아오기
   const handleResult = () => {
     if (isLoggedIn) {
-      //로그인 true라면 서버에 post로 보내기 및 결과 저장 후 이동
-      mutate(answers, {
-        onSuccess: (res) => {
-          setTestResult(res)
-          setStep('result')
-        },
-      })
+      //로그인 true라면 서버에 put 또는 post로 보내기 및 결과 저장 후 이동
+      if (server) {
+        //서버에 기록까지 있다면, put으로 업데이트
+        putResult(answers, {
+          onSuccess: (res) => {
+            setTestResult(res)
+            setStep('result')
+          },
+        })
+      } else {
+        //첫 응시는 post
+        postResult(answers, {
+          onSuccess: (res) => {
+            setTestResult(res)
+            setStep('result')
+          },
+        })
+      }
+      setStep('result')
     } else {
       // 로컬 저장 (결과 확인을 위해 계산용으로 api 호출)
-      mutate(answers, {
+      postResult(answers, {
         onSuccess: (res) => {
-          setTestResult(res)
           saveResultToLocal(answers)
+          setTestResult(res)
           setStep('result')
         },
       })

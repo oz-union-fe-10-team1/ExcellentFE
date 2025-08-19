@@ -50,8 +50,6 @@ const ResultStep = ({
     setTestStep(0)
   }
 
-  console.log(isLoggedIn)
-
   return (
     <div className="flex flex-col items-center">
       {isLoggedIn ? (
@@ -66,10 +64,10 @@ const ResultStep = ({
 
       <p className="mb-[10px] text-[40px] font-extrabold">{testResult?.type}</p>
       <p className="mx-[62px] mb-[28px] text-center text-[19px] whitespace-pre-line text-[#666666]">
-        {testResult?.info.description}
+        {testResult?.info?.description}
       </p>
       <img
-        src={testResult?.info.image_url}
+        src={testResult?.info?.image_url}
         alt={testResult?.type}
         className="mb-[50px] h-[200px] w-[200px]"
       />
