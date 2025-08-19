@@ -9,11 +9,11 @@ import type {
 
 import { useAuthStore } from '@/stores/authStore'
 import {
-  useTasteTestProfile,
   useTasteTestQuestion,
   useTasteTestResult,
   useTasteTestRetake,
 } from '@/hooks/taste-test/useTasteTest'
+import { useTasteTestProfile } from '@/hooks/user/useUser'
 
 export interface ProgressStepProps {
   step: TestType

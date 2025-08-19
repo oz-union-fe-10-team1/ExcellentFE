@@ -2,7 +2,7 @@ import Pagination from '@/components/common/Pagination'
 import type { ItemRowType } from '@/types/ItemRow/itemRows'
 import { usePagination } from '@/hooks/usePagination'
 import ItemRowContent from '@/components/common/ItemRowContent'
-import { useTasteHistory } from '@/hooks/taste-history/useTasteHistory'
+import { useTasteHistory } from '@/hooks/user/useUser'
 
 const ITEMS_PER_PAGE = 3
 

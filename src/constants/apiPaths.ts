@@ -14,11 +14,13 @@ export const API_PATHS = {
     ADULT_AUTH_COMPLETE: 'auth/adult-verification/complete',
   },
   USER: {
-    PROFILE: '/user',
+    PROFILE: '/user/profile/',
+    DELETE: '/user/delete/',
+    TASTE_TEST_PROFILE: '/user/taste-test/profile/',
     TASTE_PROFILE: '/user/taste-profile/',
+    FEEDBACKS: '/user/feedbacks/',
   },
   TASTE_TEST: {
-    PROFILE: '/taste-test/profile/',
     QUESTIONS: '/taste-test/questions/',
     RESULT: '/taste-test/submit/',
     RETAKE: '/taste-test/retake/',
@@ -28,7 +30,6 @@ export const API_PATHS = {
     RECENT: '/feedbacks/recent/',
     POPULAR: '/feedbacks/popular/',
     PERSONALIZED: '/feedbacks/personalized/',
-    TASTING_HISTORY: '/feedbacks/my/',
   },
   PRODUCTS: {
     DETAIL: (id: string | number) => `/products/${id}/`,
