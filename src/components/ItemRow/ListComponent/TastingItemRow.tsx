@@ -27,17 +27,15 @@ const TastingItemRow = ({
   bitterness,
   confidence,
 }: TastingItemRowProps) => {
-  const { tasteDisplay, confidenceDisplay, fullTasteDisplay } = useTasteDisplay(
-    {
-      sweetness,
-      acidity,
-      body,
-      carbonation,
-      aroma,
-      bitterness,
-      confidence,
-    }
-  )
+  const { fullTasteDisplay } = useTasteDisplay({
+    sweetness,
+    acidity,
+    body,
+    carbonation,
+    aroma,
+    bitterness,
+    confidence,
+  })
 
   return (
     <div className="flex items-center border-b border-[#e1e1e1] py-4 text-[#666666]">
