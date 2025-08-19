@@ -6,7 +6,7 @@ import LogoLeft from '@/assets/logos/logo-login.svg'
 import LogoRight from '@/assets/logos/logo.svg'
 import Button from '@/components/common/Button'
 import Icon from '@/components/common/Icon'
-import { useSocialLoginURL } from '@/hooks/useSocialLogin'
+import { useSocialLoginURL } from '@/hooks/auth/useSocialLogin'
 import { type SocialProvider } from '@/types/auth'
 import { Link } from 'react-router-dom'
 

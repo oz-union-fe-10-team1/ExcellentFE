@@ -80,7 +80,6 @@ axiosInstance.interceptors.response.use(
         tokenStorage.setRefreshToken(newRefresh)
 
         processQueue(null, newAccess)
-
         ;(originalRequest.headers as AxiosHeaders).set(
           'Authorization',
           `Bearer ${newAccess}`

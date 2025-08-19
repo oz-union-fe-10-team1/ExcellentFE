@@ -10,6 +10,7 @@ export const ROUTE_PATHS = {
 
   LOGIN: '/login',
   SOCIAL_CALLBACK: (provider: string) => `/auth/${provider}/callback`,
+  ADULT_AUTH_BEFORE: '/auth/adult-before',
 
   // 마이페이지
   MYPAGE: {

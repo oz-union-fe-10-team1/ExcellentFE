@@ -7,6 +7,11 @@ export const API_PATHS = {
     LOGIN: (provider: SocialProvider) => `/auth/login/${provider}`,
     STATE: '/auth/state',
     TOKEN_REFRESH: '/auth/token/refresh',
+    ADULT_AUTH_TOKEN:
+      'https://u4txshromiloou5smkm6a22yqe0pzprn.lambda-url.us-east-1.on.aws/',
+    ADULT_AUTH_USER:
+      'https://bxomhhgxsmplfc33no2mkcijvi0bbgjv.lambda-url.us-east-1.on.aws/',
+    ADULT_AUTH_COMPLETE: 'auth/adult-verification/complete',
   },
   USER: {
     PROFILE: '/user',
