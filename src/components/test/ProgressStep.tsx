@@ -85,7 +85,6 @@ const ProgressStep = ({
           },
         })
       }
-      setStep('result')
     } else {
       // 로컬 저장 (결과 확인을 위해 계산용으로 api 호출)
       postResult(answers, {
