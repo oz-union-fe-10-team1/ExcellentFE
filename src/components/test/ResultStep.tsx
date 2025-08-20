@@ -12,6 +12,7 @@ import exampl3 from '@/assets/images/tasteTest/example3.png'
 import { useRef } from 'react'
 import { captureAndSaveImage } from '@/utils/imageCapture'
 import { useTasteTestProfile } from '@/hooks/user/useUser'
+import { Link, useNavigate } from 'react-router-dom'
 
 // 렌더링 확인용 더미데이터
 const testCardData: TestCardProps[] = [
@@ -47,6 +48,8 @@ const ResultStep = ({
   setTestStep,
 }: ProgressStepProps) => {
   const { isLoggedIn } = useAuthStore()
+
+  const navigate = useNavigate()
 
   // 다시 하기 눌렀을 때 비회원 로직
   const handleNonMemberReset = () => {
@@ -117,13 +120,18 @@ const ResultStep = ({
 
       {/* 버튼 섹션 */}
       {!isLoggedIn && (
-        <TestButton className="mb-[10px] bg-[#FFFFFF] text-[#2E2F2F]">
+        <TestButton
+          className="mb-[10px] bg-[#FFFFFF] text-[#2E2F2F]"
+          onClick={() => navigate('/login')}
+        >
           회원 가입하고 결과 저장하기
         </TestButton>
       )}
-      <TestButton className="mb-5 bg-[#2E2F2F] text-[#FFFFFF]">
-        이 조합으로 나만의 패키지 만들기
-      </TestButton>
+      <Link to="/mypage/taste-profile" aria-label="나만의 패키지로 이동">
+        <TestButton className="mb-5 bg-[#2E2F2F] text-[#FFFFFF]">
+          이 조합으로 나만의 패키지 만들기
+        </TestButton>
+      </Link>
       <p className="mb-20">
         물론, 패키지 구성은 다음 단계에서 자유롭게 변경할 수 있어요.
       </p>
@@ -131,7 +139,7 @@ const ResultStep = ({
       {/* 하단 빨간 박스 섹션 */}
       <div className="relative flex h-[103px] w-[560px] items-center justify-center gap-2.5 rounded-br-[20px] rounded-bl-[20px] bg-[#F2544B]">
         <button
-          className="h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]"
+          className="h-[54px] w-[225px] cursor-pointer rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]"
           onClick={() => {
             if (!isLoggedIn) {
               handleNonMemberReset()
@@ -143,9 +151,11 @@ const ResultStep = ({
         >
           테스트 다시 하기
         </button>
-        <button className="h-[54px] w-[225px] rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
-          다른 패키지 둘러보기
-        </button>
+        <Link to="/package" aria-label="다른 패키지 구경하기 ">
+          <button className="h-[54px] w-[225px] cursor-pointer rounded-[60px] border border-[#FFFFFF] font-bold text-[#FFFFFF]">
+            다른 패키지 둘러보기
+          </button>
+        </Link>
       </div>
     </div>
   )
