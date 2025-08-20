@@ -3,7 +3,7 @@ import arrowUp from '@/assets/icons/tasteTest/arrowUp.svg?react'
 import Modal from '@/components/common/Modal'
 import kakaotalk from '@/assets/icons/tasteTest/kakaotalk.svg'
 import facebook from '@/assets/icons/tasteTest/facebook.svg'
-import instagram from '@/assets/icons/tasteTest/instagram.svg'
+import urlShare from '@/assets/icons/tasteTest/urlShare.svg'
 
 import { useEffect, useState } from 'react'
 import Icon from '@/components/common/Icon'
@@ -22,9 +22,9 @@ const SNS_SHARE = [
     label: '페이스북 공유',
   },
   {
-    src: instagram,
-    alt: '인스타그램 공유하기',
-    label: '인스타그램 공유',
+    src: urlShare,
+    alt: 'url 공유하기',
+    label: 'url 공유',
   },
 ]
 
@@ -97,6 +97,25 @@ const MainStep = ({ setStep }: MainStepProps) => {
     handleCloseModal()
   }
 
+  const shareLink = async () => {
+    // 웹 공유 API가 지원되는지 확인
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: '내 입맛에 맞는 전통주는?', // 공유 제목
+          text: '나는 어떤 입맛일까? 테스트 후 나만의 전통주를 찾아보세요!', // 공유 내용
+          url: window.location.href, // 공유 URL (현재 페이지)
+        })
+      } catch (error) {
+        // 사용자가 공유를 취소하거나 오류가 발생했을 때
+      }
+    } else {
+      alert(
+        '이 브라우저에서는 공유 기능을 지원하지 않습니다. URL 복사 기능을 이용해주세요.'
+      )
+    }
+  }
+
   return (
     <div className="flex flex-col items-center">
       <p className="mt-[80px] mb-[10px] text-[40px] font-bold text-[#333333]">
@@ -145,6 +164,7 @@ const MainStep = ({ setStep }: MainStepProps) => {
                     onClick={() => {
                       if (option.label === '카카오톡 공유') shareKakao()
                       if (option.label === '페이스북 공유') shareFacebook()
+                      if (option.label === 'url 공유') shareLink()
                     }}
                   />
                   <p className="cursor-pointer"> {option.label}</p>
