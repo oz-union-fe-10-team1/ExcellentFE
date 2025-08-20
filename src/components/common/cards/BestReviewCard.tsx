@@ -52,7 +52,7 @@ const BestReviewCard = ({
           isOpen={isModalOpen}
           onClose={closeModal}
           title="한 잔 취향 이 달의 후기"
-          className="review-modal-scroll h-[1292px] w-170 overflow-auto"
+          className="review-modal-scroll h-[1000px] w-170 overflow-auto"
         >
           <div>
             <img
@@ -60,13 +60,14 @@ const BestReviewCard = ({
               alt={imgAlt || '모은 주류'}
               className="mt-14 mb-[34px] h-119 w-150 rounded-[10px] border border-[#333333]"
             />
+            <p className="pb-[4px] text-[40px]">{product_name}</p>
             <StarRating
               totalStars={5}
               readOnly
               defaultRating={defaultRating}
               size={25}
               showRatingValue={false}
-              className="mb-[23px]"
+              className="my-[23px]"
             />
             <p className="mb-15 w-140 text-[22px] text-[#333333]">{review}</p>
             <div className="mb-[101px] flex w-[250px] justify-between text-[22px] text-[#666666]">
