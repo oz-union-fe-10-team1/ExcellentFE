@@ -52,7 +52,7 @@ const BestReviewCard = ({
           isOpen={isModalOpen}
           onClose={closeModal}
           title="한 잔 취향 이 달의 후기"
-          className="review-modal-scroll overflow-y h-[900px] w-170"
+          className="review-modal-scroll h-[900px] w-170 overflow-x-hidden overflow-y-auto"
         >
           <div>
             <img
