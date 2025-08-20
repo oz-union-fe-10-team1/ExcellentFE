@@ -2,14 +2,12 @@ import Button from '@/components/common/Button'
 import Input from '@/components/common/Input'
 import Modal from '@/components/common/Modal'
 import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '@/constants/message'
-import { ROUTE_PATHS } from '@/constants/routePaths'
 import { useDeleteProfile, useUpdateProfile } from '@/hooks/user/useUser'
 import { useAuthStore } from '@/stores/authStore'
 import type { UserProfile } from '@/types/user'
 import { cn } from '@/utils/cn'
 import { showError, showSuccess } from '@/utils/feedbackUtils'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 const AccountEdit = () => {
   const { user } = useAuthStore()
@@ -21,8 +19,6 @@ const AccountEdit = () => {
     useState(false)
   const { mutate: updateProfile, isSuccess } = useUpdateProfile()
   const { mutate: deleteProfile } = useDeleteProfile()
-  const navigate = useNavigate()
-  const { logout } = useAuthStore()
 
   const handleAgreedChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value === 'true'
