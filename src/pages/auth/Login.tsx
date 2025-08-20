@@ -82,12 +82,6 @@ const Login = () => {
               </Button>
             ))}
           </section>
-          <button
-            type="button"
-            className="mt-20 cursor-pointer text-[#666] underline underline-offset-4"
-          >
-            계정 찾기
-          </button>
         </div>
       </main>
     </div>
