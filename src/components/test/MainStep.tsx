@@ -5,7 +5,7 @@ import kakaotalk from '@/assets/icons/tasteTest/kakaotalk.svg'
 import facebook from '@/assets/icons/tasteTest/facebook.svg'
 import instagram from '@/assets/icons/tasteTest/instagram.svg'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from '@/components/common/Icon'
 import TestButton from '@/components/test/TestButton.tsx'
 import type { TestType } from '@/types/tasteTypes'
@@ -28,6 +28,8 @@ const SNS_SHARE = [
   },
 ]
 
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY
+
 interface MainStepProps {
   step: TestType
   setStep: React.Dispatch<React.SetStateAction<TestType>>
@@ -36,6 +38,15 @@ interface MainStepProps {
 //테스트 시작의 메인 단계
 const MainStep = ({ setStep }: MainStepProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  // 컴포넌트 마운트 시 카카오 SDK를 초기화합니다.
+  useEffect(() => {
+    if (window.Kakao && KAKAO_APP_KEY) {
+      const kakao = window.Kakao
+      if (!kakao.isInitialized()) {
+        kakao.init(KAKAO_APP_KEY)
+      }
+    }
+  }, [])
 
   //공유하기 버튼을 눌렀을 때, 모달 띄우기
   const handleOpenModal = () => {
@@ -43,6 +54,35 @@ const MainStep = ({ setStep }: MainStepProps) => {
   }
   const handleCloseModal = () => {
     setIsModalOpen(false)
+  }
+
+  // 카카오톡 공유 함수를 정의합니다.
+  const shareKakao = () => {
+    if (window.Kakao) {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '내 입맛에 맞는 전통주는?',
+          description:
+            '나는 어떤 입맛일까? 테스트 후 나만의 전통주를 찾아보세요!',
+          imageUrl: 'https://moeun.kro.kr/', // 이미지 URL을 절대 경로로 지정
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        buttons: [
+          {
+            title: '테스트 시작하기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+        ],
+      })
+      handleCloseModal() // 공유 후 모달을 닫음
+    }
   }
 
   return (
@@ -90,6 +130,9 @@ const MainStep = ({ setStep }: MainStepProps) => {
                     src={option.src}
                     alt={option.alt}
                     className="mb-3 h-[90px] w-[90px] cursor-pointer"
+                    onClick={
+                      option.label === '카카오톡 공유' ? shareKakao : undefined
+                    }
                   />
                   <p className="cursor-pointer"> {option.label}</p>
                 </div>
