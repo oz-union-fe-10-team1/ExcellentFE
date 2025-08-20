@@ -4,16 +4,15 @@ import ReviewSummaryForm from '@/components/common/review-modal/ReviewSummaryFor
 import useTastingReview from '@/hooks/order/useTastingReview'
 import ReviewSlider from '@/components/common/review-modal/ReviewSlider'
 import ReviewStarTag from '@/components/common/review-modal/ReviewStarTag'
+import { useAuthStore } from '@/stores/authStore'
 
 interface TastingReviewModalProps {
-  name: string
   isOpen: boolean
   onClose: () => void
   orderItemId?: number
 }
 
 const TastingReviewModal = ({
-  name,
   isOpen,
   onClose,
   orderItemId,
@@ -30,6 +29,8 @@ const TastingReviewModal = ({
     handleSubmitAndClose,
   } = useTastingReview(orderItemId, onClose)
 
+  const { user } = useAuthStore()
+
   return (
     <Modal
       isOpen={isOpen}
@@ -39,7 +40,7 @@ const TastingReviewModal = ({
       className="review-modal-scroll h-[900px] w-170 overflow-auto"
     >
       <div className="mt-5 flex flex-col items-center justify-center text-lg text-[#666666]">
-        <p>제품이 {name}님의 취향에 맞으셨나요?</p>
+        <p>제품이 {user?.user_info?.nickname}님의 취향에 맞으셨나요?</p>
         <p>
           시음 후기 작성을 통해 더 적합한 전통주를 추천받고, 나만의 시음 후기를
           통해
