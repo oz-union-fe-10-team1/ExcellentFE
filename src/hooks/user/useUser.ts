@@ -3,13 +3,10 @@ import { useAuthStore } from '@/stores/authStore'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { commonQueryOptions } from '@/hooks/home/useProduct'
 import type { UpdateProfilePayload } from '@/types/user'
-
-// export const useGetProfile = () => {
-//   return useQuery({
-//     queryKey: ['user'],
-//     queryFn: userApi.getProfile,
-//   })
-// }
+import { showError, showSuccess } from '@/utils/feedbackUtils'
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '@/constants/message'
+import { useNavigate } from 'react-router-dom'
+import { ROUTE_PATHS } from '@/constants/routePaths'
 
 export const useUpdateProfile = () => {
   return useMutation({
@@ -19,8 +16,19 @@ export const useUpdateProfile = () => {
 }
 
 export const useDeleteProfile = () => {
+  const { logout } = useAuthStore()
+  const navigate = useNavigate()
+
   return useMutation({
     mutationFn: userApi.deleteProfile,
+    onSuccess: () => {
+      showSuccess(SUCCESS_MESSAGE.DELETE_PROFILE)
+      logout()
+      navigate(ROUTE_PATHS.HOME)
+    },
+    onError: () => {
+      showError(ERROR_MESSAGE.DEFAULT)
+    },
   })
 }
 
