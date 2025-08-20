@@ -56,7 +56,7 @@ const MainStep = ({ setStep }: MainStepProps) => {
     setIsModalOpen(false)
   }
 
-  // 카카오톡 공유 함수를 정의합니다.
+  // 카카오톡 공유 함수를 정의
   const shareKakao = () => {
     if (window.Kakao) {
       window.Kakao.Share.sendDefault({
@@ -83,6 +83,18 @@ const MainStep = ({ setStep }: MainStepProps) => {
       })
       handleCloseModal() // 공유 후 모달을 닫음
     }
+  }
+
+  //페이스북 공유 함수
+  const shareFacebook = () => {
+    const shareUrl = encodeURIComponent(window.location.href)
+    const facebookShareLink = `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+
+    // 새 창에서 페이스북 공유 페이지 열기
+    window.open(facebookShareLink, '_blank', 'noopener,noreferrer')
+
+    // 공유 후 모달 닫기
+    handleCloseModal()
   }
 
   return (
@@ -130,9 +142,10 @@ const MainStep = ({ setStep }: MainStepProps) => {
                     src={option.src}
                     alt={option.alt}
                     className="mb-3 h-[90px] w-[90px] cursor-pointer"
-                    onClick={
-                      option.label === '카카오톡 공유' ? shareKakao : undefined
-                    }
+                    onClick={() => {
+                      if (option.label === '카카오톡 공유') shareKakao()
+                      if (option.label === '페이스북 공유') shareFacebook()
+                    }}
                   />
                   <p className="cursor-pointer"> {option.label}</p>
                 </div>
