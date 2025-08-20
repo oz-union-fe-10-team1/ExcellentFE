@@ -1,15 +1,15 @@
-import Icon from '@/components/common/Icon'
+import type { Feedback as FeedbackType } from '@/api/feedback/types'
 import ResetIcon from '@/assets/icons/feedback/reset.svg?react'
+import Carousel from '@/components/common/Carousel'
+import Icon from '@/components/common/Icon'
+import BestReviewCard from '@/components/common/cards/BestReviewCard'
 import CardList from '@/components/common/cards/CardList'
 import { useFeedbackList } from '@/hooks/useFeedbackList'
-import Carousel from '@/components/common/Carousel'
-import BestReviewCard from '@/components/common/cards/BestReviewCard'
 import type {
   BestReviewCardProps,
-  ReviewCardProps,
   CardBaseProps,
+  ReviewCardProps,
 } from '@/types/cardProps'
-import type { Feedback as FeedbackType } from '@/api/feedbackList/types'
 
 export const Feedback = () => {
   const {
