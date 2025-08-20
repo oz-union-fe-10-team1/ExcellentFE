@@ -12,6 +12,7 @@ import exampl3 from '@/assets/images/tasteTest/example3.png'
 import { useRef } from 'react'
 import { captureAndSaveImage } from '@/utils/imageCapture'
 import { useTasteTestProfile } from '@/hooks/user/useUser'
+import { useNavigate } from 'react-router-dom'
 
 // 렌더링 확인용 더미데이터
 const testCardData: TestCardProps[] = [
@@ -47,6 +48,8 @@ const ResultStep = ({
   setTestStep,
 }: ProgressStepProps) => {
   const { isLoggedIn } = useAuthStore()
+
+  const navigate = useNavigate()
 
   // 다시 하기 눌렀을 때 비회원 로직
   const handleNonMemberReset = () => {
@@ -117,7 +120,10 @@ const ResultStep = ({
 
       {/* 버튼 섹션 */}
       {!isLoggedIn && (
-        <TestButton className="mb-[10px] bg-[#FFFFFF] text-[#2E2F2F]">
+        <TestButton
+          className="mb-[10px] bg-[#FFFFFF] text-[#2E2F2F]"
+          onClick={() => navigate('/login')}
+        >
           회원 가입하고 결과 저장하기
         </TestButton>
       )}

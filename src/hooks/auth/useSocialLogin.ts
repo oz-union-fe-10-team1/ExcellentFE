@@ -11,6 +11,7 @@ import {
 import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
+import useNonMemberTasteTest from '../taste-test/nonMemberTest'
 
 export const useSocialLoginURL = () => {
   // const [searchParams] = useSearchParams()
@@ -46,6 +47,9 @@ export const useSocialLogin = (provider: SocialProvider) => {
   // const state = searchParams.get('state')
   // const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
 
+  //비회원의 경우 로컬에서 값 꺼내서 서버에 저장하는 로직
+  const { run: syncTest } = useNonMemberTasteTest()
+
   return useMutation({
     mutationFn: (payload: SocialLoginRequest) =>
       authApi.socialLogin(provider, payload),
@@ -60,6 +64,7 @@ export const useSocialLogin = (provider: SocialProvider) => {
         tokenStorage.setRefreshToken(data.refresh)
 
         login()
+        syncTest('auth_type' in data ? data.auth_type : undefined)
       }
     },
 
