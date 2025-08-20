@@ -2,17 +2,19 @@ import { userApi } from '@/api/user'
 import { useAuthStore } from '@/stores/authStore'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { commonQueryOptions } from '@/hooks/home/useProduct'
+import type { UpdateProfilePayload } from '@/types/user'
 
-export const useGetProfile = () => {
-  return useQuery({
-    queryKey: ['user'],
-    queryFn: userApi.getProfile,
-  })
-}
+// export const useGetProfile = () => {
+//   return useQuery({
+//     queryKey: ['user'],
+//     queryFn: userApi.getProfile,
+//   })
+// }
 
 export const useUpdateProfile = () => {
   return useMutation({
-    mutationFn: userApi.updateProfile,
+    mutationFn: (payload: UpdateProfilePayload) =>
+      userApi.updateProfile(payload),
   })
 }
 
