@@ -1,5 +1,4 @@
-//비회원이 로그인 된 뒤 로컬에서 저장된 값 꺼내오는 함수
-
+// useNonMemberTasteTest.ts
 import {
   useTasteTestResult,
   useTasteTestRetake,
@@ -7,19 +6,21 @@ import {
 import { useTasteTestProfile } from '@/hooks/user/useUser'
 
 const useNonMemberTasteTest = () => {
-  const { data: server } = useTasteTestProfile()
-
   const { mutate: postResult } = useTasteTestResult()
   const { mutate: putResult } = useTasteTestRetake()
-  const run = (authType?: string) => {
+  const { refetch } = useTasteTestProfile() // 자동 호출 안되게
+
+  const run = async (authType?: string) => {
     if (authType !== 'existing_verified') return
+
+    const { data: server } = await refetch() // 프로필 로딩 완료 시점까지 대기
+    if (!server) return
 
     const localTest = localStorage.getItem('selectedAnswers')
     if (!localTest) return
 
     const parsedTest = JSON.parse(localTest)
-
-    if (server && server.has_test) {
+    if (server.has_test) {
       putResult(parsedTest)
     } else {
       postResult(parsedTest)
