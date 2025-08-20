@@ -53,9 +53,8 @@ const ProgressStep = ({
   const saveResultToLocal = (resultData: AnswerType) => {
     try {
       localStorage.setItem('selectedAnswers', JSON.stringify(resultData))
-      console.log('로컬 저장 성공')
-    } catch (error) {
-      console.error('로컬 저장에 실패 했습니다. :', error)
+    } catch {
+      alert('저장에 실패 했습니다!')
     }
   }
   //서버에 유저 정보 확인용
