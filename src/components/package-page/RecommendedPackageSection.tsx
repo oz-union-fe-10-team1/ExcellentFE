@@ -16,7 +16,8 @@ const RecommendedPackageSection = ({
             추천 패키지
           </h2>
           <p className="text-[#666666]">
-            오직 {user?.user_info?.nickname}만의 취향을 반영한 패키지
+            오직 {user?.user_info?.nickname || '게스트'}만의 취향을 반영한
+            패키지
           </p>
         </div>
         <CardList type="default" cards={recommendedCards} />
