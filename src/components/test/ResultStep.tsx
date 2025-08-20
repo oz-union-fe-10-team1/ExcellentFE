@@ -11,6 +11,7 @@ import exampl2 from '@/assets/images/tasteTest/example2.png'
 import exampl3 from '@/assets/images/tasteTest/example3.png'
 import { useRef } from 'react'
 import { captureAndSaveImage } from '@/utils/imageCapture'
+import { useTasteTestProfile } from '@/hooks/user/useUser'
 
 // 렌더링 확인용 더미데이터
 const testCardData: TestCardProps[] = [
@@ -65,6 +66,8 @@ const ResultStep = ({
     }
   }
 
+  const { data: server } = useTasteTestProfile()
+
   return (
     <div className="flex flex-col items-center">
       <div
@@ -73,7 +76,7 @@ const ResultStep = ({
       >
         {isLoggedIn ? (
           <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
-            김오즈님의 취향 유형은...
+            {server?.user}님의 취향 유형은...
           </p>
         ) : (
           <p className="mt-20 mb-[50px] text-[22px] font-bold text-[#666666]">
@@ -92,7 +95,7 @@ const ResultStep = ({
           src={testResult?.info?.image_url}
           alt={testResult?.type}
           className="mb-[50px] h-[200px] w-[200px]"
-          crossOrigin="anonymous" //개발 땐 주석 처리 해야 함 (이미지 로딩 안됌)
+          // crossOrigin="anonymous" //개발 땐 주석 처리 해야 함 (이미지 로딩 안됌)
         />
       </div>
 

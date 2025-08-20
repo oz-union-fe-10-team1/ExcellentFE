@@ -70,9 +70,9 @@ const ProgressStep = ({
 
   //결과 보내고 응답 받아오기
   const handleResult = () => {
-    if (isLoggedIn) {
+    if (isLoggedIn && server !== undefined) {
       //로그인 true라면 서버에 put 또는 post로 보내기 및 결과 저장 후 이동
-      if (server) {
+      if (server.has_test) {
         //서버에 기록까지 있다면, put으로 업데이트
         putResult(answers, {
           onSuccess: (res) => {
