@@ -30,7 +30,13 @@ const TestContainer = () => {
               icon={leftArrow}
               size={30}
               className="absolute left-4 w-[30px]"
-              onClick={() => setTestStep((prev) => Math.max(prev - 1, 0))}
+              onClick={() => {
+                if (testStep === 0) {
+                  setStep('main') // testStep 1이면 바로 main으로 이동
+                } else {
+                  setTestStep((prev) => Math.max(prev - 1, 0)) // 그 외에는 감소
+                }
+              }}
             />
           )}
           <img src={logoTest} alt="모은" className="h-[26px] w-[54px]" />
