@@ -9,7 +9,7 @@ import { useAuthStore } from '@/stores/authStore'
 import exampl1 from '@/assets/images/tasteTest/example1.png'
 import exampl2 from '@/assets/images/tasteTest/example2.png'
 import exampl3 from '@/assets/images/tasteTest/example3.png'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { captureAndSaveImage } from '@/utils/imageCapture'
 import { useTasteTestProfile } from '@/hooks/user/useUser'
 import { Link, useNavigate } from 'react-router-dom'
@@ -41,6 +41,7 @@ const testCardData: TestCardProps[] = [
     secondLabel: '단맛',
   },
 ]
+const KAKAO_APP_KEY = import.meta.env.VITE_KAKAO_APP_KEY
 
 const ResultStep = ({
   setStep,
@@ -50,6 +51,46 @@ const ResultStep = ({
   const { isLoggedIn } = useAuthStore()
 
   const navigate = useNavigate()
+
+  // 1. 컴포넌트 마운트 시 카카오 SDK를 초기화합니다.
+  useEffect(() => {
+    if (window.Kakao && KAKAO_APP_KEY) {
+      const kakao = window.Kakao
+      if (!kakao.isInitialized()) {
+        kakao.init(KAKAO_APP_KEY)
+      }
+    }
+  }, [])
+
+  // 2. 카카오톡 공유 함수를 정의합니다.
+  const shareKakao = () => {
+    if (!testResult) return // testResult가 없으면 함수를 종료합니다.
+
+    if (window.Kakao) {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          // 테스트 결과 데이터로 동적 콘텐츠를 구성합니다.
+          title: `나는 ${testResult.type} 유형!`,
+          description: testResult.info?.description || '',
+          imageUrl: testResult.info?.image_url || '',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        buttons: [
+          {
+            title: '나도 테스트하기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+        ],
+      })
+    }
+  }
 
   // 다시 하기 눌렀을 때 비회원 로직
   const handleNonMemberReset = () => {
@@ -104,7 +145,7 @@ const ResultStep = ({
 
       {/* 공유하기 섹션 */}
       <div className="mb-20 flex gap-3">
-        <Icon icon={kakaotalk} size={50} />
+        <Icon icon={kakaotalk} size={50} onClick={shareKakao} />
         <Icon icon={shareWhite} size={50} onClick={handleCaptureClick} />
       </div>
 
