@@ -34,7 +34,7 @@ interface MainStepProps {
 }
 
 //테스트 시작의 메인 단계
-const MainStep = ({ step, setStep }: MainStepProps) => {
+const MainStep = ({ setStep }: MainStepProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   //공유하기 버튼을 눌렀을 때, 모달 띄우기
@@ -44,8 +44,6 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
-  //빌드오류 해결 위해 우선 값 사용
-  console.log(step)
 
   return (
     <div className="flex flex-col items-center">
@@ -76,7 +74,9 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
           className="mr-5"
           onClick={handleOpenModal}
         />
-        <p onClick={handleOpenModal}>공유하기</p>
+        <p onClick={handleOpenModal} className="cursor-pointer">
+          공유하기
+        </p>
         {isModalOpen && (
           <Modal
             isOpen={isModalOpen}
@@ -89,9 +89,9 @@ const MainStep = ({ step, setStep }: MainStepProps) => {
                   <img
                     src={option.src}
                     alt={option.alt}
-                    className="mb-3 h-[90px] w-[90px]"
+                    className="mb-3 h-[90px] w-[90px] cursor-pointer"
                   />
-                  <p> {option.label}</p>
+                  <p className="cursor-pointer"> {option.label}</p>
                 </div>
               ))}
             </div>
