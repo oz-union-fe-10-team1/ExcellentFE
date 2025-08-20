@@ -16,6 +16,7 @@ export interface FeedbackRequest {
 
 export interface Feedback {
   id: number
+  product_id?: string
   order_item: number | string
   rating: number
   sweetness?: string
