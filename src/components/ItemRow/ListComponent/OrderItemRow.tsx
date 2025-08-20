@@ -8,7 +8,6 @@ const OrderItemRow = ({
   id,
   img,
   order,
-  user,
   name,
   quantity,
   price,
@@ -68,7 +67,6 @@ const OrderItemRow = ({
 
       {isModalOpen && (
         <TastingReviewModal
-          name={user || ''}
           isOpen={isModalOpen}
           orderItemId={getOrderItemId()}
           onClose={closeModal}
