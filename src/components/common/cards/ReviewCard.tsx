@@ -65,7 +65,7 @@ const ReviewCard = ({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={modalTitle}
-        className="review-modal-scroll h-[900px] w-170 overflow-auto"
+        className="review-modal-scroll overflow-y h-[900px] w-170"
       >
         <div>
           <img
