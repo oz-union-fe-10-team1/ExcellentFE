@@ -27,6 +27,8 @@ export const Feedback = () => {
 
   const bestReviewCards =
     popular?.map((item) => ({
+      product_id: String(item.product_id),
+      product_name: item.product_name ?? '',
       imgSrc: item.image_url || undefined,
       imgAlt: item.product_name ?? '모은 주류',
       review: item.comment ?? undefined,
@@ -48,6 +50,8 @@ export const Feedback = () => {
   ): ReviewCardProps[] =>
     data?.map((item) => ({
       id: String(item.id),
+      product_id: String(item.product_id),
+      product_name: item.product_name ?? '',
       imgSrc: item.image_url || undefined,
       imgAlt: item.product_name ?? '모은 주류',
       userId: item.masked_username,
@@ -103,7 +107,7 @@ export const Feedback = () => {
           )}
           {renderReviewSection(
             '나와 비슷한 취향의 후기',
-            '한 잔 취향을 이용한 고객님들의 실시간 후기',
+            '나와 비슷한 취향의 고객님들의 후기',
             personalized || [],
             refetchPersonalized
           )}

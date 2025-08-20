@@ -37,6 +37,8 @@ const Card = ({ type, data }: CardType) => {
     case 'review':
       return (
         <ReviewCard
+          product_name={data.product_name || ''}
+          product_id={data.product_id || ''}
           imgSrc={data.imgSrc || ''}
           imgAlt={data.imgAlt || '모은 주류'}
           userId={data.userId || ''}
@@ -71,6 +73,8 @@ const Card = ({ type, data }: CardType) => {
     case 'best':
       return (
         <BestReviewCard
+          product_name={data.product_name || ''}
+          product_id={data.product_id || ''}
           imgSrc={data.imgSrc || ''}
           imgAlt={data.imgAlt || '모은 주류'}
           userId={data.userId || ''}

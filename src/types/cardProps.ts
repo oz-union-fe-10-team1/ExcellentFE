@@ -12,6 +12,8 @@ export interface CardBaseProps {
 // 리뷰 카드 데이터 타입
 export interface ReviewCardProps {
   id?: string | number
+  product_id?: string | number
+  product_name?: string
   imgSrc: string | undefined
   imgAlt: string | undefined
   userId?: string
@@ -32,12 +34,14 @@ export interface TestCardProps {
 }
 
 export interface BestReviewCardProps {
+  product_name?: string
+  product_id?: string
   imgSrc: string
   imgAlt: string
   review: string
   userId: string
   date: string
-  rating: number
+  rating?: number
   defaultRating: number
 }
 

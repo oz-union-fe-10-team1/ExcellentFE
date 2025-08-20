@@ -9,7 +9,8 @@ import { Link } from 'react-router-dom'
 import defaultImg from '@/assets/images/backgrounds/login.jpg'
 
 const ReviewCard = ({
-  id,
+  product_id,
+  product_name,
   imgSrc,
   imgAlt,
   userId,
@@ -45,18 +46,21 @@ const ReviewCard = ({
           />
         </div>
       </div>
-      <div className="flex justify-between">
-        <StarRating
-          readOnly
-          size={17}
-          showRatingValue={false}
-          defaultRating={defaultRating}
-        />
+      <div className="flex w-full flex-col gap-2">
+        <div className="flex w-full items-center justify-between">
+          <p className="font-bold">{product_name}</p>
+          <StarRating
+            readOnly
+            size={17}
+            showRatingValue={false}
+            defaultRating={defaultRating}
+          />
+        </div>
+        <p className="line-clamp-3 text-[15px] text-[#666666]"> {review}</p>
         <p className="text-[#666666]">
           {userId ? maskingUserId(userId) : 'Unknown User'}
         </p>
       </div>
-      <p className="text-[15px] break-words text-[#666666]"> {review}</p>
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -82,7 +86,7 @@ const ReviewCard = ({
             <p> {userId ? maskingUserId(userId) : 'Unknown User'}</p>
             <p>{date ? date.slice(0, 10) : ''}</p>
           </div>
-          <Link to={`/product/${id}`}>
+          <Link to={`/product/${String(product_id)}`}>
             <Button>제품 상세보기</Button>
           </Link>
         </div>

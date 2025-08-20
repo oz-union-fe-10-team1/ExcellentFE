@@ -1,6 +1,7 @@
-import CardList from '@/components/common/cards/CardList'
+import Card from '@/components/common/cards/Card'
 import Pagination from '@/components/common/Pagination'
 import type { SearchResultsProps } from '@/types/search'
+import { Link } from 'react-router-dom'
 
 const SearchResults = ({
   data,
@@ -25,20 +26,28 @@ const SearchResults = ({
 
     return (
       <div>
-        <CardList
-          type="default"
-          cards={data.map((product) => ({
-            imgSrc: product.main_image_url,
-            imgAlt: product.name,
-            title: product.name,
-            subtitle: product.short_description,
-            price: product.price,
-          }))}
-        />
+        <div className="mx-auto grid max-w-[1280px] grid-cols-4 gap-6">
+          {data.map((product) => (
+            <Link key={product.id} to={`/product/${product.id}`}>
+              <Card
+                type="default"
+                data={{
+                  id: product.id,
+                  imgSrc: product.main_image_url,
+                  imgAlt: product.name,
+                  title: product.name,
+                  subtitle: product.brewery_name ?? undefined,
+                  price: product.price,
+                }}
+              />
+            </Link>
+          ))}
+        </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={onPageChange}
+          className="mt-20"
         />
       </div>
     )
