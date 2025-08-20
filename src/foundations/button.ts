@@ -153,6 +153,16 @@ export const BUTTON_VARIANTS = {
     'border',
     'border-[#f2544b]',
   ].join(' '),
+
+  // 회원정보 수정
+  VARIANT14: [
+    'w-14',
+    'h-9',
+    'rounded-md',
+    'bg-[#F2F2F2]',
+    'text-[#333333]',
+    'text-sm',
+  ].join(' '),
 } as const
 
 export const DEFAULT_BUTTON_VARIANT = 'VARIANT1'

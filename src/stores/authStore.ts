@@ -1,27 +1,30 @@
+import { userApi } from '@/api/user'
+import { ERROR_MESSAGE } from '@/constants/message'
 import type { UserProfile } from '@/types/user'
+import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { create } from 'zustand'
 
 interface AuthState {
   isLoggedIn: boolean
   user: UserProfile | null
-  login: () => void
+  login: () => Promise<void>
   logout: () => void
-  initializeAuth: () => void
+  initializeAuth: () => Promise<void>
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   isLoggedIn: false,
   user: null,
 
-  login: () => {
-    set({ isLoggedIn: true })
-    // const user = await getUser()
-    // try {
-    //   set({ user, isLoggedIn: true })
-    // } catch (error) {
-    //   set({ isLoggedIn: false, user: null })
-    // }
+  login: async () => {
+    try {
+      const user = await userApi.getProfile()
+      set({ isLoggedIn: true, user })
+    } catch (error) {
+      set({ isLoggedIn: false, user: null })
+      showError(getAxiosErrorMessage(error, ERROR_MESSAGE.LOGIN_FAILED))
+    }
   },
 
   logout: () => {
@@ -30,8 +33,22 @@ export const useAuthStore = create<AuthState>((set) => ({
     set({ isLoggedIn: false, user: null })
   },
 
-  initializeAuth: () => {
+  initializeAuth: async () => {
     const token = tokenStorage.getAccessToken()
-    set({ isLoggedIn: !!token })
+
+    if (!token) {
+      set({ isLoggedIn: false, user: null })
+      return
+    }
+
+    try {
+      const user = await userApi.getProfile()
+      set({ isLoggedIn: true, user })
+    } catch (error) {
+      tokenStorage.removeAccessToken()
+      tokenStorage.removeRefreshToken()
+      set({ isLoggedIn: false, user: null })
+      showError(getAxiosErrorMessage(error, ERROR_MESSAGE.LOGIN_FAILED))
+    }
   },
 }))

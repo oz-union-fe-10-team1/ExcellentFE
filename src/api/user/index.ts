@@ -1,7 +1,7 @@
 import { API_PATHS } from '@/constants/apiPaths'
 import type { TasteProfile } from '@/types/feedback'
 import type { TasteTestProfile } from '@/types/tasteTypes'
-import type { UserProfile } from '@/types/user'
+import type { UpdateProfilePayload, UserProfile } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 
 export const userApi = {
@@ -10,12 +10,14 @@ export const userApi = {
     return data
   },
 
-  // updateProfile: async (data: ): Promise<UserProfile> => {
-  //   const { data } = await axiosInstance.patch(API_PATHS.USER.PROFILE, {data})
-  //   return data
-  // },
+  updateProfile: async (
+    payload: UpdateProfilePayload
+  ): Promise<UserProfile> => {
+    const { data } = await axiosInstance.patch(API_PATHS.USER.PROFILE, payload)
+    return data
+  },
 
-  deleteProfile: async (): Promise<UserProfile> => {
+  deleteProfile: async () => {
     const { data } = await axiosInstance.delete(API_PATHS.USER.DELETE)
     return data
   },

@@ -5,10 +5,11 @@ import Icon from '@/components/common/Icon'
 import { ROUTE_PATHS } from '@/constants/routePaths'
 import { Z_INDEX } from '@/foundations/zIndex'
 import { useAuthStore } from '@/stores/authStore'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const { isLoggedIn, logout } = useAuthStore()
+  const navigate = useNavigate()
 
   const NAV_ITEMS = [
     { label: '패키지', path: ROUTE_PATHS.PACKAGE },
@@ -84,7 +85,10 @@ const Header = () => {
                   <button
                     type="button"
                     className="h-13 w-30 cursor-pointer rounded-4xl border border-[#d9d9d9] font-semibold text-[#666666]"
-                    onClick={logout}
+                    onClick={() => {
+                      logout()
+                      navigate(ROUTE_PATHS.HOME)
+                    }}
                   >
                     로그아웃
                   </button>

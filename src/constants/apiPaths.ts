@@ -16,14 +16,14 @@ export const API_PATHS = {
   USER: {
     PROFILE: '/user/profile/',
     DELETE: '/user/delete/',
-    TASTE_TEST_PROFILE: '/user/taste-test/profile/',
+    TASTE_TEST_PROFILE: '/user/taste_test/profile/',
     TASTE_PROFILE: '/user/taste-profile/',
     FEEDBACKS: '/user/feedbacks/',
   },
   TASTE_TEST: {
-    QUESTIONS: '/taste-test/questions/',
-    RESULT: '/taste-test/submit/',
-    RETAKE: '/taste-test/retake/',
+    QUESTIONS: '/taste_test/questions/',
+    RESULT: '/taste_test/submit/',
+    RETAKE: '/taste_test/retake/',
   },
   FEEDBACK: {
     SUBMIT: '/feedbacks/',
@@ -45,7 +45,7 @@ export const API_PATHS = {
     SEARCH: '/products/search/',
   },
   ORDER: {
-    LIST: '/orders/order-items',
+    LIST: '/orders/order-items/',
     CREATE_FROM_CART: '/orders/create_from_cart/',
   },
   CART: {
