@@ -1,5 +1,6 @@
 import { authApi } from '@/api/auth'
 import { ERROR_MESSAGE } from '@/constants/message'
+import { ROUTE_PATHS } from '@/constants/routePaths'
 import { SOCIAL_LOGIN } from '@/constants/socialLoginUrl'
 import { useAuthStore } from '@/stores/authStore'
 import {
@@ -11,6 +12,7 @@ import {
 import { getAxiosErrorMessage, showError } from '@/utils/feedbackUtils'
 import { tokenStorage } from '@/utils/tokenStorage'
 import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import useNonMemberTasteTest from '../taste-test/nonMemberTest'
 
 export const useSocialLoginURL = () => {
@@ -40,14 +42,8 @@ export const useSocialLoginURL = () => {
 }
 
 export const useSocialLogin = (provider: SocialProvider) => {
+  const navigate = useNavigate()
   const { login } = useAuthStore()
-  // const [searchParams] = useSearchParams()
-
-  // state에서 redirect 추출
-  // const state = searchParams.get('state')
-  // const redirect = state?.match(/^[^:]+:(.+)$/)?.[1] ?? null
-
-  //비회원의 경우 로컬에서 값 꺼내서 서버에 저장하는 로직
   const { run: syncTest } = useNonMemberTasteTest()
 
   return useMutation({
@@ -57,6 +53,8 @@ export const useSocialLogin = (provider: SocialProvider) => {
     onSuccess: (data: SocialLoginTempToken | SocialLoginUser) => {
       if ('temp_token' in data) {
         tokenStorage.setTempToken(data.temp_token)
+        if (tokenStorage.getTempToken())
+          navigate(ROUTE_PATHS.ADULT_AUTH_MANUAL, { replace: true })
       }
 
       if ('access' in data && 'refresh' in data) {
@@ -65,10 +63,12 @@ export const useSocialLogin = (provider: SocialProvider) => {
 
         login()
         syncTest('auth_type' in data ? data.auth_type : undefined)
+        navigate(ROUTE_PATHS.HOME, { replace: true })
       }
     },
 
     onError: (error) => {
+      tokenStorage.removeTempToken()
       showError(getAxiosErrorMessage(error) ?? ERROR_MESSAGE.LOGIN_FAILED)
     },
   })

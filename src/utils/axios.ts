@@ -61,6 +61,7 @@ axiosInstance.interceptors.response.use(
       const refresh = tokenStorage.getRefreshToken()
 
       if (!refresh) {
+        alert('장시간 미사용으로 로그아웃 되었습니다.')
         onUnauthorized?.()
         return Promise.reject(error)
       }
@@ -86,6 +87,7 @@ axiosInstance.interceptors.response.use(
         )
         return axiosInstance(originalRequest)
       } catch (error) {
+        alert('로그아웃 되었습니다.')
         processQueue(error as AxiosError, null)
         tokenStorage.removeAccessToken()
         tokenStorage.removeRefreshToken()
