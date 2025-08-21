@@ -17,7 +17,10 @@ const AdultCallback = () => {
   const { mutateAsync: adultAuthComplete } = useAdultAuthComplete()
 
   useEffect(() => {
-    if (!code || !tempToken) return
+    if (!code || !tempToken) {
+      navigate(ROUTE_PATHS.ADULT_AUTH_MANUAL, { replace: true })
+      return
+    }
 
     const run = async () => {
       try {
@@ -25,12 +28,10 @@ const AdultCallback = () => {
         await adultAuthComplete(tempToken)
       } catch (error) {
         navigate(ROUTE_PATHS.ADULT_AUTH_MANUAL, { replace: true })
-      } finally {
-        navigate(ROUTE_PATHS.HOME, { replace: true })
       }
     }
     run()
-  }, [])
+  }, [code, tempToken, adultAuthToken, adultAuthComplete, navigate])
 
   if (isPending) {
     return <p>성인인증 중입니다...</p>

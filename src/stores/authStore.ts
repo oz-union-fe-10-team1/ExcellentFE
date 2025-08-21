@@ -22,6 +22,9 @@ export const useAuthStore = create<AuthState>((set) => ({
       const user = await userApi.getProfile()
       set({ isLoggedIn: true, user })
     } catch (error) {
+      tokenStorage.removeAccessToken()
+      tokenStorage.removeRefreshToken()
+      tokenStorage.removeTempToken()
       set({ isLoggedIn: false, user: null })
       showError(getAxiosErrorMessage(error, ERROR_MESSAGE.LOGIN_FAILED))
     }
