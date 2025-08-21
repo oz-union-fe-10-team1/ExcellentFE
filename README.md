@@ -39,10 +39,8 @@
 ### UI/UX & 유틸리티
 
 - **Radix UI (Slider)** – 접근성 높은 UI 컴포넌트
-- **react-hook-form 7.60.0** – 폼 상태 관리
 - **lucide-react 0.534.0** – 아이콘 라이브러리
 - **html2canvas 1.4.1** – DOM → 이미지 캡처
-- **js-cookie 3.0.5** – 쿠키 관리
 - **clsx 2.1.1** – 조건부 클래스네임 관리
 - **tailwind-merge 3.3.1** – Tailwind 클래스 병합
 
