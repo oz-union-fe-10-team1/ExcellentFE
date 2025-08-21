@@ -26,6 +26,7 @@ jobs:
           echo "VITE_GOOGLE_REDIRECT_URI=${{ secrets.VITE_GOOGLE_REDIRECT_URI }}" >> .env
           echo "VITE_BBATON_CLIENT_ID=${{ secrets.VITE_BBATON_CLIENT_ID }}" >> .env
           echo "VITE_BBATON_REDIRECT_URI=${{ secrets.VITE_BBATON_REDIRECT_URI }}" >> .env
+          echo "VITE_KAKAO_APP_KEY=${{ secrets.VITE_KAKAO_APP_KEY }}" >> .env
 
       - name: 빌드하기
         run: npm run build
