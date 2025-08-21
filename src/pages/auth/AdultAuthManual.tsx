@@ -1,20 +1,17 @@
 import Button from '@/components/common/Button'
 import Modal from '@/components/common/Modal'
-import { ROUTE_PATHS } from '@/constants/routePaths'
 import { ADULT_VERIFICATION_URL } from '@/constants/socialLoginUrl'
-import { tokenStorage } from '@/utils/tokenStorage'
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 
 const AdultAuthManual = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const location = useLocation()
+  // const location = useLocation()
 
-  useEffect(() => {
-    if (location.pathname === ROUTE_PATHS.ADULT_AUTH_MANUAL) {
-      tokenStorage.removeTempToken()
-    }
-  }, [location])
+  // useEffect(() => {
+  //   if (location.pathname === ROUTE_PATHS.ADULT_AUTH_MANUAL) {
+  //     tokenStorage.removeTempToken()
+  //   }
+  // }, [location])
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
