@@ -31,7 +31,7 @@ const AdultCallback = () => {
       }
     }
     run()
-  }, [code, tempToken, adultAuthToken, adultAuthComplete, navigate])
+  }, [])
 
   if (isPending) {
     return <p>성인인증 중입니다...</p>

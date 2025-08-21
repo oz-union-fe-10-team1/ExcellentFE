@@ -32,10 +32,10 @@ export const useAdultAuthComplete = () => {
     onSuccess: (data: SocialLoginUser) => {
       tokenStorage.setAccessToken(data.access)
       tokenStorage.setRefreshToken(data.refresh)
-      tokenStorage.removeTempToken()
 
       login()
       navigate(ROUTE_PATHS.HOME, { replace: true })
+      tokenStorage.removeTempToken()
     },
 
     onError: (error) => {
